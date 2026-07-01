@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://www.lagazzettadikyiv.com/sitemap.xml
-
-# Crawl-delay for polite bots
-Crawl-delay: 5

@@ -23,6 +23,8 @@ import os
 import re
 import time
 import argparse
+import json
+import glob
 from pathlib import Path
 from datetime import datetime, timezone
 from urllib.parse import urlparse, parse_qs
@@ -163,7 +165,7 @@ def extract_video_id(ref):
 
 def fetch_transcript(video_id):
     try:
-        parts = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
+        parts = YouTubeTranscriptApi().fetch(video_id, languages=["en"])
         return " ".join(e["text"] for e in parts)
     except (TranscriptsDisabled, NoTranscriptFound):
         return None
@@ -218,6 +220,108 @@ def process_youtube(conn, video_ids=None):
     print(f"  youtube: +{new}")
     return new
 
+def process_youtube_vault(conn):
+    print("-- YouTube Vault --")
+    latest_json = PROJECT / "data" / "youtube_intel" / "latest.json"
+    if not latest_json.exists():
+        return 0
+    
+    try:
+        with open(latest_json) as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"  [youtube vault] error reading JSON: {e}")
+        return 0
+
+    new = 0
+    for v in data.get("videos", []):
+        title = v.get("title", "")
+        description = v.get("description", "")
+        url = v.get("url", "")
+        
+        if not title or not url:
+            continue
+            
+        text = f"{title}\n\n{description}"
+        h = sha256(text)
+        if save_ingestion(conn, h, url, "manual", title, text):
+            new += 1
+            print(f"  SAVED {url}: {title[:80]}")
+            
+    print(f"  youtube vault: +{new}")
+    return new
+
+def process_arxiv_vault(conn):
+    print("-- arXiv Vault --")
+    latest_json = PROJECT / "data" / "arxiv_intel" / "latest.json"
+    if not latest_json.exists():
+        return 0
+        
+    try:
+        with open(latest_json) as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"  [arxiv vault] error reading JSON: {e}")
+        return 0
+
+    new = 0
+    for p in data.get("papers", []):
+        title = p.get("title", "")
+        summary = p.get("summary", "")
+        url = p.get("url", "")
+        authors = ", ".join(p.get("authors", []))
+        
+        if not title or not url:
+            continue
+            
+        text = f"{title}\n\nAuthors: {authors}\n\n{summary}"
+        h = sha256(text)
+        if save_ingestion(conn, h, url, "manual", title, text):
+            new += 1
+            print(f"  SAVED {url}: {title[:80]}")
+    
+    print(f"  arxiv: +{new}")
+    return new
+
+def process_patents_vault(conn):
+    print("-- Patents Vault --")
+    vault_dir = PROJECT / "data" / "vault" / "raw" / "patents"
+    if not vault_dir.exists():
+        return 0
+        
+    # Find the latest week's batch.json
+    batch_files = sorted(glob.glob(str(vault_dir / "*" / "batch.json")), reverse=True)
+    if not batch_files:
+        return 0
+        
+    latest_batch = batch_files[0]
+    try:
+        with open(latest_batch) as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"  [patents vault] error reading JSON: {e}")
+        return 0
+
+    new = 0
+    for batch in data.get("batches", []):
+        narrative = batch.get("narrative")
+        for p in batch.get("patents", []):
+            title = p.get("title", "")
+            snippet = p.get("snippet", "")
+            url = p.get("link", "")
+            
+            if not title or not url:
+                continue
+                
+            text = f"{title}\n\n{snippet}"
+            h = sha256(text)
+            if save_ingestion(conn, h, url, "manual", title, text, narrative):
+                new += 1
+                print(f"  SAVED {url}: {title[:80]}")
+                
+    print(f"  patents: +{new}")
+    return new
+
 
 # ── main ────────────────────────────────────────────────────────────
 def main():
@@ -234,7 +338,12 @@ def main():
     if not args.youtube_only:
         total += process_rss(conn)
     if not args.rss_only:
-        total += process_youtube(conn, args.video)
+        if args.video:
+            total += process_youtube(conn, args.video)
+        else:
+            total += process_youtube_vault(conn)
+            total += process_arxiv_vault(conn)
+            total += process_patents_vault(conn)
 
     conn.close()
     print(f"\ntotal new items: {total}")

@@ -18,6 +18,10 @@
 - NOTE: CFTC blocks VM IP for TIFF download — ship cached ZIP+XLS to VM
   (or set up proxy/VPN for VM outbound)
 # Read this at the START of every session.
+# NOTE: The assistant should utilize native MCP tools (e.g. datacloud, chrome-devtools)
+# and command tools directly to inspect schemas, execute DB queries, or run diagnostics.
+# Do not generate one-off python shell wrapper scripts for tasks covered by MCP.
+
 
 ## Bilingual Architecture — COMPLETED ✅
 - translate_ru.py: GLM 5.2 batch translation with ID-tracked ledger

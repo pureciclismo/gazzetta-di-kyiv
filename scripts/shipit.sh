@@ -32,20 +32,23 @@ mkdir -p "$(dirname "$REPORT")" "$PROJECT/logs"
 
 # ── Step 1: Build ──────────────────────────────────────────────────
 log "BUILD: running build_frontend.py..."
-if ! sudo -u gazzetta "$VENV_PYTHON" "$SCRIPTS/build_frontend.py" > "$PROJECT/logs/build_frontend.log" 2>&1; then
+if ! python3 "$SCRIPTS/build_frontend.py" > "$PROJECT/logs/build_frontend.log" 2>&1; then
     tail -30 "$PROJECT/logs/build_frontend.log" >> "$REPORT"
     die "build_frontend.py failed (see $PROJECT/logs/build_frontend.log)" 1
 fi
 log "BUILD: OK"
 
-# ── Step 2: Deploy index.html — zero-cache, always revalidate ──────
-log "DEPLOY: index.html (max-age=0, must-revalidate)..."
-if ! gsutil -h "Cache-Control: public, max-age=0, must-revalidate" \
-            cp "$PUBLIC/index.html" "$BUCKET/index.html" 2>"$PROJECT/logs/gsutil_err.log"; then
-    cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-    die "gsutil cp index.html failed" 2
-fi
-log "DEPLOY: index.html OK"
+# ── Step 2: Deploy HTML pages — zero-cache, always revalidate ──────
+log "DEPLOY: HTML files (max-age=0, must-revalidate)..."
+for html_file in "$PUBLIC"/*.html; do
+    fname="$(basename "$html_file")"
+    if ! gsutil -h "Cache-Control: public, max-age=0, must-revalidate" \
+                cp "$html_file" "$BUCKET/$fname" 2>>"$PROJECT/logs/gsutil_err.log"; then
+        cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
+        die "gsutil cp $fname failed" 2
+    fi
+done
+log "DEPLOY: HTML files OK"
 
 # ── Step 3: Deploy data JSONs — private, no-store (live trading data) ──
 log "DEPLOY: data/*.json (private, no-store)..."
@@ -66,9 +69,9 @@ else
 fi
 
 # ── Step 4: Deploy static assets — cached ──────────────────────────
-log "DEPLOY: static assets (css, js, dossiers — 1-day cache)..."
+log "DEPLOY: static assets (css, js, next bundles — 1-day cache)..."
 if ! gsutil -m -h "Cache-Control: public, max-age=86400" \
-            rsync -x 'data/.*' -x 'index.html' -r "$PUBLIC/" "$BUCKET/" 2>"$PROJECT/logs/gsutil_err.log"; then
+            rsync -x 'data/.*' -x '.*\.html$' -r "$PUBLIC/" "$BUCKET/" 2>>"$PROJECT/logs/gsutil_err.log"; then
     cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
     log "WARNING: static asset rsync had errors (non-fatal)"
 fi

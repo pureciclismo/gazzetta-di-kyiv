@@ -446,6 +446,12 @@ MATERIALITY GATE: If the news article is about a topic unrelated to any tracked 
 
 RULES:
 
+INFORMATIONAL CASCADE (CRITICAL):
+You must trace the informational cascade from big to small:
+1. Deconstruct the Strategic Narrative (the big picture) into specific Claims (the small picture).
+2. Evaluate how those Claims feed back into the prevailing Narratives.
+Your analysis in the 'trade_thesis' and 'they_say/reality' fields MUST reflect this flow from strategic narratives to claims, and from claims back to narratives.
+
 QUOTE ANCHOR (they_say):
 - they_say MUST begin with the EXACT source name from the SOURCE field provided in the prompt. Example: "Bloomberg reports: ..." or "SCMP reports: ..." or "Reuters reports: ..."
 - After the source prefix, cite a SPECIFIC claim or quote from the article text. Do NOT paraphrase the media consensus into a generic abstract statement. Find something falsifiable in the article — a price prediction, a policy claim, a growth forecast, a risk assessment — and quote/paraphrase it specifically.
