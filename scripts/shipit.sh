@@ -40,12 +40,14 @@ log "BUILD: OK"
 
 # ── Step 2: Deploy HTML pages — zero-cache, always revalidate ──────
 log "DEPLOY: HTML files (max-age=0, must-revalidate)..."
-for html_file in "$PUBLIC"/*.html; do
-    fname="$(basename "$html_file")"
+# Find all HTML files recursively in PUBLIC directory
+find "$PUBLIC" -name "*.html" -type f | while read -r html_file; do
+    # Get the relative path of the HTML file with respect to PUBLIC
+    rel_path="${html_file#$PUBLIC/}"
     if ! gsutil -h "Cache-Control: public, max-age=0, must-revalidate" \
-                cp "$html_file" "$BUCKET/$fname" 2>>"$PROJECT/logs/gsutil_err.log"; then
+                cp "$html_file" "$BUCKET/$rel_path" 2>>"$PROJECT/logs/gsutil_err.log"; then
         cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-        die "gsutil cp $fname failed" 2
+        die "gsutil cp $rel_path failed" 2
     fi
 done
 log "DEPLOY: HTML files OK"
@@ -70,11 +72,14 @@ fi
 
 # ── Step 4: Deploy static assets — cached ──────────────────────────
 log "DEPLOY: static assets (css, js, next bundles — 1-day cache)..."
-if ! gsutil -m -h "Cache-Control: public, max-age=86400" \
-            rsync -x 'data/.*' -x '.*\.html$' -r "$PUBLIC/" "$BUCKET/" 2>>"$PROJECT/logs/gsutil_err.log"; then
-    cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-    log "WARNING: static asset rsync had errors (non-fatal)"
-fi
+find "$PUBLIC" -type f ! -name "*.html" ! -path "$PUBLIC/data/*" | while read -r asset_file; do
+    rel_path="${asset_file#$PUBLIC/}"
+    if ! gsutil -h "Cache-Control: public, max-age=86400" \
+                cp "$asset_file" "$BUCKET/$rel_path" 2>>"$PROJECT/logs/gsutil_err.log"; then
+        cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
+        log "WARNING: Failed to upload static asset $rel_path"
+    fi
+done
 
 # ── Success ────────────────────────────────────────────────────────
 echo "[${TIMESTAMP}] deploy OK — index.html + data JSONs + static assets" >> "$REPORT"

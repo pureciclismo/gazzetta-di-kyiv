@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.lagazzettadikyiv.com/sitemap.xml
+Crawl-delay: 5

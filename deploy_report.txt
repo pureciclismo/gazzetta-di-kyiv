@@ -245,3 +245,123 @@ Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contrad
 Operation completed over 55 objects/798.0 KiB.                                   
 CommandException: 1 files/objects could not be copied/removed.
 [2026-07-01T15:13:53Z] deploy OK — index.html + data JSONs + static assets
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/data/stories.json [Content-Type=application/json]...
+/ [0 files][    0.0 B/  2.9 MiB]                                                -- [1 files][  2.9 MiB/  2.9 MiB]                                                \
+Operation completed over 1 objects/2.9 MiB.                                      
+
+WARNING: gsutil rsync uses hashes when modification time is not available at
+both the source and destination. Your crcmod installation isn't using the
+module's C extension, so checksumming will run very slowly. If this is your
+first rsync since updating gsutil, this rsync can take significantly longer than
+usual. For help installing the extension, please see "gsutil help crcmod".
+
+Building synchronization state...
+If you experience problems with multiprocessing on MacOS, they might be related to https://bugs.python.org/issue33725. You can disable multiprocessing by editing your .boto config or by adding the following flag to your command: `-o "GSUtil:parallel_process_count=1"`. Note that multithreading is still available even if you disable multiprocessing.
+
+Starting synchronization...
+If you experience problems with multiprocessing on MacOS, they might be related to https://bugs.python.org/issue33725. You can disable multiprocessing by editing your .boto config or by adding the following flag to your command: `-o "GSUtil:parallel_process_count=1"`. Note that multithreading is still available even if you disable multiprocessing.
+
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/__next.__PAGE__.txt [Content-Type=text/plain]...
+/ [0 files][    0.0 B/  904.0 B]                                                Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/__next._full.txt [Content-Type=text/plain]...
+/ [0 files][    0.0 B/  8.8 KiB]                                                module 'sys' has no attribute 'maxint'
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/__next._head.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/05-c3ty_6dwfk.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  9.9 KiB]                                                Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/1ockqo055lt1a.js [Content-Type=text/javascript]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/0cz1d0mv5g_q7.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 13.2 KiB]                                                / [0 files][    0.0 B/ 16.2 KiB]                                                / [0 files][    0.0 B/126.1 KiB]                                                Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/__next._index.txt [Content-Type=text/plain]...
+/ [0 files][    0.0 B/131.4 KiB]                                                Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/082obv3v03b-9.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/277.7 KiB]                                                Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/__next._tree.txt [Content-Type=text/plain]...
+/ [0/59 files][    0.0 B/806.9 KiB]   0% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3rdqn8rx95pw7.js [Content-Type=text/javascript]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/1b7ae169xae66.js [Content-Type=text/javascript]...
+/ [0/59 files][    0.0 B/806.9 KiB]   0% Done                                   / [0/59 files][    0.0 B/806.9 KiB]   0% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/15orcrkp-_9ct.js [Content-Type=text/javascript]...
+/ [0/59 files][    0.0 B/806.9 KiB]   0% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/14mrh2-p_w84d.js [Content-Type=text/javascript]...
+/ [0/59 files][  904.0 B/806.9 KiB]   0% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/1jq4o6yq14o4c.js [Content-Type=text/javascript]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/1q2p9t5cvfzgd.js [Content-Type=text/javascript]...
+/ [0/59 files][  904.0 B/806.9 KiB]   0% Done                                   / [0/59 files][  904.0 B/806.9 KiB]   0% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/2nykiepra7i1k.js [Content-Type=text/javascript]...
+/ [0/59 files][118.7 KiB/806.9 KiB]  14% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/1ynlrllhut5c-.js [Content-Type=text/javascript]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/media/favicon.2vob68tjqpejf.ico [Content-Type=image/x-icon]...
+/ [0/59 files][118.7 KiB/806.9 KiB]  14% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/turbopack-25xwsny7hem7f.js [Content-Type=text/javascript]...
+/ [0/59 files][118.7 KiB/806.9 KiB]  14% Done                                   / [0/59 files][118.7 KiB/806.9 KiB]  14% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/xC9leh_BLOnJiLbMXZEj0/_buildManifest.js [Content-Type=text/javascript]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/07_avj9tq1jh7.css [Content-Type=text/css]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/xC9leh_BLOnJiLbMXZEj0/_clientMiddlewareManifest.js [Content-Type=text/javascript]...
+/ [0/59 files][118.7 KiB/806.9 KiB]  14% Done                                   / [0/59 files][118.7 KiB/806.9 KiB]  14% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_not-found/__next._full.txt [Content-Type=text/plain]...
+/ [0/59 files][119.8 KiB/806.9 KiB]  14% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3a3hlkhi70v9w.js [Content-Type=text/javascript]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_not-found/__next._not-found.__PAGE__.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/xC9leh_BLOnJiLbMXZEj0/_ssgManifest.js [Content-Type=text/javascript]...
+/ [0/59 files][119.8 KiB/806.9 KiB]  14% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_not-found/__next._index.txt [Content-Type=text/plain]...
+/ [0/59 files][123.2 KiB/806.9 KiB]  15% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_not-found/__next._not-found.txt [Content-Type=text/plain]...
+/ [0/59 files][123.2 KiB/806.9 KiB]  15% Done                                   / [0/59 files][123.2 KiB/806.9 KiB]  15% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_not-found/__next._tree.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_not-found/__next._head.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_not-found.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/about/__next._full.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/about/__next._head.txt [Content-Type=text/plain]...
+/ [0/59 files][123.2 KiB/806.9 KiB]  15% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/about/__next._tree.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/about/__next._index.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/about/__next.about.__PAGE__.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/about.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/about/__next.about.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/alpha/__next._full.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/alpha/__next._head.txt [Content-Type=text/plain]...
+/ [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [0/59 files][178.2 KiB/806.9 KiB]  22% Done                                   / [1/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/alpha/__next._index.txt [Content-Type=text/plain]...
+/ [1/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [2/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [3/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [4/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [5/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [6/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/alpha/__next.alpha.__PAGE__.txt [Content-Type=text/plain]...
+/ [6/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/alpha/__next.alpha.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/alpha/__next._tree.txt [Content-Type=text/plain]...
+/ [6/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [6/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/alpha.txt [Content-Type=text/plain]...
+/ [6/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [7/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/capital/__next._full.txt [Content-Type=text/plain]...
+/ [7/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/capital/__next._head.txt [Content-Type=text/plain]...
+/ [7/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [8/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/capital/__next._index.txt [Content-Type=text/plain]...
+/ [8/59 files][742.5 KiB/806.9 KiB]  92% Done                                   / [9/59 files][742.5 KiB/806.9 KiB]  92% Done                                   Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/capital/__next._tree.txt [Content-Type=text/plain]...
+/ [9/59 files][747.8 KiB/806.9 KiB]  92% Done                                   / [10/59 files][747.8 KiB/806.9 KiB]  92% Done                                  / [11/59 files][747.8 KiB/806.9 KiB]  92% Done                                  / [12/59 files][747.8 KiB/806.9 KiB]  92% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/capital/__next.capital.__PAGE__.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/capital/__next.capital.txt [Content-Type=text/plain]...
+/ [12/59 files][747.8 KiB/806.9 KiB]  92% Done                                  / [12/59 files][747.8 KiB/806.9 KiB]  92% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/capital.txt [Content-Type=text/plain]...
+/ [12/59 files][747.8 KiB/806.9 KiB]  92% Done                                  / [13/59 files][757.6 KiB/806.9 KiB]  93% Done                                  -- [14/59 files][758.8 KiB/806.9 KiB]  94% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contradictions/__next._full.txt [Content-Type=text/plain]...
+- [14/59 files][758.8 KiB/806.9 KiB]  94% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contradictions/__next._head.txt [Content-Type=text/plain]...
+- [14/59 files][772.3 KiB/806.9 KiB]  95% Done                                  - [15/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [16/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [17/59 files][772.6 KiB/806.9 KiB]  95% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contradictions/__next._index.txt [Content-Type=text/plain]...
+- [17/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [18/59 files][772.6 KiB/806.9 KiB]  95% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contradictions/__next._tree.txt [Content-Type=text/plain]...
+- [18/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [19/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [20/59 files][772.6 KiB/806.9 KiB]  95% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contradictions/__next.contradictions.__PAGE__.txt [Content-Type=text/plain]...
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contradictions/__next.contradictions.txt [Content-Type=text/plain]...
+- [21/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [21/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [21/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [22/59 files][772.6 KiB/806.9 KiB]  95% Done                                  - [23/59 files][773.1 KiB/806.9 KiB]  95% Done                                  - [24/59 files][773.1 KiB/806.9 KiB]  95% Done                                  - [25/59 files][773.1 KiB/806.9 KiB]  95% Done                                  - [26/59 files][773.1 KiB/806.9 KiB]  95% Done                                  Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/contradictions.txt [Content-Type=text/plain]...
+- [27/59 files][773.1 KiB/806.9 KiB]  95% Done                                  - [28/59 files][782.2 KiB/806.9 KiB]  96% Done                                  - [28/59 files][782.2 KiB/806.9 KiB]  96% Done                                  - [29/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [30/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [31/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [32/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [33/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [34/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [35/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [36/59 files][791.7 KiB/806.9 KiB]  98% Done                                  - [37/59 files][797.0 KiB/806.9 KiB]  98% Done                                  - [38/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [39/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [40/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [41/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [42/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [43/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [44/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [45/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [46/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [47/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [48/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [49/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [50/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [51/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [52/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [53/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [54/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [55/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [56/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [57/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [58/59 files][806.9 KiB/806.9 KiB]  99% Done                                  - [59/59 files][806.9 KiB/806.9 KiB] 100% Done                                  
+Operation completed over 59 objects/806.9 KiB.                                   
+CommandException: 1 files/objects could not be copied/removed.
+[2026-07-01T15:23:50Z] deploy OK — index.html + data JSONs + static assets
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/data/stories.json [Content-Type=application/json]...
+/ [0 files][    0.0 B/ 40.1 KiB]                                                / [1 files][ 40.1 KiB/ 40.1 KiB]                                                
+Operation completed over 1 objects/40.1 KiB.                                     
+
+WARNING: gsutil rsync uses hashes when modification time is not available at
+both the source and destination. Your crcmod installation isn't using the
+module's C extension, so checksumming will run very slowly. If this is your
+first rsync since updating gsutil, this rsync can take significantly longer than
+usual. For help installing the extension, please see "gsutil help crcmod".
+
+Building synchronization state...
+If you experience problems with multiprocessing on MacOS, they might be related to https://bugs.python.org/issue33725. You can disable multiprocessing by editing your .boto config or by adding the following flag to your command: `-o "GSUtil:parallel_process_count=1"`. Note that multithreading is still available even if you disable multiprocessing.
+
+Starting synchronization...
+If you experience problems with multiprocessing on MacOS, they might be related to https://bugs.python.org/issue33725. You can disable multiprocessing by editing your .boto config or by adding the following flag to your command: `-o "GSUtil:parallel_process_count=1"`. Note that multithreading is still available even if you disable multiprocessing.
+
+module 'sys' has no attribute 'maxint'
+CommandException: 1 files/objects could not be copied/removed.
+[2026-07-01T15:54:45Z] deploy OK — index.html + data JSONs + static assets
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/data/stories.json [Content-Type=application/json]...
+/ [0 files][    0.0 B/ 40.1 KiB]                                                / [1 files][ 40.1 KiB/ 40.1 KiB]                                                
+Operation completed over 1 objects/40.1 KiB.                                     
+
+WARNING: gsutil rsync uses hashes when modification time is not available at
+both the source and destination. Your crcmod installation isn't using the
+module's C extension, so checksumming will run very slowly. If this is your
+first rsync since updating gsutil, this rsync can take significantly longer than
+usual. For help installing the extension, please see "gsutil help crcmod".
+
+Building synchronization state...
+If you experience problems with multiprocessing on MacOS, they might be related to https://bugs.python.org/issue33725. You can disable multiprocessing by editing your .boto config or by adding the following flag to your command: `-o "GSUtil:parallel_process_count=1"`. Note that multithreading is still available even if you disable multiprocessing.
+
+Starting synchronization...
+If you experience problems with multiprocessing on MacOS, they might be related to https://bugs.python.org/issue33725. You can disable multiprocessing by editing your .boto config or by adding the following flag to your command: `-o "GSUtil:parallel_process_count=1"`. Note that multithreading is still available even if you disable multiprocessing.
+
+module 'sys' has no attribute 'maxint'
+CommandException: 1 files/objects could not be copied/removed.
+[2026-07-01T17:59:19Z] deploy OK — index.html + data JSONs + static assets
+[2026-07-01T18:01:08Z] deploy OK — index.html + data JSONs + static assets
+[2026-07-01T18:04:22Z] deploy OK — index.html + data JSONs + static assets

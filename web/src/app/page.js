@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [stories, setStories] = useState([]);
+  const [narratives, setNarratives] = useState({});
   const [selectedStory, setSelectedStory] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,10 +35,14 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Fetch directly from the static JSON file deployed to the bucket
-    fetch('/data/stories.json')
-      .then(res => res.json())
-      .then(rawData => {
+    Promise.all([
+      fetch('/data/stories.json').then(res => res.json()),
+      fetch('/data/narratives.json').then(res => res.json())
+    ])
+      .then(([rawData, narrativesData]) => {
+        if (narrativesData && narrativesData.narratives) {
+          setNarratives(narrativesData.narratives);
+        }
         let allStories = rawData.all_stories || [];
         
         // Flatten legacy containers if necessary
@@ -156,7 +161,7 @@ export default function Home() {
                 </div>
                 <div className="stat-box">
                   <span>Target Ticker</span>
-                  <strong>{selectedStory.narrative_id?.replace('_', ' ').toUpperCase() || 'MULTI-ASSET'}</strong>
+                  <strong>{narratives[selectedStory.narrative_id]?.display_name || selectedStory.narrative_id?.replace('_', ' ').toUpperCase() || 'MULTI-ASSET'}</strong>
                 </div>
               </div>
             </div>

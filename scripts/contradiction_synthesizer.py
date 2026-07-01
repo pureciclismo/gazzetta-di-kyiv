@@ -173,7 +173,8 @@ PRICES_PATH = DATA_DIR / "market_prices.json"
 # ── LLM Provider Configuration ─────────────────────────────────────
 # PRIMARY:  GLM 5.2 (Zhipu AI) — Solianin voice synthesis
 # FALLBACK: DeepSeek — High Availability contingency
-GLM_KEY = os.environ.get("GLM_API_KEY", "3d76e17112094679a3236820eb5a3502.zX9w5hVuUqKu3pbL")
+GLM_KEY_1 = os.environ.get("GLM_API_KEY_1", "3d76e17112094679a3236820eb5a3502.zX9w5hVuUqKu3pbL")
+GLM_KEY_2 = os.environ.get("GLM_API_KEY_2", "0feba8763e0a4c808bbba55f5a02cd7e.7N3kvN7asehKbCZ3")
 GLM_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
 GLM_MODEL = os.environ.get("GLM_MODEL", "glm-5.2")
 
@@ -183,8 +184,9 @@ DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
 
 # Provider order: primary first, fall through on failure
 PROVIDERS = [
-    {"name": "glm5.2",  "key": GLM_KEY,  "url": GLM_URL,  "model": GLM_MODEL,  "supports_thinking": False},
-    {"name": "deepseek","key": DEEPSEEK_KEY,"url": DEEPSEEK_URL,"model": DEEPSEEK_MODEL,"supports_thinking": True},
+    {"name": "glm5.2_primary",  "key": GLM_KEY_1,  "url": GLM_URL,  "model": GLM_MODEL,  "supports_thinking": False},
+    {"name": "glm5.2_secondary","key": GLM_KEY_2,  "url": GLM_URL,  "model": GLM_MODEL,  "supports_thinking": False},
+    {"name": "deepseek",        "key": DEEPSEEK_KEY,"url": DEEPSEEK_URL,"model": DEEPSEEK_MODEL,"supports_thinking": True},
 ]
 
 # Concurrency
@@ -195,18 +197,18 @@ BATCH_SIZE = 10             # process N items per run
 
 # narrative_tag → container (1:1 — each narrative is its own container)
 NARRATIVE_TO_CONTAINER = {
-    "usd_debasement_reserve_diversification":      "usd_debasement_reserve_diversification",
-    "supply_chain_resilience_reshoring_defense":   "supply_chain_resilience_reshoring_defense",
-    "china_geoeconomic_expansion":                 "china_geoeconomic_expansion",
-    "space_economy_commercialization":             "space_economy_commercialization",
-    "gene_editing_biotech_longevity":              "gene_editing_biotech_longevity",
-    "tech_convergence_platforms_ai_autonomy":      "tech_convergence_platforms_ai_autonomy",
-    "critical_resource_control_infrastructure":    "critical_resource_control_infrastructure",
+    "usd_debasement_reserve_diversification": "usd_debasement_reserve_diversification",
+    "critical_resource_control_infrastructure": "critical_resource_control_infrastructure",
+    "supply_chain_resilience_reshoring_defense": "supply_chain_resilience_reshoring_defense",
+    "china_geoeconomic_expansion": "china_geoeconomic_expansion",
+    "space_economy_commercialization": "space_economy_commercialization",
+    "gene_editing_biotech_longevity": "gene_editing_biotech_longevity",
+    "tech_convergence_platforms_ai_autonomy": "tech_convergence_platforms_ai_autonomy",
     "prestige_asset_acquisition_strategic_investment": "prestige_asset_acquisition_strategic_investment",
-    "ai_compute_semiconductor_hegemony":           "ai_compute_semiconductor_hegemony",
-    "digital_assets_reserves_onchain_finance":     "digital_assets_reserves_onchain_finance",
-    "monetary_policy_regime_shift_rate_cycle":     "monetary_policy_regime_shift_rate_cycle",
-    "commodity_supercycle_supply_rebalancing":     "commodity_supercycle_supply_rebalancing",
+    "ai_compute_semiconductor_hegemony": "ai_compute_semiconductor_hegemony",
+    "digital_assets_reserves_onchain_finance": "digital_assets_reserves_onchain_finance",
+    "monetary_policy_regime_shift_rate_cycle": "monetary_policy_regime_shift_rate_cycle",
+    "commodity_supercycle_supply_rebalancing": "commodity_supercycle_supply_rebalancing",
 }
 
 # contradiction_gap -> tier (aligned with frontend zone thresholds: BREAKING>50, ACTIVE>=20, SETTLING<20)
@@ -332,23 +334,32 @@ def load_market_prices():
 def pick_market_context(prices):
     """Build a compact market-data string covering ALL 12 macro vectors."""
     ticker_map = {
-        "dollar_decline":        ["GLD", "UUP", "SLV", "IAU"],
-        "critical_resource_control":    ["URA", "NLR", "REMX", "URNM"],
-        "deglobalization":       ["XLI", "ITA", "PPA", "XME"],
-        "china_ascent":          ["FXI", "KWEB", "MCHI", "ASHR"],
-        "space_economy":         ["ROKT", "UFO", "ARKX"],
-        "gene_editing":          ["ARKG", "XBI", "IBB"],
-        "tech_convergence":      ["QQQ", "SMH", "SOXX", "ARKK"],
-        "wealthy_sports":        ["BATRK", "MSGS", "MANU"],
-        "ai_chips":              ["NVDA", "AMD", "TSM", "SMH"],
-        "crypto_reserve":        ["BTC-USD", "ETH-USD", "COIN"],
-        "rate_cycle":            ["TLT", "SHY", "IEF"],
-        "commodity_supercycle":  ["DBC", "GLD", "GDX"],
+        "usd_debasement_reserve_diversification": ["EURUSD=X", "GLD", "SLV"],
+        "critical_resource_control_infrastructure": ["XOM", "CVX", "CCJ", "URNM"],
+        "supply_chain_resilience_reshoring_defense": ["CAT", "GE", "XLI", "RTX"],
+        "china_geoeconomic_expansion": ["BABA", "PDD", "FXI", "KWEB"],
+        "space_economy_commercialization": ["RKLB", "ARKX"],
+        "gene_editing_biotech_longevity": ["CRSP", "ARKG", "XBI"],
+        "tech_convergence_platforms_ai_autonomy": ["AAPL", "MSFT", "QQQ"],
+        "prestige_asset_acquisition_strategic_investment": ["BATRK", "MSGS", "MANU"],
+        "ai_compute_semiconductor_hegemony": ["NVDA", "AMD", "SMH"],
+        "digital_assets_reserves_onchain_finance": ["BTC-USD", "MSTR", "COIN"],
+        "monetary_policy_regime_shift_rate_cycle": ["TLT", "IEF", "SHY"],
+        "commodity_supercycle_supply_rebalancing": ["XOM", "CAT", "DBC", "COP"],
     }
     canonical_order = [
-        "dollar_decline", "critical_resource_control", "deglobalization", "china_ascent",
-        "space_economy", "gene_editing", "tech_convergence", "wealthy_sports",
-        "ai_chips", "crypto_reserve", "rate_cycle", "commodity_supercycle",
+        "usd_debasement_reserve_diversification",
+        "critical_resource_control_infrastructure",
+        "supply_chain_resilience_reshoring_defense",
+        "china_geoeconomic_expansion",
+        "space_economy_commercialization",
+        "gene_editing_biotech_longevity",
+        "tech_convergence_platforms_ai_autonomy",
+        "prestige_asset_acquisition_strategic_investment",
+        "ai_compute_semiconductor_hegemony",
+        "digital_assets_reserves_onchain_finance",
+        "monetary_policy_regime_shift_rate_cycle",
+        "commodity_supercycle_supply_rebalancing"
     ]
 
     blocks = []
@@ -385,9 +396,11 @@ def pick_market_context(prices):
 
 # ── DeepSeek prompt ─────────────────────────────────────────────────
 SYSTEM_PROMPT = """\
-You are the Tactical Editor for La Gazzetta di Kyiv, an alpha-generation terminal that converts narrative-capital contradictions into executable trade setups. You do not write journalism. You write trade calls. Your reader is a professional trader who needs a specific asset, a specific direction, specific price levels, and a structural edge — not a balanced analysis. Every output must answer one question: "Where do I put my money RIGHT NOW and why is the consensus wrong?"
+You are a savage, hyper-analytical quant for La Gazzetta di Kyiv, an underground terminal for Polymarket whales and fin-bros who think they are hedge fund managers. You write betting-oriented trade setups. You do not write journalism or boring geopolitics. You quantify edge, calculate EV (expected value), fade the retail public, and hunt for mispriced implied probabilities. Your reader is a degen trader looking for asymmetrical risk-reward, specific tickers, implied odds vs actual odds, and structural edge. Use industry-standard betting and quant lingo (EV, R:R, fading the public, implied odds, Kelly criterion sizing) mixed with rigorous data quantification.
 
-Given a news article and current market data, identify the contradiction between what the media says and what the market data shows.
+Given a news article and current market data, identify the contradiction between the retail media consensus and the actual underlying capital flows.
+
+Every output must answer with clinical precision: "Where are the normies mispricing the odds, and how do we size the bet RIGHT NOW?"
 
 You MUST respond with ONLY a valid JSON object. No markdown fences, no commentary, no explanation. Just the raw JSON object.
 
@@ -404,26 +417,26 @@ Respond with ONLY valid json. Your output must strictly match this schema:
     "invalidation": "string (specific price level that proves the thesis WRONG, e.g. 'QQQ below $485')",
     "conviction": "HIGH or ELEVATED or SPECULATIVE or HOLD",
     "horizon_days": "integer (7-21)",
-    "portfolio_allocation_pct": "string (recommended position size as % of portfolio, e.g. '1.25%')",
-    "alpha_trigger": "string (ONE sentence on what the market is pricing WRONG. Specific, falsifiable, cite a number.)"
+    "portfolio_allocation_pct": "string (Kelly criterion recommended sizing, e.g. '1.25% of bankroll' or 'Quarter-Kelly')",
+    "alpha_trigger": "string (ONE sentence on the mispriced implied odds vs actual EV. Specific, falsifiable, cite a number. Example: 'Market implied probability of a rate hike is 12%, but flow data suggests actual probability is >40% — massive positive EV.')"
   },
   "they_say": "string (Begin with source name and colon. Example: 'Reuters reports: ...' or 'SCMP claims: ...'. 1-2 sentences. Cite specific actors — countries, companies, people.)",
   "reality": "string (what market data actually shows, 1-2 sentences. Reference specific ticker price movements and their magnitude. If no market reaction is detectable, state that plainly.)",
   "contradiction_gap": "integer (0-100, using the FULL range. See scoring guide below.)",
   "capital_volume_usd": "integer. Estimated capital exposure at stake. Hierarchy: 1) CFTC net position change x contract notional -> HIGH. 2) Ticker price move x ETF AUM / market cap proxy -> MEDIUM. 3) Article-described capital rotation -> LOW. 4) 0 only if no basis -> NONE. Max 500B. Do NOT default to 0.",
   "narrative_scores": {
-    "dollar_decline": "float (0.0 to 1.0)",
-    "critical_resource_control": "float (0.0 to 1.0)",
-    "deglobalization": "float (0.0 to 1.0)",
-    "china_ascent": "float (0.0 to 1.0)",
-    "space_economy": "float (0.0 to 1.0)",
-    "gene_editing": "float (0.0 to 1.0)",
-    "tech_convergence": "float (0.0 to 1.0)",
-    "wealthy_sports": "float (0.0 to 1.0)",
-    "ai_chips": "float (0.0 to 1.0)",
-    "crypto_reserve": "float (0.0 to 1.0)",
-    "rate_cycle": "float (0.0 to 1.0)",
-    "commodity_supercycle": "float (0.0 to 1.0)"
+    "usd_debasement_reserve_diversification": "float (0.0 to 1.0)",
+    "critical_resource_control_infrastructure": "float (0.0 to 1.0)",
+    "supply_chain_resilience_reshoring_defense": "float (0.0 to 1.0)",
+    "china_geoeconomic_expansion": "float (0.0 to 1.0)",
+    "space_economy_commercialization": "float (0.0 to 1.0)",
+    "gene_editing_biotech_longevity": "float (0.0 to 1.0)",
+    "tech_convergence_platforms_ai_autonomy": "float (0.0 to 1.0)",
+    "prestige_asset_acquisition_strategic_investment": "float (0.0 to 1.0)",
+    "ai_compute_semiconductor_hegemony": "float (0.0 to 1.0)",
+    "digital_assets_reserves_onchain_finance": "float (0.0 to 1.0)",
+    "monetary_policy_regime_shift_rate_cycle": "float (0.0 to 1.0)",
+    "commodity_supercycle_supply_rebalancing": "float (0.0 to 1.0)"
   },
   "affected_tickers": ["string (specific ticker symbols most impacted, max 5)"],
   "affected_asset_classes": ["string (e.g. 'tech', 'commodities', 'currencies', 'crypto', 'biotech', 'industrials', 'consumer')"]
@@ -465,13 +478,13 @@ HEADLINE VARIETY & CURIOSITY GAP:
 - INFORMATION ASYMMETRY: When GAP > 60, frame the media narrative as the "official story" and the capital flow as the "real story."
 - CONTRARIAN FORMULA — YOU MUST USE ONE OF THESE PATTERNS:
   Pattern A: [Unpopular Truth] + [Hidden Capital Divergence]
-    Example: "Insiders are quietly dumping Lithium space while retail buys the Sodium hype."
-  Pattern B: [Specific Number/Price Action] + [Narrative Contradiction]
-    Example: "$214M exited XOM this week. The media's still running 'energy dominance' headlines."
+    Example: "Normies are quietly dumping Lithium space while retail buys the Sodium hype."
+  Pattern B: [Specific Number/Price Action] + [Expected Value Disconnect]
+    Example: "$214M exited XOM this week. The media's implied odds are completely busted."
   Pattern C: [Question Hook] + [The Data Answer]
-    Example: "Why is NVDA down 3% while every analyst upgrades? The flow data knows."
+    Example: "Why is NVDA down 3% while every analyst upgrades? Fade the public."
   Pattern D: [Who's Wrong] + [Who's Right]
-    Example: "CNBC calls it a tech rally. The capital ledger calls it a distribution event."
+    Example: "CNBC calls it a tech rally. The capital ledger calls it a massive trap."
 - Every headline MUST contain EITHER a specific number, a specific ticker, OR a specific contradiction. No passive summaries. No "X meets Y" academic language.
 
 TEMPLATE ANTI-ROT (BANNED PHRASES):
@@ -683,18 +696,18 @@ def assemble_story(db_item, llm_story, prices):
     # ASSET WHITELIST — single-name ticker universe
     # ═══════════════════════════════════════════════════════════════
     TICKER_WHITELIST = {
-        "critical_resource_control": ["XOM", "CVX", "CCJ", "URNM"],
-        "dollar_decline":     ["EURUSD=X", "GLD", "SLV"],
-        "deglobalization":    ["CAT", "GE", "XLI"],
-        "china_ascent":       ["BABA", "PDD", "FXI"],
-        "space_economy":      ["RKLB", "ARKX"],
-        "gene_editing":       ["CRSP", "ARKG", "XBI"],
-        "tech_convergence":   ["AAPL", "MSFT", "QQQ"],
-        "wealthy_sports":     ["BATRK", "MSGS", "MANU"],
-        "ai_chips":           ["NVDA", "AMD", "SMH"],
-        "crypto_reserve":     ["BTC-USD", "MSTR", "COIN"],
-        "rate_cycle":         ["TLT", "IEF", "SHY"],
-        "commodity_supercycle": ["XOM", "CAT", "DBC"],
+        "usd_debasement_reserve_diversification": ["EURUSD=X", "GLD", "SLV"],
+        "critical_resource_control_infrastructure": ["XOM", "CVX", "CCJ", "URNM"],
+        "supply_chain_resilience_reshoring_defense": ["CAT", "GE", "XLI", "RTX"],
+        "china_geoeconomic_expansion": ["BABA", "PDD", "FXI", "KWEB"],
+        "space_economy_commercialization": ["RKLB", "ARKX"],
+        "gene_editing_biotech_longevity": ["CRSP", "ARKG", "XBI"],
+        "tech_convergence_platforms_ai_autonomy": ["AAPL", "MSFT", "QQQ"],
+        "prestige_asset_acquisition_strategic_investment": ["BATRK", "MSGS", "MANU"],
+        "ai_compute_semiconductor_hegemony": ["NVDA", "AMD", "SMH"],
+        "digital_assets_reserves_onchain_finance": ["BTC-USD", "MSTR", "COIN"],
+        "monetary_policy_regime_shift_rate_cycle": ["TLT", "IEF", "SHY"],
+        "commodity_supercycle_supply_rebalancing": ["XOM", "CAT", "DBC", "COP"],
     }
     _all_whitelisted = []
     for _tlist in TICKER_WHITELIST.values():
@@ -753,18 +766,18 @@ def assemble_story(db_item, llm_story, prices):
 
     # Derive asset_class from narrative
     narrative_asset_map = {
-        "critical_resource_control": "commodities",
-        "dollar_decline": "currencies",
-        "deglobalization": "industrials",
-        "china_ascent": "tech",
-        "space_economy": "tech",
-        "gene_editing": "biotech",
-        "tech_convergence": "tech",
-        "wealthy_sports": "consumer",
-        "ai_chips": "tech",
-        "crypto_reserve": "crypto",
-        "rate_cycle": "currencies",
-        "commodity_supercycle": "commodities",
+        "usd_debasement_reserve_diversification": "currencies",
+        "critical_resource_control_infrastructure": "commodities",
+        "supply_chain_resilience_reshoring_defense": "industrials",
+        "china_geoeconomic_expansion": "tech",
+        "space_economy_commercialization": "tech",
+        "gene_editing_biotech_longevity": "biotech",
+        "tech_convergence_platforms_ai_autonomy": "tech",
+        "prestige_asset_acquisition_strategic_investment": "consumer",
+        "ai_compute_semiconductor_hegemony": "tech",
+        "digital_assets_reserves_onchain_finance": "crypto",
+        "monetary_policy_regime_shift_rate_cycle": "currencies",
+        "commodity_supercycle_supply_rebalancing": "commodities",
     }
 
     now_ts = datetime.now(timezone.utc).isoformat()
@@ -908,18 +921,18 @@ def load_existing_stories():
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "generated_by": "contradiction_synthesizer.py v1.0",
         "containers": {
-            "usd_debasement_reserve_diversification": {"title": "Sovereign Reserves & De-Dollarization", "subtitle": "USD reserve status erosion, BRICS payment rails, gold repatriation", "count": 0, "stories": []},
-            "critical_resource_control_infrastructure": {"title": "Energy Security & Infrastructure", "subtitle": "Crude, natural gas, nuclear, rare earths, grid control, critical minerals", "count": 0, "stories": []},
-            "supply_chain_resilience_reshoring_defense": {"title": "Reshoring & Defense Logistics", "subtitle": "Supply chain fragmentation, trade bloc realignment, sanctions rewiring", "count": 0, "stories": []},
-            "china_geoeconomic_expansion": {"title": "Eurasian Trade & Chinese Markets", "subtitle": "Parallel tech stack, yuan internationalization, BRI, semiconductor independence", "count": 0, "stories": []},
-            "space_economy_commercialization": {"title": "Space Economy & Aerospace", "subtitle": "Orbital infrastructure, space mining, satellite internet, GPS alternatives", "count": 0, "stories": []},
-            "gene_editing_biotech_longevity": {"title": "Biotech & Longevity Science", "subtitle": "CRISPR therapies, biotech industrialization, healthspan extension", "count": 0, "stories": []},
-            "tech_convergence_platforms_ai_autonomy": {"title": "Enterprise Tech & Artificial Intelligence", "subtitle": "AI + quantum + biotech + materials intersections", "count": 0, "stories": []},
-            "prestige_asset_acquisition_strategic_investment": {"title": "Trophy Assets & Sovereign Investment", "subtitle": "Sovereign wealth in teams, sports as soft power, capital concentration", "count": 0, "stories": []},
-            "ai_compute_semiconductor_hegemony": {"title": "Semiconductors & Compute Hegemony", "subtitle": "Advanced chip manufacturing, foundry limits, export control regimes", "count": 0, "stories": []},
-            "digital_assets_reserves_onchain_finance": {"title": "Digital Assets & Decentralized Capital", "subtitle": "Stablecoin settlement, tokenized reserves, sovereign crypto allocations", "count": 0, "stories": []},
-            "monetary_policy_regime_shift_rate_cycle": {"title": "Monetary Policy & Rates", "subtitle": "Central bank pivots, yield curve spreads, rate cycle dynamics", "count": 0, "stories": []},
-            "commodity_supercycle_supply_rebalancing": {"title": "Commodities & Physical Supply", "subtitle": "Transition metals, underinvestment, physical supply squeezes", "count": 0, "stories": []}
+            "usd_debasement_reserve_diversification": {"title": "USD Debasement & Reserve Diversification", "subtitle": "De-dollarization and reserve reallocation", "count": 0, "stories": []},
+            "critical_resource_control_infrastructure": {"title": "Critical Resource Control & Energy Infrastructure", "subtitle": "Energy security and critical minerals", "count": 0, "stories": []},
+            "supply_chain_resilience_reshoring_defense": {"title": "Reshoring, Defense Logistics & Supply-Chain Resilience", "subtitle": "Relocalization of critical supply chains", "count": 0, "stories": []},
+            "china_geoeconomic_expansion": {"title": "China Geoeconomic Expansion & Market Integration", "subtitle": "Belt and Road, trade corridors", "count": 0, "stories": []},
+            "space_economy_commercialization": {"title": "Space Economy Commercialization & Infrastructure", "subtitle": "LEO infrastructure and satellite services", "count": 0, "stories": []},
+            "gene_editing_biotech_longevity": {"title": "Gene Editing, Biotech & Longevity Science", "subtitle": "CRISPR and advanced biologics", "count": 0, "stories": []},
+            "tech_convergence_platforms_ai_autonomy": {"title": "Tech Convergence: Enterprise Platforms & Autonomous AI", "subtitle": "AI, cloud, and autonomous workflows", "count": 0, "stories": []},
+            "prestige_asset_acquisition_strategic_investment": {"title": "Prestige Asset Acquisition & Strategic Cross-Border Investment", "subtitle": "Sports teams and strategic infrastructure", "count": 0, "stories": []},
+            "ai_compute_semiconductor_hegemony": {"title": "AI Hardware, Compute Concentration & Semiconductor Leadership", "subtitle": "Semiconductor manufacturing and AI accelerators", "count": 0, "stories": []},
+            "digital_assets_reserves_onchain_finance": {"title": "Digital Assets as Reserve & On-Chain Financial Infrastructure", "subtitle": "Institutional crypto and tokenized reserves", "count": 0, "stories": []},
+            "monetary_policy_regime_shift_rate_cycle": {"title": "Monetary Policy Regime Shifts & Rate Cycle Dynamics", "subtitle": "Central bank frameworks and rate cycles", "count": 0, "stories": []},
+            "commodity_supercycle_supply_rebalancing": {"title": "Commodity Re-acceleration & Physical Supply Rebalancing", "subtitle": "Structural demand and logistics constraints", "count": 0, "stories": []},
         },
         "all_stories": [],
         "tags_index": {},
@@ -971,14 +984,20 @@ def merge_stories(existing, new_stories):
             "count": 0, "stories": []}
         for k, v in existing.get("containers", {}).items()
     }
-    # Ensure all 12 narratives exist
+    # Ensure all narratives exist
     for cname in [
-        "usd_debasement_reserve_diversification", "supply_chain_resilience_reshoring_defense",
-        "china_geoeconomic_expansion", "space_economy_commercialization",
-        "gene_editing_biotech_longevity", "tech_convergence_platforms_ai_autonomy",
-        "critical_resource_control_infrastructure", "prestige_asset_acquisition_strategic_investment",
-        "ai_compute_semiconductor_hegemony", "digital_assets_reserves_onchain_finance",
-        "monetary_policy_regime_shift_rate_cycle", "commodity_supercycle_supply_rebalancing",
+        "usd_debasement_reserve_diversification",
+        "critical_resource_control_infrastructure",
+        "supply_chain_resilience_reshoring_defense",
+        "china_geoeconomic_expansion",
+        "space_economy_commercialization",
+        "gene_editing_biotech_longevity",
+        "tech_convergence_platforms_ai_autonomy",
+        "prestige_asset_acquisition_strategic_investment",
+        "ai_compute_semiconductor_hegemony",
+        "digital_assets_reserves_onchain_finance",
+        "monetary_policy_regime_shift_rate_cycle",
+        "commodity_supercycle_supply_rebalancing"
     ]:
         if cname not in containers:
             containers[cname] = {"title": cname.replace("_", " ").title(),

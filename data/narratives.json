@@ -1,32 +1,28 @@
 {
   "metadata": {
-    "version": "3.0",
-    "updated": "2026-06-30T22:50:00Z",
-    "note": "Narrative taxonomy fully updated to use unified keys and explicit subnarratives."
+    "version": "4.0",
+    "updated": "2026-07-01T16:00:00Z",
+    "note": "12 master narratives"
   },
   "narratives": {
     "usd_debasement_reserve_diversification": {
       "display_name": "USD Debasement & Reserve Diversification",
-      "tag": "Sovereign Liquidity",
-      "description": "Long-term decline in the dollar's purchasing power and global reserve dominance, driving reserve reallocation and alternative settlement systems.",
-      "tickers": ["DX=F", "GC=F", "UUP"],
-      "invalidation_threshold": "DXY > 106 for 2 quarters",
+      "tag": "USD Debasement",
+      "description": "Long-term decline in the dollar\u2019s purchasing power and global reserve dominance, driving reserve reallocation and alternative settlement systems.",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
         "brics_payment_rails": {
-          "title": "BRICS Payment Rails",
-          "description": "Development of alternative bilateral/multilateral payment systems bypassing SWIFT."
+          "title": "BRICS Alternative Payment Rails",
+          "description": "De-dollarization efforts via bilateral trade settlement and non-SWIFT clearing infrastructure."
         },
-        "central_bank_gold_accumulation": {
-          "title": "Central Bank Gold Accumulation",
-          "description": "Sovereign gold accumulation and repatriation by central banks."
+        "sovereign_gold_accumulation": {
+          "title": "Sovereign Gold Accumulation",
+          "description": "Physical gold buying by non-Western central banks as a neutral reserve asset."
         },
-        "sovereign_treasury_divestment": {
-          "title": "Sovereign Treasury Divestment",
-          "description": "Reduction of US Treasury allocations in foreign reserves."
-        },
-        "currency_substitution_inflation": {
-          "title": "Currency Substitution & Inflation",
-          "description": "Sovereign/local use of non-USD currencies for trade settlement."
+        "treasury_market_illiquidity": {
+          "title": "Treasury Market Illiquidity",
+          "description": "Signs of stress, reduced foreign buying, and structural changes in the US Treasury market."
         }
       }
     },
@@ -34,274 +30,230 @@
       "display_name": "Critical Resource Control & Energy Infrastructure",
       "tag": "Critical Resource Control",
       "description": "Efforts to secure control over energy, critical minerals and logistics via domestic buildouts, strategic partnerships, and infrastructure investments.",
-      "tickers": ["CL=F", "NG=F", "XLE"],
-      "invalidation_threshold": "Brent < $65",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "uranium_nuclear_renaissance": {
-          "title": "Uranium & Nuclear Renaissance",
-          "description": "Funding, mining, and buildout of civilian and strategic nuclear capacity."
+        "strategic_minerals_hoarding": {
+          "title": "Strategic Minerals Hoarding",
+          "description": "State-level accumulation of rare earths, copper, and uranium."
         },
-        "critical_mineral_supply": {
-          "title": "Critical Mineral Supply",
-          "description": "Extraction and refining of lithium, cobalt, nickel, and rare earths."
+        "energy_grid_modernization": {
+          "title": "Energy Grid Modernization",
+          "description": "Investments in grid resilience and next-generation nuclear to support AI compute."
         },
-        "lng_export_logistics": {
-          "title": "LNG Export Logistics",
-          "description": "LNG liquefaction terminals, regasification, and transport fleets."
-        },
-        "grid_resilience_microgrids": {
-          "title": "Grid Resilience & Microgrids",
-          "description": "Strategic power grid upgrades and localized energy infrastructure."
+        "lng_infrastructure_expansion": {
+          "title": "LNG Infrastructure Expansion",
+          "description": "Securing long-term non-Russian gas supplies and building export/import terminals."
         }
       }
     },
     "supply_chain_resilience_reshoring_defense": {
       "display_name": "Reshoring, Defense Logistics & Supply-Chain Resilience",
-      "tag": "Industrial Reshoring",
+      "tag": "Reshoring, Defense Logistics",
       "description": "Intentional relocalization and hardening of supply chains for critical and defense-related goods to reduce exposure to risky suppliers.",
-      "tickers": ["XLI", "ITA", "PPA"],
-      "invalidation_threshold": "XLI +8% MoM",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "domestic_manufacturing_subsidies": {
-          "title": "Domestic Manufacturing Subsidies",
-          "description": "State subsidies (e.g., CHIPS Act, IRA) for local factories."
-        },
         "defense_industrial_base": {
-          "title": "Defense Industrial Base",
-          "description": "Modernization of munition, missile, and strategic military hardware manufacturing."
+          "title": "Defense Industrial Base Revitalization",
+          "description": "Capital allocation toward continental munition, aerospace, and defense contractors."
         },
-        "nearshoring_trade_blocs": {
-          "title": "Nearshoring & Trade Blocs",
-          "description": "Relocating supply chains to friendly bordering nations."
+        "manufacturing_nearshoring": {
+          "title": "Manufacturing Nearshoring",
+          "description": "Relocating critical manufacturing closer to domestic markets to reduce geopolitical risk."
         },
-        "automotive_hardware_supply": {
-          "title": "Automotive & Hardware Supply",
-          "description": "Supply chain security for automotive, robotics, and industrial machinery."
+        "tariff_regime_shifts": {
+          "title": "Tariff Regime Shifts",
+          "description": "New protectionist measures and trade barriers reshaping global logistics."
         }
       }
     },
     "china_geoeconomic_expansion": {
       "display_name": "China Geoeconomic Expansion & Market Integration",
-      "tag": "Eurasia Capital",
-      "description": "Rapid, state-coordinated expansion of China's economic, financial, and trade reach across Eurasia and new markets—including use of economic leverage and infrastructure to lock in advantages.",
-      "tickers": ["FXI", "KWEB", "MCHI"],
-      "invalidation_threshold": "FXI -15% quarterly",
+      "tag": "China Geoeconomic Expansion",
+      "description": "Rapid, state-coordinated expansion of China\u2019s economic, financial, and trade reach across Eurasia and new markets\u2014including use of economic leverage and infrastructure to lock in advantages.",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "belt_road_infrastructure": {
-          "title": "Belt & Road Infrastructure",
-          "description": "Port, rail, and energy corridor construction across Central Asia, Africa, and LATAM."
+        "belt_and_road_2_0": {
+          "title": "Belt and Road 2.0",
+          "description": "Targeted infrastructure investments focusing on digital and green energy corridors."
         },
-        "rmb_trade_settlement": {
-          "title": "RMB Trade Settlement",
-          "description": "Internationalization of RMB for cross-border commodity and financial trades."
+        "rmb_internationalization": {
+          "title": "RMB Internationalization",
+          "description": "Expanding the use of the Yuan in cross-border trade and commodity pricing."
         },
-        "export_coercion_leverage": {
-          "title": "Export Coercion & Leverage",
-          "description": "Strategic restrictions or leverage on critical component exports."
-        },
-        "eurasian_financial_integration": {
-          "title": "Eurasian Financial Integration",
-          "description": "Shanghai-led financial hubs and parallel clearing systems."
+        "smic_foundry_advancements": {
+          "title": "Domestic Foundry Advancements",
+          "description": "China's push for semiconductor independence despite Western export controls."
         }
       }
     },
     "space_economy_commercialization": {
       "display_name": "Space Economy Commercialization & Infrastructure",
-      "tag": "Orbital Industrialization",
+      "tag": "Space Economy Commercialization",
       "description": "Commercial scaling of launch, LEO infrastructure, satellite services and downstream applications that unlock new markets and payload economies.",
-      "tickers": ["ROKT", "RKLB", "SPCE"],
-      "invalidation_threshold": "ROKT -25%",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "reusable_launch_economics": {
-          "title": "Reusable Launch Economics",
-          "description": "Reusable rocket technology driving down launch costs."
+        "leo_constellations": {
+          "title": "LEO Satcom Constellations",
+          "description": "Rapid deployment of low Earth orbit networks for global broadband and military communications."
         },
-        "leo_satellite_constellations": {
-          "title": "LEO Satellite Constellations",
-          "description": "Low Earth Orbit satcom systems for global communication and surveillance."
+        "space_logistics_and_launch": {
+          "title": "Space Logistics & Launch Capacity",
+          "description": "Commercial scaling of reusable rockets and orbital transfer vehicles."
         },
-        "space_logistics_servicing": {
-          "title": "Space Logistics & Servicing",
-          "description": "In-orbit tugs, refueling, and manufacturing infrastructure."
-        },
-        "aerospace_defense_procurement": {
-          "title": "Aerospace & Defense Procurement",
-          "description": "Government spending on orbital defense, warning systems, and military launch."
+        "lunar_infrastructure": {
+          "title": "Lunar Infrastructure Race",
+          "description": "State and commercial efforts to establish permanent bases and resource extraction on the Moon."
         }
       }
     },
     "gene_editing_biotech_longevity": {
       "display_name": "Gene Editing, Biotech & Longevity Science",
-      "tag": "Longevity & Bioreality",
+      "tag": "Gene Editing, Biotech",
       "description": "Breakthroughs in genome editing, advanced biologics, and longevity interventions moving from trials to commercial-scale therapies and markets.",
-      "tickers": ["ARKG", "XBI", "IBB"],
-      "invalidation_threshold": "ARKG -30%",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "crispr_in_vivo_therapies": {
-          "title": "CRISPR & In Vivo Therapies",
-          "description": "Clinical development of CRISPR/Cas9 and advanced gene-editing pipelines."
+        "crispr_therapeutics": {
+          "title": "CRISPR & In-Vivo Editing",
+          "description": "Transition of CRISPR therapies from clinical trials to commercial markets."
         },
-        "cell_gene_therapy_scale": {
-          "title": "Cell & Gene Therapy Scale-up",
-          "description": "Commercial manufacturing and scaling of cell and gene therapies."
+        "advanced_biomanufacturing": {
+          "title": "Advanced Biomanufacturing",
+          "description": "Scaling production of biologics and synthetic biology applications."
         },
-        "longevity_longevity_therapeutics": {
-          "title": "Longevity Therapeutics",
-          "description": "Interventions targeting cellular senescence, NAD+, and healthspan extension."
-        },
-        "pharmaceutical_supply_independence": {
-          "title": "Pharmaceutical Supply Independence",
-          "description": "Hardening domestic API and biopharma production lines."
+        "longevity_interventions": {
+          "title": "Commercial Longevity Interventions",
+          "description": "Emerging therapeutics aimed at healthspan extension and cellular rejuvenation."
         }
       }
     },
     "tech_convergence_platforms_ai_autonomy": {
       "display_name": "Tech Convergence: Enterprise Platforms & Autonomous AI",
-      "tag": "Enterprise Intelligence",
+      "tag": "Tech Convergence: Enterprise Platforms",
       "description": "Fusion of AI, cloud, edge, and enterprise platforms enabling autonomous workflows, massive productivity gains, and new platform monopolies.",
-      "tickers": ["QQQ", "SMH", "MSFT"],
-      "invalidation_threshold": "QQQ -20%",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "enterprise_ai_agents": {
-          "title": "Enterprise AI Agents",
-          "description": "Autonomous agentic AI systems replacing manual workflows."
+        "autonomous_agents": {
+          "title": "Autonomous AI Agents",
+          "description": "Deployment of AI systems capable of executing complex, multi-step workflows."
         },
-        "hyperscaler_cloud_consolidation": {
-          "title": "Hyperscaler Cloud Consolidation",
-          "description": "Infrastructure buildout and market power concentration by cloud giants."
+        "enterprise_ai_integration": {
+          "title": "Enterprise AI Integration",
+          "description": "Adoption of generative AI models to restructure corporate productivity and operations."
         },
-        "autonomous_robotics_vehicles": {
-          "title": "Autonomous Robotics & Vehicles",
-          "description": "Self-driving cars, industrial drones, and humanoid systems."
-        },
-        "quantum_information_science": {
-          "title": "Quantum Information Science",
-          "description": "Commercialization of quantum cryptography and computation platforms."
+        "quantum_ai_convergence": {
+          "title": "Quantum-AI Convergence",
+          "description": "Early breakthroughs in using quantum computing to accelerate machine learning."
         }
       }
     },
     "prestige_asset_acquisition_strategic_investment": {
       "display_name": "Prestige Asset Acquisition & Strategic Cross-Border Investment",
-      "tag": "Trophy Assets",
+      "tag": "Prestige Asset Acquisition",
       "description": "High-profile acquisitions of sports teams, cultural assets, strategic infrastructure and prestige properties by state-affiliated funds and ultra-high-net-worth capital for influence, diversification and access.",
-      "tickers": ["BATRK", "MANU", "MSGS"],
-      "invalidation_threshold": "BATRK -30%",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "sports_franchise_financialization": {
-          "title": "Sports Franchise Financialization",
-          "description": "Sovereign wealth and private equity rollups of sports teams."
+        "sovereign_sports_investments": {
+          "title": "Sovereign Sports Investments",
+          "description": "Middle Eastern and Asian sovereign funds acquiring marquee sports franchises."
         },
         "cultural_soft_power": {
-          "title": "Cultural Soft Power",
-          "description": "Strategic acquisitions of media, entertainment, and cultural influence tools."
+          "title": "Cultural Soft Power Assets",
+          "description": "Strategic investments in media, entertainment, and gaming publishers."
         },
-        "strategic_real_estate": {
-          "title": "Strategic Real Estate",
-          "description": "Cross-border investment in trophy properties and critical land assets."
-        },
-        "sovereign_fund_diversification": {
-          "title": "Sovereign Fund Diversification",
-          "description": "Strategic equity stakes by GCC/Asian wealth funds for access and technology transfer."
+        "trophy_real_estate": {
+          "title": "Trophy Real Estate & Infrastructure",
+          "description": "Acquisition of ultra-prime properties and critical logistics hubs by state actors."
         }
       }
     },
     "ai_compute_semiconductor_hegemony": {
       "display_name": "AI Hardware, Compute Concentration & Semiconductor Leadership",
-      "tag": "Compute Hegemony",
+      "tag": "AI Hardware, Compute Concentration",
       "description": "Consolidation of advanced semiconductor manufacturing, AI accelerators and hyperscaler compute capacity that defines competitive AI performance and leverage.",
-      "tickers": ["NVDA", "AMD", "TSM", "SMH"],
-      "invalidation_threshold": "SMH -25%",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "advanced_gpu_accelerators": {
-          "title": "Advanced GPU Accelerators",
-          "description": "Procurement and development of top-tier GPUs, TPUs, and AI accelerators."
+        "advanced_node_monopoly": {
+          "title": "Advanced Node Monopoly",
+          "description": "The concentration of sub-3nm manufacturing capabilities in a few foundries."
         },
-        "foundry_capacity_concentration": {
-          "title": "Foundry Capacity Concentration",
-          "description": "High-end wafer fabrication limits (TSMC, ASML lithography choke points)."
+        "ai_accelerator_dominance": {
+          "title": "AI Accelerator Dominance",
+          "description": "The hyperscaler race to secure next-generation GPUs and custom silicon."
         },
-        "export_control_regimes": {
-          "title": "Export Control Regimes",
-          "description": "Sanctions and technology blacklists on advanced chips and equipment."
-        },
-        "hbm_advanced_packaging": {
-          "title": "HBM & Advanced Packaging",
-          "description": "High Bandwidth Memory and advanced 3D packaging supply chains."
+        "export_control_evasion": {
+          "title": "Export Control Evasion & Adaptation",
+          "description": "Market responses to semiconductor sanctions and the rise of gray market compute."
         }
       }
     },
     "digital_assets_reserves_onchain_finance": {
       "display_name": "Digital Assets as Reserve & On-Chain Financial Infrastructure",
-      "tag": "Decentralized Capital",
+      "tag": "Digital Assets as Reserve",
       "description": "Evolution of tokenized and crypto-native instruments toward institutional reserve, settlement, and collateral functions within regulated and hybrid frameworks.",
-      "tickers": ["BTC-USD", "ETH-USD", "COIN"],
-      "invalidation_threshold": "BTC < $50K",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "stablecoin_global_settlement": {
-          "title": "Stablecoin Global Settlement",
-          "description": "Stablecoins acting as USD-proxies or settlement rails in emerging markets."
-        },
-        "sovereign_crypto_allocation": {
-          "title": "Sovereign Crypto Allocation",
-          "description": "Central bank or sovereign treasury accumulation of digital assets (e.g. Bitcoin)."
+        "stablecoin_settlement": {
+          "title": "Stablecoin Settlement Networks",
+          "description": "Integration of stablecoins into traditional payment rails and cross-border trade."
         },
         "tokenized_real_world_assets": {
           "title": "Tokenized Real-World Assets",
-          "description": "On-chain tokenization of treasuries, gold, real estate, and credit."
+          "description": "Bringing treasuries, credit, and private equity on-chain for institutional liquidity."
         },
-        "institutional_custody_infrastructure": {
-          "title": "Institutional Custody Infrastructure",
-          "description": "Bank-grade custody, clearing, and ETF inflows."
+        "sovereign_btc_adoption": {
+          "title": "Sovereign Bitcoin Adoption",
+          "description": "Nation-states incorporating Bitcoin into their strategic reserves or legal frameworks."
         }
       }
     },
     "monetary_policy_regime_shift_rate_cycle": {
       "display_name": "Monetary Policy Regime Shifts & Rate Cycle Dynamics",
-      "tag": "Liquidity Regime",
+      "tag": "Monetary Policy Regime Shifts",
       "description": "Changes in central bank frameworks and rate cycles that reshape liquidity, risk premia, and asset allocation regimes.",
-      "tickers": ["TLT", "^TNX", "^IRX"],
-      "invalidation_threshold": "Fed funds rate < 3.5%",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "central_bank_policy_pivots": {
-          "title": "Central Bank Policy Pivots",
-          "description": "Fed/ECB interest rate adjustments and pivot communication."
+        "higher_for_longer_regime": {
+          "title": "Higher-for-Longer Regime",
+          "description": "Structural inflation forcing central banks to maintain restrictive real rates."
         },
-        "yield_curve_inversion_spreads": {
-          "title": "Yield Curve Inversion & Spreads",
-          "description": "Yield curve shape, term premia, and credit spread dynamics."
+        "yield_curve_dynamics": {
+          "title": "Yield Curve Dynamics",
+          "description": "Shifts in term premia and the implications of curve un-inversion."
         },
-        "real_interest_rates": {
-          "title": "Real Interest Rates",
-          "description": "Nominal rates vs. inflation expectations (TIPS/nominal yield spreads)."
-        },
-        "liquidity_risks_repo": {
-          "title": "Liquidity Risks & Repo",
-          "description": "Repo market strain, QT velocity, and interbank liquidity."
+        "central_bank_divergence": {
+          "title": "Central Bank Policy Divergence",
+          "description": "Decoupling of monetary policy paths between the Fed, ECB, and BOJ."
         }
       }
     },
     "commodity_supercycle_supply_rebalancing": {
       "display_name": "Commodity Re-acceleration & Physical Supply Rebalancing",
-      "tag": "Resource Revaluation",
+      "tag": "Commodity Re-acceleration",
       "description": "Sustained commodity upcycles driven by structural demand (energy transition, electrification), underinvestment in supply, and logistics constraints.",
-      "tickers": ["DBC", "GLD", "GDX"],
-      "invalidation_threshold": "DBC -20%",
+      "tickers": [],
+      "invalidation_threshold": "",
       "subnarratives": {
-        "transition_metals_demand": {
-          "title": "Transition Metals Demand",
-          "description": "Copper, nickel, cobalt, and lithium under-supply."
+        "energy_transition_metals": {
+          "title": "Energy Transition Metals",
+          "description": "Structural supply deficits in copper, lithium, and nickel driven by electrification."
         },
-        "hydrocarbon_supply_constraints": {
-          "title": "Hydrocarbon Supply Constraints",
-          "description": "WTI/Brent supply constraints due to drilling under-investment."
+        "agricultural_supply_shocks": {
+          "title": "Agricultural Supply Shocks",
+          "description": "Disruptions to global food supplies due to weather anomalies and trade barriers."
         },
-        "agricultural_resource_pressures": {
-          "title": "Agricultural Resource Pressures",
-          "description": "Fertilizer supply, wheat/corn shortages, and crop logistics."
-        },
-        "freight_logistics_chokepoints": {
-          "title": "Freight Logistics Chokepoints",
-          "description": "Shipping rates, canal transit restrictions, and maritime disruptions."
+        "upstream_underinvestment": {
+          "title": "Upstream Underinvestment",
+          "description": "Capital starvation in legacy fossil fuel extraction leading to supply inelasticity."
         }
       }
     }

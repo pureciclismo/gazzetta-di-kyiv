@@ -1,30 +1,20 @@
-# La Gazzetta di Kyiv — Central Configuration
-# All paths relative to this file's directory (project root).
-# Scripts load this via PyYAML and resolve paths with Path(__file__).parent.parent.
-# Shell scripts source this file or resolve paths via SCRIPT_DIR.
-
 site:
-  name: "La Gazzetta di Kyiv"
-  url: "https://www.lagazzettadikyiv.com"
-  tagline: "12 domains of geopolitical power. Tracked, analyzed, contradicted."
-
+  name: La Gazzetta di Kyiv
+  url: https://www.lagazzettadikyiv.com
+  tagline: 12 domains of geopolitical power. Tracked, analyzed, contradicted.
 paths:
-  db: "gazzetta.db"
-  data: "data"
-  public: "public"          # frontend source + deploy target
-  scripts: "scripts"
-  templates: "templates"
-  logs: "logs"
-
-# Core data files (relative to paths.data/)
+  db: gazzetta.db
+  data: data
+  public: public
+  scripts: scripts
+  templates: templates
+  logs: logs
 data_files:
-  stories: "stories.json"
-  flows: "flows.json"
-  market_prices: "market_prices.json"
-  narratives: "narratives.json"
-  track_record: "track_record.json"
-
-# Pipeline chain (scripts run in this order)
+  stories: stories.json
+  flows: flows.json
+  market_prices: market_prices.json
+  narratives: narratives.json
+  track_record: track_record.json
 pipeline:
   - fetch_intel.py
   - intel_to_stories.py
@@ -33,65 +23,358 @@ pipeline:
   - generate_flows.py
   - db_to_json.py
   - test_platform.py
-
-# Deploy target
 gcs:
-  bucket: "gs://www.lagazzettadikyiv.com"
-  cache_html: "public, max-age=0, must-revalidate"
-  cache_json: "private, no-store"
-
-# Feature flags
+  bucket: gs://www.lagazzettadikyiv.com
+  cache_html: public, max-age=0, must-revalidate
+  cache_json: private, no-store
 features:
   run_validation: true
   decay_stories: false
-
-# Narrative definitions (editorial config)
 narratives:
   usd_debasement_reserve_diversification:
-    label: "USD Debasement & Reserve Diversification"
-    description: "Long-term decline in the dollar’s purchasing power and global reserve dominance, driving reserve reallocation and alternative settlement systems."
-    keywords: ["USD debasement", "reserve diversification", "de-dollarization", "currency substitution", "dedollarization", "BRICS", "yuan", "gold reserves", "SWIFT alternative", "CBDC"]
+    label: USD Debasement & Reserve Diversification
+    description: "Long-term decline in the dollar\u2019s purchasing power and global\
+      \ reserve dominance, driving reserve reallocation and alternative settlement\
+      \ systems."
+    keywords:
+      - USD debasement
+      - reserve diversification
+      - de-dollarization
+      - currency substitution
+      - dedollarization
+      - BRICS
+      - yuan
+      - gold reserves
+      - SWIFT alternative
+      - CBDC
+    subnarratives:
+      brics_payment_rails:
+        title: BRICS Alternative Payment Rails
+        description: De-dollarization efforts via bilateral trade settlement and non-SWIFT
+          clearing infrastructure.
+      sovereign_gold_accumulation:
+        title: Sovereign Gold Accumulation
+        description: Physical gold buying by non-Western central banks as a neutral
+          reserve asset.
+      treasury_market_illiquidity:
+        title: Treasury Market Illiquidity
+        description: Signs of stress, reduced foreign buying, and structural changes
+          in the US Treasury market.
   critical_resource_control_infrastructure:
-    label: "Critical Resource Control & Energy Infrastructure"
-    description: "Efforts to secure control over energy, critical minerals and logistics via domestic buildouts, strategic partnerships, and infrastructure investments."
-    keywords: ["energy security", "critical minerals control", "strategic stockpiles", "grid resilience", "fusion", "renewable", "rare earth", "grid", "critical minerals", "uranium", "lng", "nuclear"]
+    label: Critical Resource Control & Energy Infrastructure
+    description: Efforts to secure control over energy, critical minerals and logistics
+      via domestic buildouts, strategic partnerships, and infrastructure investments.
+    keywords:
+      - energy security
+      - critical minerals control
+      - strategic stockpiles
+      - grid resilience
+      - fusion
+      - renewable
+      - rare earth
+      - grid
+      - critical minerals
+      - uranium
+      - lng
+      - nuclear
+    subnarratives:
+      strategic_minerals_hoarding:
+        title: Strategic Minerals Hoarding
+        description: State-level accumulation of rare earths, copper, and uranium.
+      energy_grid_modernization:
+        title: Energy Grid Modernization
+        description: Investments in grid resilience and next-generation nuclear to
+          support AI compute.
+      lng_infrastructure_expansion:
+        title: LNG Infrastructure Expansion
+        description: Securing long-term non-Russian gas supplies and building export/import
+          terminals.
   supply_chain_resilience_reshoring_defense:
-    label: "Reshoring, Defense Logistics & Supply-Chain Resilience"
-    description: "Intentional relocalization and hardening of supply chains for critical and defense-related goods to reduce exposure to risky suppliers."
-    keywords: ["reshoring", "nearshoring", "defense logistics modernization", "supply-chain resilience", "supply chain", "tariff", "trade war", "protectionist", "defense logistics"]
+    label: Reshoring, Defense Logistics & Supply-Chain Resilience
+    description: Intentional relocalization and hardening of supply chains for critical
+      and defense-related goods to reduce exposure to risky suppliers.
+    keywords:
+      - reshoring
+      - nearshoring
+      - defense logistics modernization
+      - supply-chain resilience
+      - supply chain
+      - tariff
+      - trade war
+      - protectionist
+      - defense logistics
+    subnarratives:
+      defense_industrial_base:
+        title: Defense Industrial Base Revitalization
+        description: Capital allocation toward continental munition, aerospace, and
+          defense contractors.
+      manufacturing_nearshoring:
+        title: Manufacturing Nearshoring
+        description: Relocating critical manufacturing closer to domestic markets
+          to reduce geopolitical risk.
+      tariff_regime_shifts:
+        title: Tariff Regime Shifts
+        description: New protectionist measures and trade barriers reshaping global
+          logistics.
   china_geoeconomic_expansion:
-    label: "China Geoeconomic Expansion & Market Integration"
-    description: "Rapid, state-coordinated expansion of China’s economic, financial, and trade reach across Eurasia and new markets—including use of economic leverage and infrastructure to lock in advantages."
-    keywords: ["Belt and Road expansion", "RMB internationalization", "China-led trade corridors", "economic coercion", "dual circulation export leverage", "China", "BRI", "semiconductor", "Huawei", "SMIC", "yuan trade"]
+    label: China Geoeconomic Expansion & Market Integration
+    description: "Rapid, state-coordinated expansion of China\u2019s economic, financial,\
+      \ and trade reach across Eurasia and new markets\u2014including use of economic\
+      \ leverage and infrastructure to lock in advantages."
+    keywords:
+      - Belt and Road expansion
+      - RMB internationalization
+      - China-led trade corridors
+      - economic coercion
+      - dual circulation export leverage
+      - China
+      - BRI
+      - semiconductor
+      - Huawei
+      - SMIC
+      - yuan trade
+    subnarratives:
+      belt_and_road_2_0:
+        title: Belt and Road 2.0
+        description: Targeted infrastructure investments focusing on digital and green
+          energy corridors.
+      rmb_internationalization:
+        title: RMB Internationalization
+        description: Expanding the use of the Yuan in cross-border trade and commodity
+          pricing.
+      smic_foundry_advancements:
+        title: Domestic Foundry Advancements
+        description: China's push for semiconductor independence despite Western export
+          controls.
   space_economy_commercialization:
-    label: "Space Economy Commercialization & Infrastructure"
-    description: "Commercial scaling of launch, LEO infrastructure, satellite services and downstream applications that unlock new markets and payload economies."
-    keywords: ["space commercialization", "LEO infrastructure", "satcom constellations", "space logistics", "SpaceX", "satellite", "orbit", "NASA", "CNSA", "asteroid mining"]
+    label: Space Economy Commercialization & Infrastructure
+    description: Commercial scaling of launch, LEO infrastructure, satellite services
+      and downstream applications that unlock new markets and payload economies.
+    keywords:
+      - space commercialization
+      - LEO infrastructure
+      - satcom constellations
+      - space logistics
+      - SpaceX
+      - satellite
+      - orbit
+      - NASA
+      - CNSA
+      - asteroid mining
+    subnarratives:
+      leo_constellations:
+        title: LEO Satcom Constellations
+        description: Rapid deployment of low Earth orbit networks for global broadband
+          and military communications.
+      space_logistics_and_launch:
+        title: Space Logistics & Launch Capacity
+        description: Commercial scaling of reusable rockets and orbital transfer vehicles.
+      lunar_infrastructure:
+        title: Lunar Infrastructure Race
+        description: State and commercial efforts to establish permanent bases and
+          resource extraction on the Moon.
   gene_editing_biotech_longevity:
-    label: "Gene Editing, Biotech & Longevity Science"
-    description: "Breakthroughs in genome editing, advanced biologics, and longevity interventions moving from trials to commercial-scale therapies and markets."
-    keywords: ["CRISPR therapy", "in vivo editing", "cell therapy commercialization", "longevity therapeutics", "CRISPR", "gene therapy", "longevity", "biotech", "FDA approval"]
+    label: Gene Editing, Biotech & Longevity Science
+    description: Breakthroughs in genome editing, advanced biologics, and longevity
+      interventions moving from trials to commercial-scale therapies and markets.
+    keywords:
+      - CRISPR therapy
+      - in vivo editing
+      - cell therapy commercialization
+      - longevity therapeutics
+      - CRISPR
+      - gene therapy
+      - longevity
+      - biotech
+      - FDA approval
+    subnarratives:
+      crispr_therapeutics:
+        title: CRISPR & In-Vivo Editing
+        description: Transition of CRISPR therapies from clinical trials to commercial
+          markets.
+      advanced_biomanufacturing:
+        title: Advanced Biomanufacturing
+        description: Scaling production of biologics and synthetic biology applications.
+      longevity_interventions:
+        title: Commercial Longevity Interventions
+        description: Emerging therapeutics aimed at healthspan extension and cellular
+          rejuvenation.
   tech_convergence_platforms_ai_autonomy:
-    label: "Tech Convergence: Enterprise Platforms & Autonomous AI"
-    description: "Fusion of AI, cloud, edge, and enterprise platforms enabling autonomous workflows, massive productivity gains, and new platform monopolies."
-    keywords: ["AI-native platforms", "autonomous workflows", "enterprise AI adoption", "platform consolidation", "AI", "quantum", "fusion", "materials", "convergence", "cloud"]
+    label: 'Tech Convergence: Enterprise Platforms & Autonomous AI'
+    description: Fusion of AI, cloud, edge, and enterprise platforms enabling autonomous
+      workflows, massive productivity gains, and new platform monopolies.
+    keywords:
+      - AI-native platforms
+      - autonomous workflows
+      - enterprise AI adoption
+      - platform consolidation
+      - AI
+      - quantum
+      - fusion
+      - materials
+      - convergence
+      - cloud
+    subnarratives:
+      autonomous_agents:
+        title: Autonomous AI Agents
+        description: Deployment of AI systems capable of executing complex, multi-step
+          workflows.
+      enterprise_ai_integration:
+        title: Enterprise AI Integration
+        description: Adoption of generative AI models to restructure corporate productivity
+          and operations.
+      quantum_ai_convergence:
+        title: Quantum-AI Convergence
+        description: Early breakthroughs in using quantum computing to accelerate
+          machine learning.
   prestige_asset_acquisition_strategic_investment:
-    label: "Prestige Asset Acquisition & Strategic Cross-Border Investment"
-    description: "High-profile acquisitions of sports teams, cultural assets, strategic infrastructure and prestige properties by state-affiliated funds and ultra-high-net-worth capital for influence, diversification and access."
-    keywords: ["prestige asset acquisition", "state-affiliated investment", "trophy asset purchases", "strategic capital deployment", "sovereign fund", "sports team", "ownership", "soft power"]
+    label: Prestige Asset Acquisition & Strategic Cross-Border Investment
+    description: High-profile acquisitions of sports teams, cultural assets, strategic
+      infrastructure and prestige properties by state-affiliated funds and ultra-high-net-worth
+      capital for influence, diversification and access.
+    keywords:
+      - prestige asset acquisition
+      - state-affiliated investment
+      - trophy asset purchases
+      - strategic capital deployment
+      - sovereign fund
+      - sports team
+      - ownership
+      - soft power
+    subnarratives:
+      sovereign_sports_investments:
+        title: Sovereign Sports Investments
+        description: Middle Eastern and Asian sovereign funds acquiring marquee sports
+          franchises.
+      cultural_soft_power:
+        title: Cultural Soft Power Assets
+        description: Strategic investments in media, entertainment, and gaming publishers.
+      trophy_real_estate:
+        title: Trophy Real Estate & Infrastructure
+        description: Acquisition of ultra-prime properties and critical logistics
+          hubs by state actors.
   ai_compute_semiconductor_hegemony:
-    label: "AI Hardware, Compute Concentration & Semiconductor Leadership"
-    description: "Consolidation of advanced semiconductor manufacturing, AI accelerators and hyperscaler compute capacity that defines competitive AI performance and leverage."
-    keywords: ["AI accelerators", "compute hegemony", "advanced foundry capacity", "chip supply concentration", "nvidia", "tsmc", "semiconductor", "chip", "gpu", "h100", "b200", "amd", "intel"]
+    label: AI Hardware, Compute Concentration & Semiconductor Leadership
+    description: Consolidation of advanced semiconductor manufacturing, AI accelerators
+      and hyperscaler compute capacity that defines competitive AI performance and
+      leverage.
+    keywords:
+      - AI accelerators
+      - compute hegemony
+      - advanced foundry capacity
+      - chip supply concentration
+      - nvidia
+      - tsmc
+      - semiconductor
+      - chip
+      - gpu
+      - h100
+      - b200
+      - amd
+      - intel
+    subnarratives:
+      advanced_node_monopoly:
+        title: Advanced Node Monopoly
+        description: The concentration of sub-3nm manufacturing capabilities in a
+          few foundries.
+      ai_accelerator_dominance:
+        title: AI Accelerator Dominance
+        description: The hyperscaler race to secure next-generation GPUs and custom
+          silicon.
+      export_control_evasion:
+        title: Export Control Evasion & Adaptation
+        description: Market responses to semiconductor sanctions and the rise of gray
+          market compute.
   digital_assets_reserves_onchain_finance:
-    label: "Digital Assets as Reserve & On-Chain Financial Infrastructure"
-    description: "Evolution of tokenized and crypto-native instruments toward institutional reserve, settlement, and collateral functions within regulated and hybrid frameworks."
-    keywords: ["stablecoin settlement", "tokenized reserves", "on-chain settlement", "institutional crypto adoption", "bitcoin", "ethereum", "btc", "eth", "stablecoin", "defi", "crypto", "coinbase"]
+    label: Digital Assets as Reserve & On-Chain Financial Infrastructure
+    description: Evolution of tokenized and crypto-native instruments toward institutional
+      reserve, settlement, and collateral functions within regulated and hybrid frameworks.
+    keywords:
+      - stablecoin settlement
+      - tokenized reserves
+      - on-chain settlement
+      - institutional crypto adoption
+      - bitcoin
+      - ethereum
+      - btc
+      - eth
+      - stablecoin
+      - defi
+      - crypto
+      - coinbase
+    subnarratives:
+      stablecoin_settlement:
+        title: Stablecoin Settlement Networks
+        description: Integration of stablecoins into traditional payment rails and
+          cross-border trade.
+      tokenized_real_world_assets:
+        title: Tokenized Real-World Assets
+        description: Bringing treasuries, credit, and private equity on-chain for
+          institutional liquidity.
+      sovereign_btc_adoption:
+        title: Sovereign Bitcoin Adoption
+        description: Nation-states incorporating Bitcoin into their strategic reserves
+          or legal frameworks.
   monetary_policy_regime_shift_rate_cycle:
-    label: "Monetary Policy Regime Shifts & Rate Cycle Dynamics"
-    description: "Changes in central bank frameworks and rate cycles that reshape liquidity, risk premia, and asset allocation regimes."
-    keywords: ["policy pivot", "tightening cycle", "real rate regime", "monetary regime shift", "fed", "fomc", "rate cut", "rate hike", "powell", "treasury yield", "bond yield", "interest rate", "central bank", "inflation"]
+    label: Monetary Policy Regime Shifts & Rate Cycle Dynamics
+    description: Changes in central bank frameworks and rate cycles that reshape liquidity,
+      risk premia, and asset allocation regimes.
+    keywords:
+      - policy pivot
+      - tightening cycle
+      - real rate regime
+      - monetary regime shift
+      - fed
+      - fomc
+      - rate cut
+      - rate hike
+      - powell
+      - treasury yield
+      - bond yield
+      - interest rate
+      - central bank
+      - inflation
+    subnarratives:
+      higher_for_longer_regime:
+        title: Higher-for-Longer Regime
+        description: Structural inflation forcing central banks to maintain restrictive
+          real rates.
+      yield_curve_dynamics:
+        title: Yield Curve Dynamics
+        description: Shifts in term premia and the implications of curve un-inversion.
+      central_bank_divergence:
+        title: Central Bank Policy Divergence
+        description: Decoupling of monetary policy paths between the Fed, ECB, and
+          BOJ.
   commodity_supercycle_supply_rebalancing:
-    label: "Commodity Re-acceleration & Physical Supply Rebalancing"
-    description: "Sustained commodity upcycles driven by structural demand (energy transition, electrification), underinvestment in supply, and logistics constraints."
-    keywords: ["commodity supercycle", "supply squeeze", "transition metals boom", "rebalancing to physical", "crude oil", "copper", "corn futures", "soybean", "wheat futures", "gold price", "silver price", "oil price", "oil market", "commodity price"]
+    label: Commodity Re-acceleration & Physical Supply Rebalancing
+    description: Sustained commodity upcycles driven by structural demand (energy
+      transition, electrification), underinvestment in supply, and logistics constraints.
+    keywords:
+      - commodity supercycle
+      - supply squeeze
+      - transition metals boom
+      - rebalancing to physical
+      - crude oil
+      - copper
+      - corn futures
+      - soybean
+      - wheat futures
+      - gold price
+      - silver price
+      - oil price
+      - oil market
+      - commodity price
+    subnarratives:
+      energy_transition_metals:
+        title: Energy Transition Metals
+        description: Structural supply deficits in copper, lithium, and nickel driven
+          by electrification.
+      agricultural_supply_shocks:
+        title: Agricultural Supply Shocks
+        description: Disruptions to global food supplies due to weather anomalies
+          and trade barriers.
+      upstream_underinvestment:
+        title: Upstream Underinvestment
+        description: Capital starvation in legacy fossil fuel extraction leading to
+          supply inelasticity.

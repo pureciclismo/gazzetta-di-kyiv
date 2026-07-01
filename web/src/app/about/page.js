@@ -8,18 +8,26 @@ export default function About() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/data/stories.json')
-      .then(res => res.json())
-      .then(rawData => {
+    Promise.all([
+      fetch('/data/stories.json').then(res => res.json()),
+      fetch('/data/narratives.json').then(res => res.json())
+    ])
+      .then(([rawData, narrativesData]) => {
         const narratives = [];
+        const narrativesMap = narrativesData?.narratives || {};
         if (rawData.containers) {
           for (const [cid, cdata] of Object.entries(rawData.containers)) {
             const stories = cdata.stories || [];
             if (stories.length > 0) {
+              const narrMeta = narrativesMap[cid] || {};
               narratives.push({
                 id: cid,
-                title: cdata.title || cid.replace('_', ' ').toUpperCase(),
-                subtitle: cdata.subtitle || '',
+                title: narrMeta.display_name || cdata.title || cid.replace('_', ' ').toUpperCase(),
+                subtitle: narrMeta.description || cdata.subtitle || '',
+                tag: narrMeta.tag || '',
+                tickers: narrMeta.tickers || [],
+                invalidation_threshold: narrMeta.invalidation_threshold || '',
+                subnarratives: narrMeta.subnarratives || {},
                 count: stories.length
               });
             }
@@ -62,11 +70,35 @@ export default function About() {
               borderRadius: '8px', 
               padding: '1.5rem'
             }}>
-              <div style={{color: 'var(--gold)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', marginBottom: '1rem', textTransform: 'uppercase'}}>
-                Tracking {narrative.count} Signals
+              <div style={{color: 'var(--gold)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', marginBottom: '1rem', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between'}}>
+                <span>{narrative.tag || 'Strategic Objective'}</span>
+                <span>[{narrative.count} SIGNALS]</span>
               </div>
               <h3 style={{fontSize: '1.2rem', marginBottom: '0.5rem'}}>{narrative.title}</h3>
-              <p style={{color: 'var(--text-secondary)', fontSize: '0.9rem'}}>{narrative.subtitle}</p>
+              <p style={{color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem'}}>{narrative.subtitle}</p>
+              
+              <div style={{borderTop: '1px solid var(--glass-border)', paddingTop: '1rem', marginTop: '1rem'}}>
+                <div style={{fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)'}}>SUBNARRATIVES</div>
+                <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
+                  {Object.values(narrative.subnarratives).map((sub, i) => (
+                    <li key={i} style={{marginBottom: '0.5rem', borderLeft: '2px solid var(--gold)', paddingLeft: '0.5rem'}}>
+                      <strong style={{fontSize: '0.85rem', color: 'var(--text-primary)', display: 'block'}}>{sub.title}</strong>
+                      <span style={{fontSize: '0.8rem', color: 'var(--text-secondary)'}}>{sub.description}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div style={{background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '4px', marginTop: '1.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem'}}>
+                  <span style={{color: 'var(--text-muted)'}}>INVALIDATION THRESHOLD</span>
+                  <span style={{color: 'var(--red)'}}>{narrative.invalidation_threshold}</span>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <span style={{color: 'var(--text-muted)'}}>TARGET TICKERS</span>
+                  <span style={{color: 'var(--blue)'}}>{narrative.tickers.join(', ')}</span>
+                </div>
+              </div>
             </div>
           ))}
           {data.length === 0 && (

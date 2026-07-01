@@ -7,10 +7,17 @@ export default function Contradictions() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [narratives, setNarratives] = useState({});
+
   useEffect(() => {
-    fetch('/data/stories.json')
-      .then(res => res.json())
-      .then(rawData => {
+    Promise.all([
+      fetch('/data/stories.json').then(res => res.json()),
+      fetch('/data/narratives.json').then(res => res.json())
+    ])
+      .then(([rawData, narrativesData]) => {
+        if (narrativesData && narrativesData.narratives) {
+          setNarratives(narrativesData.narratives);
+        }
         let allStories = [];
         if (rawData.containers) {
           for (const cdata of Object.values(rawData.containers)) {
@@ -66,7 +73,7 @@ export default function Contradictions() {
               padding: '1.5rem'
             }}>
               <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem'}}>
-                <span style={{color: 'var(--gold)', textTransform: 'uppercase'}}>{story.narrative_id?.replace('_', ' ')}</span>
+                <span style={{color: 'var(--gold)', textTransform: 'uppercase'}}>{narratives[story.narrative_id]?.display_name || story.narrative_id?.replace('_', ' ')}</span>
                 <span style={{color: 'var(--blue)'}}>Δ EDGE: {story.contradiction_gap || 0}</span>
               </div>
               <h3 style={{fontSize: '1.2rem', marginBottom: '1rem'}}>{story.title || story.headline}</h3>

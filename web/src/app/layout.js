@@ -53,25 +53,25 @@ export default function RootLayout({ children }) {
               </defs>
               
               {/* Left Bulava: rotated left */}
-              <use href="#bulava" transform="rotate(-55 20 25)" />
+              <use href="#bulava" transform="rotate(-35 20 25)" />
               {/* Right Bulava: rotated right */}
-              <use href="#bulava" transform="rotate(55 20 25)" />
+              <use href="#bulava" transform="rotate(35 20 25)" />
             </svg>
             <div style={{display: 'flex', flexDirection: 'column'}}>
-              <h1 className="brand-title">La Gazzetta di Kyiv</h1>
-              <span style={{fontSize: '1.3rem', color: 'var(--text-secondary)', fontStyle: 'normal', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em', marginTop: '2px'}}>The stories that move markets</span>
+              <h1 className="brand-title" style={{fontSize: '3.25rem', lineHeight: '1'}}>La Gazzetta di Kyiv</h1>
+              <span style={{fontSize: '2.6rem', color: 'rgba(255,255,255,0.7)', fontStyle: 'normal', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em', marginTop: '5px'}}>The stories that move markets</span>
             </div>
           </div>
           
           <nav className="nav-tabs">
             <Link href="/" className="nav-item">Events Horizon</Link>
-            <Link href="/alpha" className="nav-item">Situation Room</Link>
-            <Link href="/capital" className="nav-item">Narrative Capitalisation</Link>
-            <Link href="/contradictions" className="nav-item">Markets Room</Link>
-            <Link href="/about" className="nav-item">Investment Horizon</Link>
+            <Link href="/alpha/" className="nav-item">Situation Room</Link>
+            <Link href="/capital/" className="nav-item">Narrative Capitalisation</Link>
+            <Link href="/contradictions/" className="nav-item">Markets Room</Link>
+            <Link href="/about/" className="nav-item">Investment Horizon</Link>
           </nav>
 
-          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-secondary)'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)'}}>
             <span className="live-indicator"></span>
             <span>LIVE INTELLIGENCE</span>
             <span style={{fontSize: '1.2rem', color: 'var(--gold)', marginLeft: '0.5rem'}}>⚜</span>
