@@ -1,5 +1,9 @@
 1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"container","style":{"paddingTop":"3rem"},"children":[["$","div",null,{"style":{"marginBottom":"2rem","paddingBottom":"1rem","borderBottom":"2px solid var(--gold)"},"children":[["$","h2",null,{"style":{"fontFamily":"var(--font-serif)","fontSize":"2rem","color":"var(--text-primary)"},"children":"Situation Room"}],["$","p",null,{"style":{"fontFamily":"var(--font-mono)","fontSize":"0.8rem","color":"var(--text-secondary)","textTransform":"uppercase","letterSpacing":"0.05em"},"children":"Tactical Bets • Multi-Vector Intelligence"}]]}],["$","div",null,{"className":"empty-state","style":{"minHeight":"400px"},"children":"Establishing secure connection to the Situation Room..."}]]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"i4m5dTKBZPSqI392CKXdQ"}
-4:null
+2:I[47257,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js"],"ClientPageRoot"]
+3:I[94135,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/3a3hlkhi70v9w.js"],"default"]
+6:I[97367,["/_next/static/chunks/3rdqn8rx95pw7.js","/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/_next/static/chunks/3a3hlkhi70v9w.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"7kxRo-4FQ90_2KCuSd8DB"}
+4:{}
+5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
+8:null
