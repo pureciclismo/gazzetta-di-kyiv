@@ -85,8 +85,8 @@ export default function Home() {
       <div className="story-list hide-scrollbar">
         {stories.map(story => (
           <button 
-            key={story.id} 
-            className={`story-item ${selectedStory?.id === story.id ? 'active' : ''}`}
+            key={story.id || story.story_id} 
+            className={`story-item ${(selectedStory?.id || selectedStory?.story_id) === (story.id || story.story_id) ? 'active' : ''}`}
             onClick={() => setSelectedStory(story)}
           >
             <div className={`story-tier ${story.tier_level || 'ACTIVE'}`}></div>
@@ -109,7 +109,7 @@ export default function Home() {
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem'}}>
               <span className="section-label">Intercepted Dispatch • {selectedStory.tier_level || 'ACTIVE'}</span>
               <span style={{fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', fontSize: '0.8rem'}}>
-                ID: {selectedStory.id.split('-')[0].toUpperCase()}
+                ID: {selectedStory.id ? selectedStory.id.split('-')[0].toUpperCase() : selectedStory.story_id}
               </span>
             </div>
             
