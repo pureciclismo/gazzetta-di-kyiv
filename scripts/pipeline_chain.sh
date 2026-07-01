@@ -9,23 +9,13 @@ PROJECT="$(dirname "$SCRIPT_DIR")"
 cd "$PROJECT"
 
 echo "=== PIPELINE CHAIN $(date '+%Y-%m-%d %H:%M:%S') ==="
+echo "Delegating to the Sovereign Auditor (governor.py) to manage the pipeline execution..."
 
-echo "[1/4] intel_to_stories..."
-python3 scripts/intel_to_stories.py
-
-echo "[2/4] decay_stories..."
-python3 scripts/decay_stories.py
-
-echo "[2.5/4] validate_stories..."
-python3 scripts/validate_stories.py
-
-echo "[3/4] generate_flows..."
-python3 scripts/generate_flows.py
-
-echo "[3.5/4] translate_content..."
-python3 scripts/translate_content.py
-
-echo "[4/4] build_site..."
-python3 scripts/build_site.py
+# The governor handles all steps, including:
+# - Data ingestion (ingestion_triage, market_reality, fetch_cftc, etc.)
+# - Synthesis and classification (contradiction_synthesizer, classify_stories)
+# - Frontend building (build_frontend)
+# - Telegram broadcast (telegram_broadcast)
+python3 scripts/governor.py
 
 echo "=== PIPELINE COMPLETE ==="
