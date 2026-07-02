@@ -178,7 +178,19 @@ GLM_KEY_2 = os.environ.get("GLM_API_KEY_2", "0feba8763e0a4c808bbba55f5a02cd7e.7N
 GLM_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
 GLM_MODEL = os.environ.get("GLM_MODEL", "glm-5.2")
 
-DEEPSEEK_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+def _secret(name):
+    try:
+        from google.cloud import secretmanager
+        client = secretmanager.SecretManagerServiceClient()
+        project = "project-e5e0244c-b94d-41a1-810"
+        path = f"projects/{project}/secrets/{name}/versions/latest"
+        resp = client.access_secret_version(request={"name": path})
+        val = resp.payload.data.decode("utf-8")
+        return val
+    except Exception:
+        return ""
+
+DEEPSEEK_KEY = os.environ.get("DEEPSEEK_API_KEY", "") or _secret("gazzetta-deepseek-key")
 DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
 
@@ -616,13 +628,17 @@ async def call_llm(session, sem, item_id, title, text, market_context, source_do
 def assemble_story(db_item, llm_story, prices):
     """Merge DB metadata + LLM analysis into a frontend-compatible story dict."""
     item_id, source_url, source_type, title, full_text, narrative_tag = db_item
+    if not narrative_tag:
+        narrative_tag = "tech_convergence_platforms_ai_autonomy"
 
     # ── Multi-vector scoring: extract narrative_scores matrix from LLM ──
     scores = llm_story.get("narrative_scores", {})
+    if scores:
+        scores = {k: v for k, v in scores.items() if k is not None}
 
     # Fallback: if LLM returned old single-tag format, normalize to matrix
     if not scores:
-        old_tag = llm_story.get("narrative_tag", narrative_tag)
+        old_tag = llm_story.get("narrative_tag", narrative_tag) or narrative_tag
         scores = {old_tag: 1.0}
 
     # Primary narrative = highest score
@@ -819,7 +835,7 @@ def assemble_story(db_item, llm_story, prices):
         "time_horizon": "tactical",                   # Pass 1 safe default
 
         # ── AFFECTED ASSETS ──
-        "affected_tickers": llm_tickers if llm_tickers else ticker_map.get(primary, []),
+        "affected_tickers": llm_tickers if llm_tickers else TICKER_WHITELIST.get(primary, []),
         "affected_asset_classes": llm_asset_classes if llm_asset_classes else [narrative_asset_map.get(primary, "mixed")],
 
         # ── CONTENT ARTIFACTS ──

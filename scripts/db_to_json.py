@@ -95,7 +95,7 @@ def compile_containers(conn):
         WHERE s.full_json IS NOT NULL
           AND s.container IS NOT NULL
         GROUP BY s.id
-        ORDER BY s.contradiction_score DESC, s.generated_at DESC
+        ORDER BY s.generated_at DESC, s.contradiction_score DESC
     """).fetchall()
     
     # ── Fetch all tags for tags_index ──

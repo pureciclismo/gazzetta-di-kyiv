@@ -58,8 +58,8 @@ export default function RootLayout({ children }) {
               <use href="#bulava" transform="rotate(35 20 25)" />
             </svg>
             <div style={{display: 'flex', flexDirection: 'column'}}>
-              <h1 className="brand-title" style={{fontSize: '3.25rem', lineHeight: '1'}}>La Gazzetta di Kyiv</h1>
-              <span style={{fontSize: '2.6rem', color: 'rgba(255,255,255,0.7)', fontStyle: 'normal', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em', marginTop: '5px'}}>The stories that move markets</span>
+              <h1 className="brand-title" style={{fontSize: '1.75rem', lineHeight: '1.2'}}>La Gazzetta di Kyiv</h1>
+              <span style={{fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', fontStyle: 'normal', fontFamily: 'var(--font-serif)', letterSpacing: '0.05em', marginTop: '5px'}}>The stories that move markets</span>
             </div>
           </div>
           
