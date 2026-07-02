@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parent.parent
-DB_PATH = PROJECT / "gazzetta.db"
+DB_PATH = Path(os.environ.get("GAZZETTA_DB_PATH", str(PROJECT / "data" / "gazzetta.db")))
 DATA = PROJECT / "data"
 SITE_DATA = PROJECT / "public" / "data"
 

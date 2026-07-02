@@ -25,7 +25,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 PROJECT = Path(__file__).resolve().parent.parent
-DB_PATH = os.environ.get("GAZZETTA_DB_PATH", str(PROJECT / "gazzetta.db"))
+DB_PATH = os.environ.get("GAZZETTA_DB_PATH", str(PROJECT / "data" / "gazzetta.db"))
 
 CREATE_TABLE_SQL = """
 CREATE TABLE IF NOT EXISTS pipeline_state (

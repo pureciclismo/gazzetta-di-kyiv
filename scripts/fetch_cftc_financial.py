@@ -37,6 +37,9 @@ OUTPUT_FILE = DATA_DIR / "cftc_financial_positions.json"
 CACHE_HOURS = 48  # Only re-download every 48 hours (data is weekly)
 REQUEST_TIMEOUT = 60
 
+# Proxy config
+SCRAPE_DO_TOKEN = os.environ.get("SCRAPE_DO_TOKEN", "0225f0e590eb4864bc7ef73765e97a980e02888fae1")
+
 # -- Target financial contracts ---------------------------------------
 # Verified against live FinFutYY.xls (June 27, 2026).
 # TIFF uses Lev_Money (hedge funds/CTAs) as the speculative positioning signal.
@@ -83,27 +86,24 @@ def download_tiff():
     """Download the TIFF ZIP with browser-grade headers + exponential backoff.
     Returns True on success. Uses standard SSL (no cert bypass) to avoid WAF triggers."""
     import urllib.request
+    import urllib.parse
 
-    # Browser-grade headers — spoof a standard residential browser
+    # Minimal headers for proxy routing
     HEADERS = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Referer": "https://www.cftc.gov/",
-        "Cache-Control": "no-cache",
-        "Pragma": "no-cache",
     }
 
     max_retries = 3
     base_delay = 5  # seconds
 
+    # Attempt 1: scrape.do with retries
     for attempt in range(1, max_retries + 1):
         try:
             ctx = ssl.create_default_context()  # Proper TLS — no cert bypass
-            print(f"[cftc_fin] Downloading TIFF ZIP (attempt {attempt}/{max_retries}, {CACHE_HOURS}h cache)...")
+            proxy_url = f"https://api.scrape.do/?token={SCRAPE_DO_TOKEN}&url={urllib.parse.quote(TIFF_URL)}"
+            print(f"[cftc_fin] Downloading TIFF ZIP via scrape.do (attempt {attempt}/{max_retries}, {CACHE_HOURS}h cache)...")
 
-            req = urllib.request.Request(TIFF_URL, headers=HEADERS)
+            req = urllib.request.Request(proxy_url, headers=HEADERS)
             resp = urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT, context=ctx)
 
             # urlopen raises HTTPError on 4xx/5xx — if we get here, status is 2xx
@@ -119,21 +119,63 @@ def download_tiff():
                 with zf.open(xls_name) as src, open(XLS_PATH, "wb") as dst:
                     dst.write(src.read())
 
-            print(f"[cftc_fin] Downloaded + extracted: {xls_name}")
+            print(f"[cftc_fin] Downloaded + extracted via scrape.do: {xls_name}")
             return True
 
         except urllib.error.HTTPError as e:
             print(f"[cftc_fin] HTTP {e.code} on attempt {attempt}: {e.reason}", file=sys.stderr)
             if attempt < max_retries:
                 delay = base_delay * (2 ** (attempt - 1))
-                print(f"[cftc_fin] Retrying in {delay}s...", file=sys.stderr)
                 time.sleep(delay)
         except Exception as e:
             print(f"[cftc_fin] Download failed (attempt {attempt}): {e}", file=sys.stderr)
             if attempt < max_retries:
                 delay = base_delay * (2 ** (attempt - 1))
-                print(f"[cftc_fin] Retrying in {delay}s...", file=sys.stderr)
                 time.sleep(delay)
+
+    # Attempt 2: Webshare proxy fallback
+    print("[cftc_fin] scrape.do failed. Trying Webshare proxy fallback...")
+    webshare_token = os.environ.get("WEBSHARE_API_KEY", "m63tjlsqiv03vwst6n1fzzcftz6cifeolhanx8x6")
+    if webshare_token:
+        try:
+            req_ws = urllib.request.Request("https://proxy.webshare.io/api/v2/proxy/list/?mode=direct", 
+                                            headers={"Authorization": f"Token {webshare_token}"})
+            with urllib.request.urlopen(req_ws, timeout=15) as resp_ws:
+                data = json.loads(resp_ws.read().decode())
+                results = data.get("results", [])
+                proxy_str = None
+                for p in results:
+                    if p.get("valid"):
+                        user = p.get("username")
+                        pwd = p.get("password")
+                        ip = p.get("proxy_address")
+                        port = p.get("port")
+                        proxy_str = f"http://{user}:{pwd}@{ip}:{port}"
+                        break
+                
+                if proxy_str:
+                    print(f"[cftc_fin] Using Webshare proxy: {ip}:{port}")
+                    ctx = ssl.create_default_context()
+                    proxy_support = urllib.request.ProxyHandler({'http': proxy_str, 'https': proxy_str})
+                    opener = urllib.request.build_opener(proxy_support)
+                    urllib.request.install_opener(opener)
+                    
+                    req_direct = urllib.request.Request(TIFF_URL, headers=HEADERS)
+                    with urllib.request.urlopen(req_direct, timeout=REQUEST_TIMEOUT, context=ctx) as resp:
+                        with open(ZIP_PATH, "wb") as f:
+                            f.write(resp.read())
+                    
+                    with zipfile.ZipFile(ZIP_PATH, "r") as zf:
+                        xls_names = [n for n in zf.namelist() if n.endswith(".xls")]
+                        if not xls_names:
+                            raise ValueError("No .xls file found in ZIP")
+                        xls_name = xls_names[0]
+                        with zf.open(xls_name) as src, open(XLS_PATH, "wb") as dst:
+                            dst.write(src.read())
+                    print(f"[cftc_fin] Downloaded + extracted via Webshare proxy: {xls_name}")
+                    return True
+        except Exception as e:
+            print(f"[cftc_fin] Webshare proxy fallback failed: {e}", file=sys.stderr)
 
     return False
 

@@ -1,0 +1,36 @@
+# Dockerfile — Newsletter Intelligence Harvester
+# Cloud Run Job for Gazzetta di Kyiv
+# Runs: python scripts/fetch_newsletters.py --telegram
+
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for layer caching
+COPY requirements-newsletters.txt ./
+RUN pip install --no-cache-dir -r requirements-newsletters.txt
+
+# Copy project files needed by the harvester
+COPY config.yaml ./
+COPY scripts/fetch_newsletters.py ./scripts/
+COPY scripts/newsletter_prompts.py ./scripts/
+
+# Create data directory for output
+RUN mkdir -p data
+
+# Environment
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV GAZZETTA_ENV=production
+
+# Default command (Cloud Run Job entrypoint)
+# --telegram flag sends digest to Telegram after run
+ENTRYPOINT ["python", "scripts/fetch_newsletters.py"]
+CMD ["--telegram"]

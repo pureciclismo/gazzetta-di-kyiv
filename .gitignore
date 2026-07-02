@@ -75,6 +75,8 @@ dist/
 
 # Secrets — DO NOT COMMIT
 .env
+.gmail_token.json
+client_secret.json
 
 # Backup files
 .backup/

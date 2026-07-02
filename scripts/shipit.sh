@@ -40,46 +40,36 @@ log "BUILD: OK"
 
 # ── Step 2: Deploy HTML pages — zero-cache, always revalidate ──────
 log "DEPLOY: HTML files (max-age=0, must-revalidate)..."
-# Find all HTML files recursively in PUBLIC directory
-find "$PUBLIC" -name "*.html" -type f | while read -r html_file; do
-    # Get the relative path of the HTML file with respect to PUBLIC
-    rel_path="${html_file#$PUBLIC/}"
-    if ! gsutil -h "Cache-Control: public, max-age=0, must-revalidate" \
-                cp "$html_file" "$BUCKET/$rel_path" 2>>"$PROJECT/logs/gsutil_err.log"; then
+if ! gsutil -m -h "Cache-Control: public, max-age=0, must-revalidate" \
+            cp "$PUBLIC"/*.html "$BUCKET/" 2>>"$PROJECT/logs/gsutil_err.log"; then
+    cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
+    die "gsutil cp of root HTML files failed" 2
+fi
+if [ -d "$PUBLIC/dossier" ]; then
+    if ! gsutil -m -h "Cache-Control: public, max-age=0, must-revalidate" \
+                rsync -r -d "$PUBLIC/dossier" "$BUCKET/dossier" 2>>"$PROJECT/logs/gsutil_err.log"; then
         cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-        die "gsutil cp $rel_path failed" 2
+        die "gsutil rsync of dossier HTML files failed" 2
     fi
-done
+fi
 log "DEPLOY: HTML files OK"
 
 # ── Step 3: Deploy data JSONs — private, no-store (live trading data) ──
 log "DEPLOY: data/*.json (private, no-store)..."
-FAILED_DATA=0
-for json_file in "$PUBLIC"/data/*.json; do
-    fname="$(basename "$json_file")"
-    if ! gsutil -h "Cache-Control: private, no-store" \
-                cp "$json_file" "$BUCKET/data/$fname" 2>"$PROJECT/logs/gsutil_err.log"; then
-        log "WARNING: Failed to upload $fname — continuing"
-        cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-        FAILED_DATA=1
-    fi
-done
-if [ "$FAILED_DATA" -eq 1 ]; then
-    log "DEPLOY: data JSONs completed with SOME failures (see report)"
-else
-    log "DEPLOY: all data JSONs OK"
+if ! gsutil -m -h "Cache-Control: private, no-store" \
+            cp "$PUBLIC"/data/*.json "$BUCKET/data/" 2>>"$PROJECT/logs/gsutil_err.log"; then
+    cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
+    die "gsutil cp of data JSON files failed" 2
 fi
+log "DEPLOY: all data JSONs OK"
 
 # ── Step 4: Deploy static assets — cached ──────────────────────────
 log "DEPLOY: static assets (css, js, next bundles — 1-day cache)..."
-find "$PUBLIC" -type f ! -name "*.html" ! -path "$PUBLIC/data/*" | while read -r asset_file; do
-    rel_path="${asset_file#$PUBLIC/}"
-    if ! gsutil -h "Cache-Control: public, max-age=86400" \
-                cp "$asset_file" "$BUCKET/$rel_path" 2>>"$PROJECT/logs/gsutil_err.log"; then
-        cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-        log "WARNING: Failed to upload static asset $rel_path"
-    fi
-done
+if ! gsutil -m -h "Cache-Control: public, max-age=86400" \
+            rsync -r -d -x ".*\.html$|data/.*" "$PUBLIC" "$BUCKET" 2>>"$PROJECT/logs/gsutil_err.log"; then
+    cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
+    log "WARNING: gsutil rsync of static assets encountered some warnings/errors"
+fi
 
 # ── Success ────────────────────────────────────────────────────────
 echo "[${TIMESTAMP}] deploy OK — index.html + data JSONs + static assets" >> "$REPORT"

@@ -15,9 +15,9 @@ export default function Capital() {
       .then(([rawData, narrativesData]) => {
         const capitalData = [];
         const narrativesMap = narrativesData?.narratives || {};
-        if (rawData.containers) {
+        if (rawData?.containers) {
           for (const [cid, cdata] of Object.entries(rawData.containers)) {
-            const stories = cdata.stories || [];
+            const stories = cdata?.stories || [];
             let inflow = 0;
             let outflow = 0;
             let totalCap = 0;
@@ -25,15 +25,17 @@ export default function Capital() {
             let sumGap = 0;
             
             stories.forEach(s => {
-              const gap = s.contradiction_gap || 0;
-              const vol = s.capital_volume_usd || 0;
-              const dir = s.capital_flow?.direction;
-              
-              if (dir === 'inflow') inflow += vol;
-              if (dir === 'outflow') outflow += vol;
-              if (gap >= 40) discCount++;
-              sumGap += gap;
-              totalCap += vol;
+              if (s) {
+                const gap = s.contradiction_gap || 0;
+                const vol = s.capital_volume_usd || s.capital_at_stake_usd || 0;
+                const dir = s.capital_flow?.direction;
+                
+                if (dir === 'inflow') inflow += vol;
+                if (dir === 'outflow') outflow += vol;
+                if (gap >= 40) discCount++;
+                sumGap += gap;
+                totalCap += vol;
+              }
             });
             
             const avgGap = stories.length > 0 ? (sumGap / stories.length) : 0;
@@ -45,7 +47,7 @@ export default function Capital() {
             
             capitalData.push({
               id: cid,
-              title: narrMeta.display_name || cdata.title || cid.replace('_', ' ').toUpperCase(),
+              title: narrMeta.display_name || cdata?.title || cid.replace(/_/g, ' ').toUpperCase(),
               tag: narrMeta.tag || '',
               subnarratives: narrMeta.subnarratives || {},
               ticker: stories[0]?.narrative_id || 'MULTI-ASSET', // simplified
@@ -124,14 +126,14 @@ export default function Capital() {
                     </td>
                     <td style={{padding: '1rem', color: 'var(--blue)'}}>{row.gap}</td>
                   </tr>
-                  {Object.keys(row.subnarratives).length > 0 && (
+                  {row.subnarratives && Object.keys(row.subnarratives).length > 0 && (
                     <tr style={{borderBottom: '2px solid var(--gold)', background: 'rgba(0,0,0,0.2)'}}>
                       <td colSpan="8" style={{padding: '1rem 1rem 1rem 3rem'}}>
                         <div style={{display: 'flex', gap: '1rem', flexWrap: 'wrap'}}>
                           {Object.values(row.subnarratives).map((sub, i) => (
                             <div key={i} style={{flex: '1 1 200px', minWidth: '200px', borderLeft: '1px solid var(--glass-border)', paddingLeft: '0.5rem'}}>
-                              <div style={{color: 'var(--text-primary)', fontSize: '0.8rem', fontWeight: 'bold'}}>{sub.title}</div>
-                              <div style={{color: 'var(--text-muted)', fontSize: '0.75rem'}}>{sub.description}</div>
+                              <div style={{color: 'var(--text-primary)', fontSize: '0.8rem', fontWeight: 'bold'}}>{sub?.title}</div>
+                              <div style={{color: 'var(--text-muted)', fontSize: '0.75rem'}}>{sub?.description}</div>
                             </div>
                           ))}
                         </div>

@@ -365,3 +365,119 @@ CommandException: 1 files/objects could not be copied/removed.
 [2026-07-01T17:59:19Z] deploy OK — index.html + data JSONs + static assets
 [2026-07-01T18:01:08Z] deploy OK — index.html + data JSONs + static assets
 [2026-07-01T18:04:22Z] deploy OK — index.html + data JSONs + static assets
+[2026-07-01T19:24:00Z] deploy OK — index.html + data JSONs + static assets
+[2026-07-01T19:40:01Z] deploy OK — index.html + data JSONs + static assets
+[2026-07-01T19:47:21Z] deploy OK — index.html + data JSONs + static assets
+[2026-07-01T19:59:42Z] deploy OK — index.html + data JSONs + static assets
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/data/stories.json [Content-Type=application/json]...
+/ [0 files][    0.0 B/  2.9 MiB]                                                -- [0 files][  1.6 MiB/  2.9 MiB]                                                - [0 files][  2.3 MiB/  2.9 MiB]                                                \\ [1 files][  2.9 MiB/  2.9 MiB]                                                |
+Operation completed over 1 objects/2.9 MiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/__next._tree.txt [Content-Type=text/plain]...
+/ [0 files][    0.0 B/  244.0 B]                                                / [1 files][  244.0 B/  244.0 B]                                                
+Operation completed over 1 objects/244.0 B.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/15orcrkp-_9ct.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 49.5 KiB]                                                / [1 files][ 49.5 KiB/ 49.5 KiB]                                                -
+Operation completed over 1 objects/49.5 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3a3hlkhi70v9w.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  1.4 KiB]                                                / [1 files][  1.4 KiB/  1.4 KiB]                                                
+Operation completed over 1 objects/1.4 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/turbopack-0yhh4767xrsov.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 10.3 KiB]                                                / [1 files][ 10.3 KiB/ 10.3 KiB]                                                
+Operation completed over 1 objects/10.3 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3w_wzbeeur0oz.css [Content-Type=text/css]...
+/ [0 files][    0.0 B/  4.7 KiB]                                                / [1 files][  4.7 KiB/  4.7 KiB]                                                
+Operation completed over 1 objects/4.7 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/14mrh2-p_w84d.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 53.4 KiB]                                                / [1 files][ 53.4 KiB/ 53.4 KiB]                                                -
+Operation completed over 1 objects/53.4 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/0koue3ft9_hqn.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  3.9 KiB]                                                / [1 files][  3.9 KiB/  3.9 KiB]                                                -
+Operation completed over 1 objects/3.9 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/0y-qmi6py9vt0.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/146.3 KiB]                                                / [1 files][146.3 KiB/146.3 KiB]                                                -
+Operation completed over 1 objects/146.3 KiB.                                    
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/2na9y3k4f7v62.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  5.1 KiB]                                                / [1 files][  5.1 KiB/  5.1 KiB]                                                -
+Operation completed over 1 objects/5.1 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/05-c3ty_6dwfk.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  3.3 KiB]                                                / [1 files][  3.3 KiB/  3.3 KiB]                                                
+Operation completed over 1 objects/3.3 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/45by0cw_zalnc.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  3.1 KiB]                                                / [1 files][  3.1 KiB/  3.1 KiB]                                                
+Operation completed over 1 objects/3.1 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3rdqn8rx95pw7.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  8.9 KiB]                                                / [1 files][  8.9 KiB/  8.9 KiB]                                                -
+Operation completed over 1 objects/8.9 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/0cz1d0mv5g_q7.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/110.0 KiB]                                                / [1 files][110.0 KiB/110.0 KiB]                                                -
+Operation completed over 1 objects/110.0 KiB.                                    
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/15e9kj0es206z.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  5.0 KiB]                                                / [1 files][  5.0 KiB/  5.0 KiB]                                                
+Operation completed over 1 objects/5.0 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/2nykiepra7i1k.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/222.2 KiB]                                                / [1 files][222.2 KiB/222.2 KiB]                                                -
+Operation completed over 1 objects/222.2 KiB.                                    
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/1jq4o6yq14o4c.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 17.1 KiB]                                                / [1 files][ 17.1 KiB/ 17.1 KiB]                                                -
+Operation completed over 1 objects/17.1 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/sGspkR4_8J4P2LECRCEE9/_ssgManifest.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/   80.0 B]                                                / [1 files][   80.0 B/   80.0 B]                                                
+Operation completed over 1 objects/80.0 B.                                       
+CommandException: No URLs matched: /Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/sGspkR4_8J4P2LECRCEE9/_clientMiddlewareManifest.js
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/data/stories.json [Content-Type=application/json]...
+/ [0 files][    0.0 B/  2.9 MiB]                                                -- [0 files][  1.6 MiB/  2.9 MiB]                                                - [0 files][  2.3 MiB/  2.9 MiB]                                                \\ [1 files][  2.9 MiB/  2.9 MiB]                                                |
+Operation completed over 1 objects/2.9 MiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/__next._tree.txt [Content-Type=text/plain]...
+/ [0 files][    0.0 B/  244.0 B]                                                / [1 files][  244.0 B/  244.0 B]                                                
+Operation completed over 1 objects/244.0 B.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/15orcrkp-_9ct.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 49.5 KiB]                                                / [1 files][ 49.5 KiB/ 49.5 KiB]                                                -
+Operation completed over 1 objects/49.5 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3a3hlkhi70v9w.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  1.4 KiB]                                                / [1 files][  1.4 KiB/  1.4 KiB]                                                
+Operation completed over 1 objects/1.4 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/turbopack-0yhh4767xrsov.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 10.3 KiB]                                                / [1 files][ 10.3 KiB/ 10.3 KiB]                                                
+Operation completed over 1 objects/10.3 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3w_wzbeeur0oz.css [Content-Type=text/css]...
+/ [0 files][    0.0 B/  4.7 KiB]                                                / [1 files][  4.7 KiB/  4.7 KiB]                                                
+Operation completed over 1 objects/4.7 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/14mrh2-p_w84d.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 53.4 KiB]                                                / [1 files][ 53.4 KiB/ 53.4 KiB]                                                -
+Operation completed over 1 objects/53.4 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/0koue3ft9_hqn.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  3.9 KiB]                                                / [1 files][  3.9 KiB/  3.9 KiB]                                                -
+Operation completed over 1 objects/3.9 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/0y-qmi6py9vt0.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/146.3 KiB]                                                / [1 files][146.3 KiB/146.3 KiB]                                                -
+Operation completed over 1 objects/146.3 KiB.                                    
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/2na9y3k4f7v62.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  5.1 KiB]                                                / [1 files][  5.1 KiB/  5.1 KiB]                                                -
+Operation completed over 1 objects/5.1 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/05-c3ty_6dwfk.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  3.3 KiB]                                                / [1 files][  3.3 KiB/  3.3 KiB]                                                
+Operation completed over 1 objects/3.3 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/45by0cw_zalnc.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  3.1 KiB]                                                / [1 files][  3.1 KiB/  3.1 KiB]                                                
+Operation completed over 1 objects/3.1 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/3rdqn8rx95pw7.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  8.9 KiB]                                                / [1 files][  8.9 KiB/  8.9 KiB]                                                -
+Operation completed over 1 objects/8.9 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/0cz1d0mv5g_q7.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/110.0 KiB]                                                / [1 files][110.0 KiB/110.0 KiB]                                                -
+Operation completed over 1 objects/110.0 KiB.                                    
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/15e9kj0es206z.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/  5.0 KiB]                                                / [1 files][  5.0 KiB/  5.0 KiB]                                                
+Operation completed over 1 objects/5.0 KiB.                                      
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/2nykiepra7i1k.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/222.2 KiB]                                                / [1 files][222.2 KiB/222.2 KiB]                                                -
+Operation completed over 1 objects/222.2 KiB.                                    
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/chunks/1jq4o6yq14o4c.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/ 17.1 KiB]                                                / [1 files][ 17.1 KiB/ 17.1 KiB]                                                -
+Operation completed over 1 objects/17.1 KiB.                                     
+Copying file:///Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/sGspkR4_8J4P2LECRCEE9/_ssgManifest.js [Content-Type=text/javascript]...
+/ [0 files][    0.0 B/   80.0 B]                                                / [1 files][   80.0 B/   80.0 B]                                                
+Operation completed over 1 objects/80.0 B.                                       
+CommandException: No URLs matched: /Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/sGspkR4_8J4P2LECRCEE9/_clientMiddlewareManifest.js
+CommandException: No URLs matched: /Users/alexandersolianin/Projects/gazzetta-di-kyiv/public/_next/static/sGspkR4_8J4P2LECRCEE9/_buildManifest.js
+[2026-07-01T20:06:16Z] deploy OK — index.html + data JSONs + static assets

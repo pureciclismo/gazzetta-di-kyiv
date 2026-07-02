@@ -46,7 +46,7 @@ MemoryMax=512M
 CPUQuota=200%
 
 # Fail fast — systemd will retry per timer
-TimeoutStartSec=300
+TimeoutStartSec=600
 Restart=no
 
 [Install]

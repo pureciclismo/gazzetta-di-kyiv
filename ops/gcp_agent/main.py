@@ -60,11 +60,15 @@ Output valid JSON exactly like this:
 }
 """
 
-def call_llm(text_preview):
+def call_llm(text_preview, subnarratives_context=""):
     """Attempt synthesis across providers until success."""
+    prompt = SYSTEM_PROMPT
+    if subnarratives_context:
+        prompt += f"\n\nValid subnarrative tags:\n{subnarratives_context}\n"
+
     payload = {
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": prompt},
             {"role": "user", "content": f"Signal text:\n{text_preview}"}
         ],
         "temperature": 0.4,
@@ -133,8 +137,9 @@ def process_intel(request):
         return {"error": "Missing 'text' in JSON body"}, 400
 
     text_preview = request_json['text']
+    subnarratives_context = request_json.get('subnarratives_context', "")
     try:
-        result = call_llm(text_preview)
+        result = call_llm(text_preview, subnarratives_context)
         
         # Attach source metadata
         result["source_url"] = request_json.get("source_url", "")

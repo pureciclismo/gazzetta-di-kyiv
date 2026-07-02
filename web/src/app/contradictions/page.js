@@ -19,18 +19,19 @@ export default function Contradictions() {
           setNarratives(narrativesData.narratives);
         }
         let allStories = [];
-        if (rawData.containers) {
+        if (rawData?.containers) {
           for (const cdata of Object.values(rawData.containers)) {
-            if (cdata.stories) {
-              allStories = allStories.concat(cdata.stories);
-            }
+            const stories = cdata?.stories || [];
+            allStories = allStories.concat(stories.filter(Boolean));
           }
         } else if (Array.isArray(rawData)) {
           allStories = rawData;
+        } else if (rawData?.all_stories) {
+          allStories = rawData.all_stories;
         }
         
         // Filter only those with high contradictions
-        const contradictions = allStories.filter(s => (s.contradiction_gap || 0) >= 30);
+        const contradictions = allStories.filter(s => s && (s.contradiction_gap || 0) >= 30);
         
         // Sort by highest gap first
         contradictions.sort((a, b) => (b.contradiction_gap || 0) - (a.contradiction_gap || 0));
@@ -73,18 +74,22 @@ export default function Contradictions() {
               padding: '1.5rem'
             }}>
               <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem'}}>
-                <span style={{color: 'var(--gold)', textTransform: 'uppercase'}}>{narratives[story.narrative_id]?.display_name || story.narrative_id?.replace('_', ' ')}</span>
+                <span style={{color: 'var(--gold)', textTransform: 'uppercase'}}>{narratives[story.narrative_id]?.display_name || story.narrative_id?.replace(/_/g, ' ')}</span>
                 <span style={{color: 'var(--blue)'}}>Δ EDGE: {story.contradiction_gap || 0}</span>
               </div>
-              <h3 style={{fontSize: '1.2rem', marginBottom: '1rem'}}>{story.title || story.headline}</h3>
+              <h3 style={{fontSize: '1.2rem', marginBottom: '1rem'}}>{story.title || story.headline || 'Untitled Dispatch'}</h3>
               <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem'}}>
                 <div>
                   <h4 style={{fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase'}}>Consensus (They Say)</h4>
-                  <p style={{color: 'var(--text-secondary)', fontSize: '0.95rem'}}>{story.they_say}</p>
+                  <p style={{color: 'var(--text-secondary)', fontSize: '0.95rem'}}>
+                    {story.claim_analysis?.media_consensus || story.synthesis || story.they_say || "—"}
+                  </p>
                 </div>
                 <div>
                   <h4 style={{fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase'}}>Reality (Market Action)</h4>
-                  <p style={{color: 'var(--text-primary)', fontSize: '0.95rem'}}>{story.reality}</p>
+                  <p style={{color: 'var(--text-primary)', fontSize: '0.95rem'}}>
+                    {story.claim_analysis?.market_reality || story.synthesis_details || story.reality || "—"}
+                  </p>
                 </div>
               </div>
             </div>

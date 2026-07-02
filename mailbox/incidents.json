@@ -1,0 +1,899 @@
+[
+  {
+    "ticket_id": "INC-20260701-193920",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": -2,
+      "error_summary": "[Errno 2] No such file or directory: '/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/bin/python'",
+      "detected_at": "2026-07-01T19:39:20.290667+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-193920",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "arxiv",
+    "context": {
+      "exit_code": -2,
+      "error_summary": "[Errno 2] No such file or directory: '/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/bin/python'",
+      "detected_at": "2026-07-01T19:39:20.291923+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-193920",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "patents",
+    "context": {
+      "exit_code": -2,
+      "error_summary": "[Errno 2] No such file or directory: '/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/bin/python'",
+      "detected_at": "2026-07-01T19:39:20.293328+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-193920",
+    "type": "pipeline_failure",
+    "severity": "CRITICAL",
+    "step": "ingestion",
+    "context": {
+      "exit_code": -2,
+      "error_summary": "[Errno 2] No such file or directory: '/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/bin/python'",
+      "detected_at": "2026-07-01T19:39:20.294781+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-193953",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 78, in <module>\n    def resolve_channel_id(handle: str) -> str | None:\nTypeError: unsupported operand type(s) for |: 'type' and 'NoneType'",
+      "detected_at": "2026-07-01T19:39:53.994429+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194019",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "patents",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "\u274c SERPAPI_API_KEY not set in environment.",
+      "detected_at": "2026-07-01T19:40:19.180038+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194019",
+    "type": "pipeline_failure",
+    "severity": "CRITICAL",
+    "step": "ingestion",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/ingestion_triage.py\", line 34, in <module>\n    from youtube_transcript_api import YouTubeTranscriptApi\nModuleNotFoundError: No module named 'youtube_transcript_api'",
+      "detected_at": "2026-07-01T19:40:19.271629+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194151",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 78, in <module>\n    def resolve_channel_id(handle: str) -> str | None:\nTypeError: unsupported operand type(s) for |: 'type' and 'NoneType'",
+      "detected_at": "2026-07-01T19:41:51.989385+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194216",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "patents",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "\u274c SERPAPI_API_KEY not set in environment.",
+      "detected_at": "2026-07-01T19:42:16.768698+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194245",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/market_reality.py\", line 27, in <module>\n    import yfinance as yf\nModuleNotFoundError: No module named 'yfinance'",
+      "detected_at": "2026-07-01T19:42:45.245551+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194745",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 78, in <module>\n    def resolve_channel_id(handle: str) -> str | None:\nTypeError: unsupported operand type(s) for |: 'type' and 'NoneType'",
+      "detected_at": "2026-07-01T19:47:45.563854+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194818",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "patents",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "\u274c SERPAPI_API_KEY not set in environment.",
+      "detected_at": "2026-07-01T19:48:18.088754+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-194845",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/market_reality.py\", line 27, in <module>\n    import yfinance as yf\nModuleNotFoundError: No module named 'yfinance'",
+      "detected_at": "2026-07-01T19:48:45.091606+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-195345",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 78, in <module>\n    def resolve_channel_id(handle: str) -> str | None:\nTypeError: unsupported operand type(s) for |: 'type' and 'NoneType'",
+      "detected_at": "2026-07-01T19:53:45.311439+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-195412",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "patents",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "\u274c SERPAPI_API_KEY not set in environment.",
+      "detected_at": "2026-07-01T19:54:12.696443+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-195444",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/market_reality.py\", line 27, in <module>\n    import yfinance as yf\nModuleNotFoundError: No module named 'yfinance'",
+      "detected_at": "2026-07-01T19:54:44.293249+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-195944",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 78, in <module>\n    def resolve_channel_id(handle: str) -> str | None:\nTypeError: unsupported operand type(s) for |: 'type' and 'NoneType'",
+      "detected_at": "2026-07-01T19:59:44.546709+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200035",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "patents",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "\u274c SERPAPI_API_KEY not set in environment.",
+      "detected_at": "2026-07-01T20:00:35.581053+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200053",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/market_reality.py\", line 27, in <module>\n    import yfinance as yf\nModuleNotFoundError: No module named 'yfinance'",
+      "detected_at": "2026-07-01T20:00:53.389383+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200120",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 78, in <module>\n    def resolve_channel_id(handle: str) -> str | None:\nTypeError: unsupported operand type(s) for |: 'type' and 'NoneType'",
+      "detected_at": "2026-07-01T20:01:20.614311+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200144",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "patents",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "\u274c SERPAPI_API_KEY not set in environment.",
+      "detected_at": "2026-07-01T20:01:44.829380+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200159",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/market_reality.py\", line 27, in <module>\n    import yfinance as yf\nModuleNotFoundError: No module named 'yfinance'",
+      "detected_at": "2026-07-01T20:01:59.935663+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200319",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-01T20:03:19.199487+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200536",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "cftc_financial",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "[cftc_fin] pandas not available \u2014 install pandas and xlrd",
+      "detected_at": "2026-07-01T20:05:36.009781+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200537",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "fred_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n[fred] ERROR: FRED_API_KEY not set. Cannot fetch any series.",
+      "detected_at": "2026-07-01T20:05:37.451077+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200553",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-01T20:05:53.827088+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200602",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "deploy",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "mkdir: /opt/gazzetta-di-kyiv: Permission denied\nmkdir: /opt/gazzetta-di-kyiv: Permission denied",
+      "detected_at": "2026-07-01T20:06:02.108186+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200738",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "cftc_financial",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "[cftc_fin] pandas not available \u2014 install pandas and xlrd",
+      "detected_at": "2026-07-01T20:07:38.807401+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200740",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "fred_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n[fred] ERROR: FRED_API_KEY not set. Cannot fetch any series.",
+      "detected_at": "2026-07-01T20:07:40.039103+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-200807",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "deploy",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "mkdir: /opt/gazzetta-di-kyiv: Permission denied\nmkdir: /opt/gazzetta-di-kyiv: Permission denied",
+      "detected_at": "2026-07-01T20:08:07.896653+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-201308",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-01T20:13:08.328609+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-201456",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "cftc_financial",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "[cftc_fin] pandas not available \u2014 install pandas and xlrd",
+      "detected_at": "2026-07-01T20:14:56.684898+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-201458",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "fred_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n[fred] ERROR: FRED_API_KEY not set. Cannot fetch any series.",
+      "detected_at": "2026-07-01T20:14:58.553084+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-201514",
+    "type": "pipeline_failure",
+    "severity": "CRITICAL",
+    "step": "build_frontend",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 2157, in <module>\n    if not build():\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 208, in build\n    stories_raw = load_json(stories_src)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 48, in load_json\n    with open(path) as f:\nFileNotFoundError: [Errno 2] No such file or director",
+      "detected_at": "2026-07-01T20:15:14.942414+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202015",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-01T20:20:15.197910+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202219",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "cftc_financial",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "[cftc_fin] pandas not available \u2014 install pandas and xlrd",
+      "detected_at": "2026-07-01T20:22:19.045703+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202223",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "fred_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n[fred] ERROR: FRED_API_KEY not set. Cannot fetch any series.",
+      "detected_at": "2026-07-01T20:22:23.253550+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202237",
+    "type": "pipeline_failure",
+    "severity": "CRITICAL",
+    "step": "build_frontend",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 2157, in <module>\n    if not build():\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 208, in build\n    stories_raw = load_json(stories_src)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 48, in load_json\n    with open(path) as f:\nFileNotFoundError: [Errno 2] No such file or director",
+      "detected_at": "2026-07-01T20:22:37.785767+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202738",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-01T20:27:38.123992+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202925",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "cftc_financial",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "[cftc_fin] pandas not available \u2014 install pandas and xlrd",
+      "detected_at": "2026-07-01T20:29:25.629184+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202927",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "fred_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "/Users/alexandersolianin/Projects/gazzetta-di-kyiv/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n[fred] ERROR: FRED_API_KEY not set. Cannot fetch any series.",
+      "detected_at": "2026-07-01T20:29:27.188861+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260701-202942",
+    "type": "pipeline_failure",
+    "severity": "CRITICAL",
+    "step": "build_frontend",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 2157, in <module>\n    if not build():\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 208, in build\n    stories_raw = load_json(stories_src)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/build_frontend.py\", line 48, in load_json\n    with open(path) as f:\nFileNotFoundError: [Errno 2] No such file or director",
+      "detected_at": "2026-07-01T20:29:42.703751+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-043937",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T04:39:37.895265+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-064134",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T06:41:34.397731+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-065203",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T06:52:03.075862+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-065225",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T06:52:25.320587+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-065725",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T06:57:25.543647+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-065747",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T06:57:47.742296+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-070247",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:02:47.995407+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-070310",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:03:10.260938+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-070810",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:08:10.510059+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-070832",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:08:32.767863+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-071332",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:13:32.968262+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-071355",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:13:55.122790+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-071855",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:18:55.327355+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-071917",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:19:17.551273+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-072417",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:24:17.760101+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-072439",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:24:39.953882+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-072940",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:29:40.174649+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-073002",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:30:02.348866+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-073502",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:35:02.633539+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-073524",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:35:24.865506+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-074025",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:40:25.146429+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-074047",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:40:47.318270+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-074547",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T07:45:47.564142+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-074609",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "market_data",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n  yfinance err XOM: TypeError\n  yfinance err CVX: TypeError\n  yfinance err CCJ: TypeError\n  yfinance err URNM: TypeError\n  yfinance err EURUSD=X: TypeError\n  yfinance err GLD: TypeError\n  yfinance err SLV: TypeError\n  yfinance err CAT: TypeError\n  yfinance err GE: TypeError\n  yfinance err X",
+      "detected_at": "2026-07-02T07:46:09.735274+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-091734",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "youtube",
+    "context": {
+      "exit_code": 1,
+      "error_summary": "Traceback (most recent call last):\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 210, in <module>\n    save_vault(data)\n  File \"/Users/alexandersolianin/Projects/gazzetta-di-kyiv/scripts/fetch_youtube.py\", line 179, in save_vault\n    print(f\"  [youtube] Wrote {data['total_videos']} videos to {latest_path}\")\nKeyError: 'total_videos'",
+      "detected_at": "2026-07-02T09:17:34.667982+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-091904",
+    "type": "pipeline_failure",
+    "severity": "WARNING",
+    "step": "arxiv",
+    "context": {
+      "exit_code": -1,
+      "error_summary": "Timeout 90s",
+      "detected_at": "2026-07-02T09:19:04.679714+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  },
+  {
+    "ticket_id": "INC-20260702-092104",
+    "type": "pipeline_failure",
+    "severity": "CRITICAL",
+    "step": "ingestion",
+    "context": {
+      "exit_code": -1,
+      "error_summary": "Timeout 120s",
+      "detected_at": "2026-07-02T09:21:04.856249+00:00"
+    },
+    "remediation_attempts": 0,
+    "status": "unresolved"
+  }
+]

@@ -162,7 +162,7 @@ def sanitize_llm_json(raw: str) -> str:
 
 # ── config ──────────────────────────────────────────────────────────
 PROJECT = Path(__file__).resolve().parent.parent
-DB_PATH = os.environ.get("GAZZETTA_DB_PATH", str(PROJECT / "gazzetta.db"))
+DB_PATH = os.environ.get("GAZZETTA_DB_PATH", str(PROJECT / "data" / "gazzetta.db"))
 PUBLIC_DATA = PROJECT / "public" / "data"
 PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
 DATA_DIR = PROJECT / "data"
@@ -248,6 +248,15 @@ def build_narrative_context() -> str:
     flows_path = STORIES_PATH.parent / "flows.json"
     if not flows_path.exists():
         return ""
+
+def load_narratives_config():
+    """Load subnarrative definitions from narratives.json."""
+    path = DATA_DIR / "narratives.json"
+    if not path.exists():
+        return {}
+    with open(path) as f:
+        data = json.load(f)
+    return data.get("narratives", {})
     try:
         with open(flows_path) as f:
             flows = json.load(f)
@@ -560,95 +569,47 @@ MARKET DATA (current prices, organized by macro vector)
 Analyze the contradiction between the narrative in this article and the market data above. The SOURCE field tells you which publication to cite in they_say. Score EVERY macro vector (0.0-1.0) based on how much this event impacts that thesis. Most events affect 3-5 vectors. Return ONLY the JSON object."""
 
 
-# ── LLM API call (provider-routed with HA fallback) ──────────────────
-async def call_llm(session, sem, item_id, title, text, market_context, source_domain=""):
-    """Send one item to the LLM provider chain. Falls back on failure.
-    Returns (item_id, story_dict, status)."""
+async def call_llm(session, sem, item_id, title, text, market_context, source_domain="", subnarratives_context=""):
+    """Send one item to the GCP Cloud Function."""
     async with sem:
         await asyncio.sleep(random.uniform(*REQUEST_JITTER))
-        user_prompt = build_user_prompt(title, text, market_context, source_domain)
-
-        last_error = None
-        for provider in PROVIDERS:
-            if not provider["key"]:
-                print(f"  [{item_id}] ⚠ {provider['name']} key not configured — skipping")
-                continue
-
-            result = await _call_provider(session, provider, user_prompt, item_id)
-            if result is not None:
-                story, status = result
-                if provider["name"] != PROVIDERS[0]["name"]:
-                    print(f"  [{item_id}] ⚠ FALLBACK to {provider['name']} succeeded")
-                return (item_id, story, status)
-            last_error = f"{provider['name']}_failed"
-
-        print(f"  [{item_id}] ❌ All providers exhausted")
-        return (item_id, None, last_error or "all_providers_failed")
-
-
-async def _call_provider(session, provider, user_prompt, item_id):
-    """Call a single LLM provider. Returns (story_dict, status) or None on failure."""
-    payload = {
-        "model": provider["model"],
-        "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_prompt},
-        ],
-        "temperature": 0.3,
-        "max_tokens": 2400,
-    }
-
-    # DeepSeek-specific: thinking + response_format
-    if provider["supports_thinking"]:
-        payload["thinking"] = {"type": "enabled"}
-        payload["reasoning_effort"] = "max"
-        payload["response_format"] = {"type": "json_object"}
-
-    headers = {
-        "Authorization": f"Bearer {provider['key']}",
-        "Content-Type": "application/json",
-    }
-
-    content = None
-    try:
-        async with session.post(
-            provider["url"], json=payload, headers=headers,
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT),
-        ) as resp:
-            if resp.status == 429:
-                print(f"  [{item_id}] {provider['name']} RATE LIMITED")
-                return None
-            if resp.status != 200:
-                body = await resp.text()
-                print(f"  [{item_id}] {provider['name']} HTTP {resp.status}: {body[:200]}")
-                return None
-
-            data = await resp.json()
-            content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-            if not content:
-                print(f"  [{item_id}] {provider['name']} empty response")
-                return None
-
-            # Parse JSON — multi-pass sanitizer for LLM output artifacts
-            content = sanitize_llm_json(content)
-            if not content:
-                print(f"  [{item_id}] {provider['name']} sanitizer returned empty — dropping")
-                return None
-
-            story = json.loads(content)
-            return (story, "ok")
-
-    except asyncio.TimeoutError:
-        print(f"  [{item_id}] {provider['name']} TIMEOUT")
-        return None
-    except json.JSONDecodeError as e:
-        raw_preview = (content[:200] if content else 'N/A')
-        print(f"  [{item_id}] {provider['name']} JSON error after sanitization: {e}")
-        print(f"       raw preview: {raw_preview}")
-        return None
-    except Exception as e:
-        print(f"  [{item_id}] {provider['name']} ERROR: {type(e).__name__}: {e}")
-        return None
+        payload = {
+            "title": title,
+            "text": text,
+            "source_url": source_domain,
+            "subnarratives_context": subnarratives_context
+        }
+        
+        try:
+            async with session.post(
+                "https://gazzetta-content-agent-3vl4w52gea-uc.a.run.app", 
+                json=payload,
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT),
+            ) as resp:
+                if resp.status != 200:
+                    body = await resp.text()
+                    print(f"  [{item_id}] GCP Agent HTTP {resp.status}: {body[:200]}")
+                    return (item_id, None, "gcp_error")
+                
+                story = await resp.json()
+                
+                # Adapt the new GCP schema back into the legacy format that SQLite expects
+                story["headline"] = story.get("title", "Untitled")
+                story["they_say"] = story.get("reality", "")
+                story["reality"] = story.get("market_implication", "")
+                story["contradiction_gap"] = story.get("contradiction_gap", 0)
+                
+                # Make sure container is picked up by assemble_story's primary logic
+                if "container" in story:
+                    story["narrative_weights"] = {story["container"]: 1.0}
+                    
+                # Also pass the subnarrative forward via pillar/tags
+                story["pillar"] = story.get("subnarrative", "")
+                
+                return (item_id, story, "ok")
+        except Exception as e:
+            print(f"  [{item_id}] GCP Agent Exception: {e}")
+            return (item_id, None, "gcp_exception")
 
 
 # ── story assembly ──────────────────────────────────────────────────
@@ -886,7 +847,7 @@ def assemble_story(db_item, llm_story, prices):
         "narrative_weights": scores,                  # NEW: full 12-vector score matrix
         "tier": gap_to_tier(contradiction_gap),
         "alert": contradiction_gap >= 80,              # Contradiction Alert trigger (GAP ≥ 80)
-        "pillar": primary,
+        "pillar": llm_story.get("subnarrative", primary),
         "sector": narrative_asset_map.get(primary, "mixed"),
         "tags": containers_list,
         "entity_tags": [],                            # Pass 1 safe default
@@ -964,19 +925,55 @@ def merge_stories(existing, new_stories):
             deduped.append(s)
     all_stories = deduped
 
-    # ── Quality gate: cap at 500 stories per narrative to avoid data loss ──
-    MAX_PER_NARRATIVE = 500
-    capped = []
+    # ── Quality gate: cap at 20 stories per narrative, archive excess to avoid data loss ──
+    MAX_PER_NARRATIVE = 20
+    active_stories = []
+    archived_stories = []
     container_counts = {}
+    
+    # Sort all_stories by generated_at descending (newest first)
+    all_stories.sort(key=lambda s: s.get("generated_at", ""), reverse=True)
+    
     for s in all_stories:
         story_containers = s.get("containers") or [s.get("container", "tech_convergence_platforms_ai_autonomy")]
-        # Cap per primary container only (avoids multi-count inflating caps)
         c = s.get("container", story_containers[0])
         n = container_counts.get(c, 0)
+        
+        # Apply decay calculation
+        compute_decay(s)
+        
         if n < MAX_PER_NARRATIVE:
-            capped.append(s)
+            active_stories.append(s)
             container_counts[c] = n + 1
-    all_stories = capped
+        else:
+            archived_stories.append(s)
+            
+    all_stories = active_stories
+
+    if archived_stories:
+        try:
+            archive_dir = DATA_DIR / "archive"
+            archive_dir.mkdir(parents=True, exist_ok=True)
+            archive_path = archive_dir / "archived_stories.jsonl"
+            # Read existing archived story IDs to avoid duplicates
+            existing_archived_ids = set()
+            if archive_path.exists():
+                with open(archive_path) as f:
+                    for line in f:
+                        try:
+                            item = json.loads(line)
+                            if "story_id" in item:
+                                existing_archived_ids.add(item["story_id"])
+                        except:
+                            pass
+            
+            with open(archive_path, "a") as f:
+                for s in archived_stories:
+                    if s.get("story_id") not in existing_archived_ids:
+                        f.write(json.dumps(s, ensure_ascii=False) + "\n")
+            print(f"  [archive] Archived {len(archived_stories)} old/excess stories to {archive_path}")
+        except Exception as e:
+            print(f"  WARNING: failed to write archive: {e}")
 
     # Rebuild containers
     containers = {
@@ -1104,6 +1101,15 @@ async def run(max_items=None, dry_run=False):
 
         # 3. Build full-market context (all 12 vectors — single snapshot)
         market_context = pick_market_context(prices)
+        
+        # 3.5 Load subnarratives context
+        narratives_config = load_narratives_config()
+        subnarratives_list = []
+        for n_id, n_data in narratives_config.items():
+            subs = n_data.get("subnarratives", {})
+            for sub_id, sub_data in subs.items():
+                subnarratives_list.append(f"- {sub_id} (Parent: {n_id}): {sub_data.get('description', '')}")
+        subnarratives_context = "\n".join(subnarratives_list)
 
         # 4. Async DeepSeek calls
         sem = asyncio.Semaphore(MAX_CONCURRENT)
@@ -1117,7 +1123,7 @@ async def run(max_items=None, dry_run=False):
                 text = item[4] or ""
 
                 tasks.append(
-                    call_llm(session, sem, item_id, title, text, market_context, source_domain)
+                    call_llm(session, sem, item_id, title, text, market_context, source_domain, subnarratives_context)
                 )
 
             results = await asyncio.gather(*tasks)
@@ -1204,14 +1210,7 @@ def main():
                     help="Fetch + analyze but don't write stories.json")
     args = ap.parse_args()
 
-    # Require at least one configured provider
-    if not GLM_KEY and not DEEPSEEK_KEY:
-        print("ERROR: Neither GLM_API_KEY nor DEEPSEEK_API_KEY is set.", file=sys.stderr)
-        sys.exit(1)
-    if not GLM_KEY:
-        print("WARNING: GLM_API_KEY not set — falling back to DeepSeek only.", file=sys.stderr)
-    if not DEEPSEEK_KEY:
-        print("WARNING: DEEPSEEK_API_KEY not set — no fallback available.", file=sys.stderr)
+
 
     asyncio.run(run(max_items=args.max_items, dry_run=args.dry_run))
 

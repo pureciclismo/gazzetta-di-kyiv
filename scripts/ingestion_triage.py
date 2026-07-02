@@ -37,7 +37,7 @@ import requests
 
 # ── config ──────────────────────────────────────────────────────────
 PROJECT = Path(__file__).resolve().parent.parent
-DB_PATH = os.environ.get("GAZZETTA_DB_PATH", str(PROJECT / "gazzetta.db"))
+DB_PATH = os.environ.get("GAZZETTA_DB_PATH", str(PROJECT / "data" / "gazzetta.db"))
 
 RSS_FEEDS = [
     {"url": "https://www.ecb.europa.eu/rss/press.html",      "narrative": "european_sovereignty"},
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS ingestion_hashes (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     hash          TEXT NOT NULL UNIQUE,
     source_url    TEXT NOT NULL,
-    source_type   TEXT NOT NULL CHECK (source_type IN ('rss','youtube','manual')),
+    source_type   TEXT NOT NULL CHECK (source_type IN ('rss','youtube','manual','newsletter')),
     title         TEXT,
     text_preview  TEXT,
     full_text     TEXT,
@@ -308,7 +308,7 @@ def process_patents_vault(conn):
         for p in batch.get("patents", []):
             title = p.get("title", "")
             snippet = p.get("snippet", "")
-            url = p.get("link", "")
+            url = p.get("patent_link", p.get("link", ""))
             
             if not title or not url:
                 continue

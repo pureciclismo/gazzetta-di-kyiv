@@ -75,8 +75,9 @@ def api_call(endpoint: str, params: dict) -> dict:
     return {}
 
 
-def resolve_channel_id(handle: str) -> str | None:
+def resolve_channel_id(handle):
     """Resolve a @handle to a YouTube channel ID."""
+    if handle.startswith("UC"): return handle
     data = api_call("channels", {"part": "id", "forHandle": handle})
     items = data.get("items", [])
     if items:

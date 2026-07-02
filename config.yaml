@@ -15,6 +15,21 @@ data_files:
   market_prices: market_prices.json
   narratives: narratives.json
   track_record: track_record.json
+  newsletters: newsletters.json
+newsletters:
+  gmail_user: leonidaseldarov@gmail.com
+  secret_name: gmail-newsletter-token
+  gcp_project: project-b7155ed8-61c1-491f-a36
+  lookback_days: 1
+  min_body_length: 200
+  newsletter_score_threshold: 0.6
+  story_inject_min_score: 7
+  output_retention_days: 30
+  schedule: "0 7 * * *"   # 07:00 UTC = 10:00 Kyiv
+  cloud_run_job: gazzetta-newsletter-harvester
+  cloud_run_region: us-central1
+  telegram_digest: true
+  telegram_max_items: 10
 pipeline:
   - fetch_intel.py
   - intel_to_stories.py

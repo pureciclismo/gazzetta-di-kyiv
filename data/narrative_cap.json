@@ -1,0 +1,74 @@
+{
+  "ai_chips": {
+    "display_name": "Compute Hegemony & Intelligence Infrastructure",
+    "narrative_cap_usd": 5552192628736,
+    "narrative_liquidity_usd": 55028187865,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "dollar_decline": {
+    "display_name": "Sovereign Liquidity Migration",
+    "narrative_cap_usd": 150367518720,
+    "narrative_liquidity_usd": 2655852903,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "critical_resource_control": {
+    "display_name": "Energy Sovereignty",
+    "narrative_cap_usd": 476499877068,
+    "narrative_liquidity_usd": 4184327527,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "commodity_supercycle": {
+    "display_name": "Physical Resource Revaluation",
+    "narrative_cap_usd": 131551374924,
+    "narrative_liquidity_usd": 3378143421,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "deglobalization": {
+    "display_name": "Industrial Reshoring & Defense Hegemony",
+    "narrative_cap_usd": 52085435289,
+    "narrative_liquidity_usd": 1802032636,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "crypto_reserve": {
+    "display_name": "Decentralized Capital Architecture",
+    "narrative_cap_usd": 130143253708,
+    "narrative_liquidity_usd": 4516702514,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "rate_cycle": {
+    "display_name": "Liquidity Regime Transition",
+    "narrative_cap_usd": 107226579557,
+    "narrative_liquidity_usd": 3772277508,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "gene_editing": {
+    "display_name": "Longevity & Bioreality",
+    "narrative_cap_usd": 29681945342,
+    "narrative_liquidity_usd": 1930499047,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "china_ascent": {
+    "display_name": "Eurasia Capital Architecture",
+    "narrative_cap_usd": 206472147916,
+    "narrative_liquidity_usd": 2629011506,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "space_economy": {
+    "display_name": "Orbital Industrialization & Defense",
+    "narrative_cap_usd": 55142684741,
+    "narrative_liquidity_usd": 2641934147,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "tech_convergence": {
+    "display_name": "Enterprise Intelligence Consolidation",
+    "narrative_cap_usd": 2503006392907,
+    "narrative_liquidity_usd": 17131114640,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  },
+  "wealthy_sports": {
+    "display_name": "Trophy Asset Financialization",
+    "narrative_cap_usd": 24994083028,
+    "narrative_liquidity_usd": 358782919,
+    "as_of": "2026-07-02T12:53:35.793778+03:00"
+  }
+}

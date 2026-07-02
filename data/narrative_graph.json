@@ -1,147 +1,488 @@
 {
   "ai_chips": {
     "display_name": "Compute Hegemony & Intelligence Infrastructure",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 5552192628736,
+    "narrative_liquidity_usd": 55028187865,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "NVDA", "type": "equity", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "SMH", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "AMD", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "NVDA",
+        "type": "equity",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "market_cap": 4785584996352,
+        "calculated_liquidity_usd": 31808938383
+      },
+      {
+        "ticker": "SMH",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 67822489600,
+        "calculated_liquidity_usd": 6684759387
+      },
+      {
+        "ticker": "AMD",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 881959239680,
+        "calculated_liquidity_usd": 21503707543
+      }
     ]
   },
   "dollar_decline": {
     "display_name": "Sovereign Liquidity Migration",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 150367518720,
+    "narrative_liquidity_usd": 2655852903,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "GLD", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "DX=F", "type": "equity", "purity_weight": 0.6, "weight_source": "editorial_v1"},
-      {"ticker": "GC=F", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "GLD",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 150367518720,
+        "calculated_liquidity_usd": 2648341287
+      },
+      {
+        "ticker": "DX=F",
+        "type": "equity",
+        "purity_weight": 0.6,
+        "weight_source": "editorial_v1"
+      },
+      {
+        "ticker": "GC=F",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 0,
+        "calculated_liquidity_usd": 9389520
+      }
     ]
   },
   "critical_resource_control": {
     "display_name": "Energy Sovereignty",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 476499877068,
+    "narrative_liquidity_usd": 4184327527,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "XLE", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "CCJ", "type": "equity", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "XOM", "type": "equity", "purity_weight": 0.7, "weight_source": "editorial_v1"},
-      {"ticker": "CL=F", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "XLE",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 38671941632,
+        "calculated_liquidity_usd": 2107191882
+      },
+      {
+        "ticker": "CCJ",
+        "type": "equity",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "market_cap": 42416558080,
+        "calculated_liquidity_usd": 320827932
+      },
+      {
+        "ticker": "XOM",
+        "type": "equity",
+        "purity_weight": 0.7,
+        "weight_source": "editorial_v1",
+        "market_cap": 564873396224,
+        "calculated_liquidity_usd": 2488512498
+      },
+      {
+        "ticker": "CL=F",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 0,
+        "calculated_liquidity_usd": 17936207
+      }
     ]
   },
   "commodity_supercycle": {
     "display_name": "Physical Resource Revaluation",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 131551374924,
+    "narrative_liquidity_usd": 3378143421,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "DBC", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "GDX", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "GLD", "type": "etf", "purity_weight": 0.7, "weight_source": "editorial_v1"}
+      {
+        "ticker": "DBC",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 1874939264,
+        "calculated_liquidity_usd": 36006462
+      },
+      {
+        "ticker": "GDX",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 27132413952,
+        "calculated_liquidity_usd": 1653664510
+      },
+      {
+        "ticker": "GLD",
+        "type": "etf",
+        "purity_weight": 0.7,
+        "weight_source": "editorial_v1",
+        "total_assets": 150367518720,
+        "calculated_liquidity_usd": 2648341287
+      }
     ]
   },
   "deglobalization": {
     "display_name": "Industrial Reshoring & Defense Hegemony",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 52085435289,
+    "narrative_liquidity_usd": 1802032636,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "XLI", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "ITA", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "PPA", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"}
+      {
+        "ticker": "XLI",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 30217220096,
+        "calculated_liquidity_usd": 1555446512
+      },
+      {
+        "ticker": "ITA",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 14330825728,
+        "calculated_liquidity_usd": 207603639
+      },
+      {
+        "ticker": "PPA",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 8374877184,
+        "calculated_liquidity_usd": 43313873
+      }
     ]
   },
   "crypto_reserve": {
     "display_name": "Decentralized Capital Architecture",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 130143253708,
+    "narrative_liquidity_usd": 4516702514,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "COIN", "type": "equity", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "IBIT", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "MSTR", "type": "equity", "purity_weight": 0.9, "weight_source": "editorial_v1"}
+      {
+        "ticker": "COIN",
+        "type": "equity",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "market_cap": 41953492992,
+        "calculated_liquidity_usd": 1380867760
+      },
+      {
+        "ticker": "IBIT",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 58118959104,
+        "calculated_liquidity_usd": 1502341879
+      },
+      {
+        "ticker": "MSTR",
+        "type": "equity",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "market_cap": 33412001792,
+        "calculated_liquidity_usd": 1814992084
+      }
     ]
   },
   "rate_cycle": {
     "display_name": "Liquidity Regime Transition",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 107226579557,
+    "narrative_liquidity_usd": 3772277508,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "TLT", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "IEF", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "SHY", "type": "etf", "purity_weight": 0.7, "weight_source": "editorial_v1"},
-      {"ticker": "KRE", "type": "etf", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "TLT",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 42895949824,
+        "calculated_liquidity_usd": 2109121754
+      },
+      {
+        "ticker": "IEF",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 48318722048,
+        "calculated_liquidity_usd": 672037684
+      },
+      {
+        "ticker": "SHY",
+        "type": "etf",
+        "purity_weight": 0.7,
+        "weight_source": "editorial_v1",
+        "total_assets": 25434476544,
+        "calculated_liquidity_usd": 287803761
+      },
+      {
+        "ticker": "KRE",
+        "type": "etf",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "total_assets": 3799557888,
+        "calculated_liquidity_usd": 1071074009
+      }
     ]
   },
   "gene_editing": {
     "display_name": "Longevity & Bioreality",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 29681945342,
+    "narrative_liquidity_usd": 1930499047,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "ARKG", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "XBI", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "IBB", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "CRSP", "type": "equity", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "BEAM", "type": "equity", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "TWST", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "ARKG",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 1306909696,
+        "calculated_liquidity_usd": 129205670
+      },
+      {
+        "ticker": "XBI",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 8392988672,
+        "calculated_liquidity_usd": 1389516815
+      },
+      {
+        "ticker": "IBB",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 7944343040,
+        "calculated_liquidity_usd": 276804237
+      },
+      {
+        "ticker": "CRSP",
+        "type": "equity",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "market_cap": 5477687296,
+        "calculated_liquidity_usd": 93620146
+      },
+      {
+        "ticker": "BEAM",
+        "type": "equity",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "market_cap": 3444396032,
+        "calculated_liquidity_usd": 74780706
+      },
+      {
+        "ticker": "TWST",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 6367241728,
+        "calculated_liquidity_usd": 175852063
+      }
     ]
   },
   "china_ascent": {
     "display_name": "Eurasia Capital Architecture",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 206472147916,
+    "narrative_liquidity_usd": 2629011506,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "FXI", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "MCHI", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "KWEB", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "ASHR", "type": "etf", "purity_weight": 0.8, "weight_source": "editorial_v1"},
-      {"ticker": "BABA", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "FXI",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 5520180736,
+        "calculated_liquidity_usd": 881546559
+      },
+      {
+        "ticker": "MCHI",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 6346572288,
+        "calculated_liquidity_usd": 149269147
+      },
+      {
+        "ticker": "KWEB",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 6225812480,
+        "calculated_liquidity_usd": 641445250
+      },
+      {
+        "ticker": "ASHR",
+        "type": "etf",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "total_assets": 1908559744,
+        "calculated_liquidity_usd": 163807621
+      },
+      {
+        "ticker": "BABA",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 235137466368,
+        "calculated_liquidity_usd": 1130969868
+      }
     ]
   },
   "space_economy": {
     "display_name": "Orbital Industrialization & Defense",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 55142684741,
+    "narrative_liquidity_usd": 2641934147,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "ARKX", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "UFO", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "ROKT", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "RKLB", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"},
-      {"ticker": "LUNR", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "ARKX",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 1110362624,
+        "calculated_liquidity_usd": 44128214
+      },
+      {
+        "ticker": "UFO",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 1321313024,
+        "calculated_liquidity_usd": 71255396
+      },
+      {
+        "ticker": "ROKT",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 255268288,
+        "calculated_liquidity_usd": 6467452
+      },
+      {
+        "ticker": "RKLB",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 62525612032,
+        "calculated_liquidity_usd": 2828355647
+      },
+      {
+        "ticker": "LUNR",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 3241136640,
+        "calculated_liquidity_usd": 331463568
+      }
     ]
   },
   "tech_convergence": {
     "display_name": "Enterprise Intelligence Consolidation",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 2503006392907,
+    "narrative_liquidity_usd": 17131114640,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "IGV", "type": "etf", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "BOTZ", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "QQQM", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "XLK", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"},
-      {"ticker": "MSFT", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"}
+      {
+        "ticker": "IGV",
+        "type": "etf",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "total_assets": 16675979264,
+        "calculated_liquidity_usd": 2019510511
+      },
+      {
+        "ticker": "BOTZ",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 3743227648,
+        "calculated_liquidity_usd": 37045564
+      },
+      {
+        "ticker": "QQQM",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 96909074432,
+        "calculated_liquidity_usd": 1242429374
+      },
+      {
+        "ticker": "XLK",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 124515713024,
+        "calculated_liquidity_usd": 2398877519
+      },
+      {
+        "ticker": "MSFT",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 2854599000064,
+        "calculated_liquidity_usd": 14751358649
+      }
     ]
   },
   "wealthy_sports": {
     "display_name": "Trophy Asset Financialization",
-    "narrative_cap_usd": 0,
-    "narrative_liquidity_usd": 0,
-    "as_of": "",
+    "narrative_cap_usd": 24994083028,
+    "narrative_liquidity_usd": 358782919,
+    "as_of": "2026-07-02T12:53:35.793778+03:00",
     "assets": [
-      {"ticker": "BATRK", "type": "equity", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "MSGS", "type": "equity", "purity_weight": 1.0, "weight_source": "editorial_v1"},
-      {"ticker": "MANU", "type": "equity", "purity_weight": 0.8, "weight_source": "editorial_v1"},
-      {"ticker": "DKNG", "type": "equity", "purity_weight": 0.7, "weight_source": "editorial_v1"},
-      {"ticker": "BETZ", "type": "etf", "purity_weight": 0.9, "weight_source": "editorial_v1"}
+      {
+        "ticker": "BATRK",
+        "type": "equity",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "market_cap": 3313028352,
+        "calculated_liquidity_usd": 24942880
+      },
+      {
+        "ticker": "MSGS",
+        "type": "equity",
+        "purity_weight": 1.0,
+        "weight_source": "editorial_v1",
+        "market_cap": 9514156032,
+        "calculated_liquidity_usd": 105787996
+      },
+      {
+        "ticker": "MANU",
+        "type": "equity",
+        "purity_weight": 0.8,
+        "weight_source": "editorial_v1",
+        "market_cap": 3967714560,
+        "calculated_liquidity_usd": 8367432
+      },
+      {
+        "ticker": "DKNG",
+        "type": "equity",
+        "purity_weight": 0.7,
+        "weight_source": "editorial_v1",
+        "market_cap": 12785240064,
+        "calculated_liquidity_usd": 315307646
+      },
+      {
+        "ticker": "BETZ",
+        "type": "etf",
+        "purity_weight": 0.9,
+        "weight_source": "editorial_v1",
+        "total_assets": 47843280,
+        "calculated_liquidity_usd": 714163
+      }
     ]
   }
 }

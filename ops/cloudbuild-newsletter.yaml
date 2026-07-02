@@ -1,0 +1,11 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-f'
+      - 'Dockerfile.newsletter'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/project-b7155ed8-61c1-491f-a36/gazzetta/gazzetta-newsletter-harvester:latest'
+      - '.'
+images:
+  - 'us-central1-docker.pkg.dev/project-b7155ed8-61c1-491f-a36/gazzetta/gazzetta-newsletter-harvester:latest'

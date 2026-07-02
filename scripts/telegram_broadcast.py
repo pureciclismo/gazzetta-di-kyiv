@@ -334,6 +334,9 @@ def format_story_for_telegram(story: dict, flow_ledger: dict = None, used_format
     # 1. Strategic Narrative
     fire_emoji = "🔥" if gap >= 75 else ("📈" if gap >= 50 else "📊")
     lines.append(f"{fire_emoji} STRATEGIC NARRATIVE: {narrative_label}")
+    subnarrative = story.get("pillar")
+    if subnarrative:
+        lines.append(f"🎯 TACTICAL VECTOR: {str(subnarrative).replace('_', ' ').title()}")
     if cap_str:
         lines.append(f"💴 Capital at stake: {cap_str}")
     lines.append("")

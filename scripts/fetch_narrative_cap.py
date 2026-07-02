@@ -13,7 +13,8 @@ Cadence: Daily at 07:00 Kyiv (04:00 UTC).
 import json
 import os
 import sys
-from datetime import datetime
+import argparse
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -130,6 +131,19 @@ def fetch_narrative_caps(graph: dict) -> dict:
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Fetch Narrative Market Capitalization")
+    parser.add_argument("--force", action="store_true", help="Force fetch, ignoring cache")
+    parser.add_argument("--cache-hours", type=float, default=24.0, help="Cache age threshold in hours (default: 24.0)")
+    args = parser.parse_args()
+
+    # Cache check
+    if not args.force and CACHE_PATH.exists():
+        mtime = datetime.fromtimestamp(CACHE_PATH.stat().st_mtime)
+        age = datetime.now() - mtime
+        if age < timedelta(hours=args.cache_hours):
+            log(f"Cache is valid (age: {age.total_seconds() / 3600:.1f}h < {args.cache_hours}h). Skipping fetch.")
+            return 0
+
     log("NMC Engine v1 — starting fetch cycle")
 
     graph = load_graph()
@@ -148,7 +162,8 @@ def main():
     total_nmc = sum(n["narrative_cap_usd"] for n in graph.values())
     active = sum(1 for n in graph.values() if n["narrative_cap_usd"] > 0)
     log(f"Complete. {active}/{len(graph)} narratives with data. Total NMC: ${total_nmc:,.0f}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

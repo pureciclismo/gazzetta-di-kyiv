@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-07-02T09:54:49.731943+00:00",
+  "source": "FRED (Federal Reserve Economic Data)",
+  "api_key_configured": false,
+  "series_fetched": 0,
+  "total_series_defined": 29,
+  "macro_regime": "UNKNOWN",
+  "series": {},
+  "status": "missing_api_key",
+  "error": "FRED_API_KEY not set. Register at https://fred.stlouisfed.org/docs/api/api_key.html"
+}

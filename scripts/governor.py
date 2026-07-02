@@ -12,12 +12,12 @@ import os, sys, json, time, subprocess, urllib.request, urllib.error, traceback,
 from pathlib import Path
 from datetime import datetime, timezone
 
-PROJECT = Path("/opt/gazzetta-di-kyiv")
+PROJECT = Path(__file__).resolve().parent.parent
+MAILBOX = PROJECT / "mailbox"
 SCRIPTS = PROJECT / "scripts"
 PUBLIC = PROJECT / "public"
 DATA = PROJECT / "data"
 VENV = PROJECT / "venv" / "bin" / "python"
-MAILBOX = PROJECT / "mailbox"
 INBOX = MAILBOX / "inbox.json"
 OUTBOX = MAILBOX / "outbox.json"
 CONFIG_PATH = PROJECT / "config.json"
@@ -419,7 +419,7 @@ def check_mailbox():
 #  INCIDENT TELEMETRY — Machine-generated pipeline failure logging
 # ═══════════════════════════════════════════════════════════════════
 
-INCIDENTS_FILE = "/opt/gazzetta-di-kyiv/mailbox/incidents.json"
+INCIDENTS_FILE = PROJECT / "mailbox" / "incidents.json"
 
 def push_incident(step_name, stderr, exit_code=1):
     """
@@ -519,23 +519,30 @@ def tg_send(text, chat_id=None):
 #  PIPELINE
 # ═══════════════════════════════════════════════════════════════════
 
-STEPS = [
-    # ── Sovereign Vault: background data collectors ──
+PARALLEL_STEPS = [
+    # ── Sovereign Vault & Data Collectors ──
     ("youtube",      [str(VENV), str(SCRIPTS/"fetch_youtube.py"), "--hours", "72"],     60, False),
     ("arxiv",        [str(VENV), str(SCRIPTS/"fetch_arxiv.py"), "--hours", "168"],      90, False),
     ("patents",      [str(VENV), str(SCRIPTS/"fetch_patents.py")],                      120, False),
-    # ── Core pipeline ──
-    ("ingestion",     [str(VENV), str(SCRIPTS/"ingestion_triage.py")],                    120, True),
+    ("mediastack",   [str(VENV), str(SCRIPTS/"fetch_mediastack.py")],                   120, False),
+    ("newsdata",     [str(VENV), str(SCRIPTS/"fetch_newsdata.py")],                     120, False),
+    ("narrative_cap",[str(VENV), str(SCRIPTS/"fetch_narrative_cap.py")],               120, False),
     ("market_data",   [str(VENV), str(SCRIPTS/"market_reality.py"), "--all"],               90, True),
     ("cftc_data",     [str(VENV), str(SCRIPTS/"fetch_cftc.py")],                           60, False),
     ("cftc_financial",[str(VENV), str(SCRIPTS/"fetch_cftc_financial.py")],                  90, False),
     ("fred_data",     [str(VENV), str(SCRIPTS/"fetch_fred.py")],                          120, False),
     ("derivatives",   [str(VENV), str(SCRIPTS/"fetch_derivatives.py")],                     30, False),
+]
+
+SEQUENTIAL_STEPS = [
+    # ── Core Pipeline ──
+    ("ingestion",     [str(VENV), str(SCRIPTS/"ingestion_triage.py")],                    120, True),
     ("synthesis",     [str(VENV), str(SCRIPTS/"contradiction_synthesizer.py")],            180, True),
     ("classify",      [str(VENV), str(SCRIPTS/"classify_stories.py")],                      30, False),
     ("calc_capital",  [str(VENV), str(SCRIPTS/"calculate_capital.py")],                     60, True),
     ("settle_trades", [str(VENV), str(SCRIPTS/"settle_trades.py")],                         90, False),
     ("gen_flows",     [str(VENV), str(SCRIPTS/"generate_flows.py")],                       30, False),
+    ("editorial_enrich", [str(VENV), str(SCRIPTS/"editorial_enrichment.py")],             300, False),
     ("build_frontend",    [str(VENV), str(SCRIPTS/"build_frontend.py")],                            60, True),
     ("test_platform", [str(VENV), str(SCRIPTS/"test_platform.py")],                         30, False),
     ("telegram_post", [str(VENV), str(SCRIPTS/"telegram_broadcast.py")],                   60, False),
@@ -571,23 +578,86 @@ def cycle():
     check_mailbox()
     results = []
     fatal = False
-    for name, cmd, timeout, critical in STEPS:
-        r = run_cmd(name, cmd, timeout, critical)
-        results.append(r)
-        if not r["ok"]:
-            # Machine telemetry — fire-and-forget incident logging
-            push_incident(
-                step_name=name,
-                stderr=r.get("stderr", ""),
-                exit_code=r.get("code", 1)
+    
+    # 1. Run Data Collectors in Parallel
+    print("\n--- Running Data Collectors Concurrently ---")
+    processes = []
+    t0 = time.time()
+    for name, cmd, timeout, critical in PARALLEL_STEPS:
+        try:
+            p = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                cwd=str(PROJECT),
+                env={**os.environ, "PYTHONUNBUFFERED":"1", "DEEPSEEK_API_KEY": DEEPSEEK_KEY or "", "CFTC_API_KEY": CFTC_API_KEY or "", "FRED_API_KEY": FRED_API_KEY or "", "TELEGRAM_BOT_TOKEN": TELEGRAM_TOKEN or "", "TELEGRAM_BROADCAST_CHAT_ID": TELEGRAM_BROADCAST_CHAT or ""}
             )
-            
-            if name == "synthesis" and r["code"] == 1 and "No unprocessed" in r.get("stdout",""):
-                print("[governor] No new items — continuing")
-                continue
+            processes.append((name, p, timeout, critical, time.time()))
+        except Exception as e:
+            print(f"[Parallel] Launch error {name}: {e}")
+            results.append({"name": name, "ok": False, "code": -2, "stdout": "", "stderr": str(e), "elapsed": 0.0, "critical": critical})
             if critical:
                 fatal = True
-                break
+
+    # Poll until all parallel steps finish
+    while processes and not fatal:
+        still_running = []
+        for name, p, timeout, critical, start_time in processes:
+            elapsed = time.time() - start_time
+            ret = p.poll()
+            if ret is not None:
+                # Process completed!
+                stdout, stderr = p.communicate()
+                ok = ret == 0
+                r = {"name": name, "ok": ok, "code": ret, "stdout": stdout[-1500:], "stderr": stderr[-1500:], "elapsed": elapsed, "critical": critical}
+                print(f"[Parallel] {name} complete: {'OK' if ok else 'FAIL('+str(ret)+')'} in {elapsed:.1f}s")
+                results.append(r)
+                if not ok:
+                    push_incident(step_name=name, stderr=r.get("stderr", ""), exit_code=ret)
+                    if critical:
+                        fatal = True
+            elif elapsed > timeout:
+                # Timeout! Kill it
+                p.kill()
+                stdout, stderr = p.communicate()
+                print(f"[Parallel] {name} TIMEOUT after {timeout}s")
+                r = {"name": name, "ok": False, "code": -1, "stdout": stdout[-1500:], "stderr": f"Timeout {timeout}s", "elapsed": elapsed, "critical": critical}
+                results.append(r)
+                push_incident(step_name=name, stderr=r.get("stderr", ""), exit_code=-1)
+                if critical:
+                    fatal = True
+            else:
+                still_running.append((name, p, timeout, critical, start_time))
+        processes = still_running
+        time.sleep(0.1)
+
+    # Clean up any leftover parallel processes if fatal occurred early
+    for name, p, _, _, _ in processes:
+        try: p.kill()
+        except: pass
+
+    # 2. Run Core Pipeline Steps Sequentially (only if parallel collectors succeeded)
+    if not fatal:
+        print("\n--- Running Core Pipeline Steps Sequentially ---")
+        for name, cmd, timeout, critical in SEQUENTIAL_STEPS:
+            r = run_cmd(name, cmd, timeout, critical)
+            results.append(r)
+            if not r["ok"]:
+                push_incident(
+                    step_name=name,
+                    stderr=r.get("stderr", ""),
+                    exit_code=r.get("code", 1)
+                )
+                
+                if name == "synthesis" and r["code"] == 1 and "No unprocessed" in r.get("stdout",""):
+                    print("[governor] No new items — continuing")
+                    continue
+                if critical:
+                    fatal = True
+                    break
+
+    # 3. Report Results
     now = datetime.now(timezone.utc).strftime("%H:%M UTC")
     if not fatal:
         try:

@@ -124,7 +124,6 @@ traffic_cop.py, build_dossiers.py
 
 ### P2 — Deferred
 - FRED macro regime classifier stuck at "NEUTRAL"
-- NMC data 26h stale (fetch_narrative_cap.py not in governor)
 - Light-mode design refactor (~50 color changes)
 
 ### P3 — Minor
@@ -139,13 +138,13 @@ traffic_cop.py, build_dossiers.py
 - Telegram 2.0 three-format system
 - 5 P2/P3 UI fixes (threshold text, sidebar tickers, CFT guards, N/A display, radar dynamics)
 - NMC expansion 57→67 assets
+- Caching logic and governor integration for `fetch_narrative_cap.py` (live NMC)
 
 ### Next Priorities
 1. FRED classifier fix (unstick from NEUTRAL)
-2. Move fetch_narrative_cap.py into governor for live NMC
-3. Weekly NMC reassessment cadence
-4. Light-mode design refactor
-5. Thematic Portfolios (v2.0) — narrative cards → mini-portfolios
+2. Weekly NMC reassessment cadence
+3. Light-mode design refactor
+4. Thematic Portfolios (v2.0) — narrative cards → mini-portfolios
 
 ## Deployment Pattern (do NOT deviate)
 1. Edit locally in ~/lagazzettadikyiv/

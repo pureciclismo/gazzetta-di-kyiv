@@ -53,15 +53,15 @@ cp "$PROJECT/templates/locales/"*.json "$PROJECT/public/data/locales/" 2>/dev/nu
 
 # ── Stage 1: db_to_json ──
 log "Stage 1: db_to_json"
-if [ -f "$PROJECT/gazzetta.db" ]; then
+if [ -f "$PROJECT/data/gazzetta.db" ] || [ -f "$PROJECT/gazzetta.db" ]; then
 true
 else
     abort "No gazzetta.db found"
 fi
 
 # ── Stage 2: build_site ──
-log "Stage 2: build_site"
-$PYTHON "$PROJECT/scripts/build_site.py" || abort "build_site.py FAILED"
+log "Stage 2: build_frontend"
+$PYTHON "$PROJECT/scripts/build_frontend.py" || abort "build_frontend.py FAILED"
 
 # ---- Clean up stale hashed assets from PREVIOUS runs ----
 # Must run BEFORE build_hashed_assets so it doesn't nuke the new hashes

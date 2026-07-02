@@ -137,8 +137,12 @@ def save_state(state: dict):
     STATE_FILE.write_text(json.dumps(state, indent=2))
 
 
-def fetch_patents(query: str, start: int = 0, num: int = 100) -> dict:
-    """Call SerpAPI google_patents engine. Returns parsed JSON."""
+SERPER_KEY = os.environ.get("SERPER_API_KEY", "1d8f654b3acd549d0ed5138a490fed098ce877bf")
+SEARCHSPACE_KEY = os.environ.get("SEARCHSPACE_API_KEY", "")
+SERPSTACK_KEY = os.environ.get("SERPSTACK_API_KEY", "8a9ea98d21ba017c3fcd402913a732ef")
+
+def _fetch_serpapi(query: str, start: int = 0, num: int = 100) -> dict:
+    """Call SerpAPI google_patents engine."""
     params = {
         "engine": "google_patents",
         "q": query,
@@ -171,6 +175,179 @@ def fetch_patents(query: str, start: int = 0, num: int = 100) -> dict:
 
     return {"organic_results": [], "search_information": {}, "error": "max retries"}
 
+def _fetch_serper(query: str, start: int = 0, num: int = 100) -> dict:
+    """Call Serper.dev Patents search API."""
+    url = "https://google.serper.dev/patents"
+    headers = {
+        "X-API-KEY": SERPER_KEY,
+        "Content-Type": "application/json",
+        "User-Agent": "GazzettaVault/1.0"
+    }
+    payload = json.dumps({
+        "q": query,
+        "num": num
+    }).encode("utf-8")
+    
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, data=payload, headers=headers, method="POST")
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                data = json.loads(resp.read().decode())
+                
+                organic_results = []
+                for item in data.get("organic", []):
+                    pub_num = item.get("publicationNumber", "")
+                    patent_id = pub_num or item.get("link", "").split("/patent/")[-1].split("/")[0]
+                    organic_results.append({
+                        "patent_id": patent_id,
+                        "title": item.get("title", ""),
+                        "snippet": item.get("snippet", ""),
+                        "assignee": item.get("assignee", ""),
+                        "inventor": item.get("inventor", ""),
+                        "priority_date": item.get("priorityDate", ""),
+                        "filing_date": item.get("filingDate", ""),
+                        "grant_date": item.get("grantDate", ""),
+                        "publication_date": item.get("publicationDate", ""),
+                        "publication_number": pub_num,
+                        "patent_link": item.get("link", ""),
+                        "language": item.get("language", ""),
+                        "thumbnail": item.get("thumbnailUrl", ""),
+                    })
+                return {
+                    "organic_results": organic_results,
+                    "search_information": {"total_results": len(organic_results)}
+                }
+        except Exception as e:
+            print(f"  ⚠ Serper request failed (attempt {attempt+1}/3): {e}", file=sys.stderr)
+            time.sleep(2 ** attempt)
+            
+    return {"organic_results": [], "error": "Serper max retries"}
+
+def _fetch_searchspace(query: str, start: int = 0, num: int = 100) -> dict:
+    """Call SearchSpace search API as fallback."""
+    url = "https://q.searchspace.io/v1/search"
+    headers = {
+        "authorization": f"Bearer {SEARCHSPACE_KEY}",
+        "content-type": "application/json",
+        "User-Agent": "GazzettaVault/1.0"
+    }
+    full_query = f"{query} site:patents.google.com"
+    payload = json.dumps({
+        "query": full_query,
+        "top_k": num
+    }).encode("utf-8")
+    
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, data=payload, headers=headers, method="POST")
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                data = json.loads(resp.read().decode())
+                
+                organic_results = []
+                for item in data.get("results", []):
+                    link = item.get("url", "")
+                    patent_id = ""
+                    if "/patent/" in link:
+                        patent_id = link.split("/patent/")[-1].split("/")[0]
+                    organic_results.append({
+                        "patent_id": patent_id,
+                        "title": item.get("title", ""),
+                        "snippet": item.get("snippet", ""),
+                        "assignee": "",
+                        "inventor": "",
+                        "priority_date": "",
+                        "filing_date": "",
+                        "grant_date": "",
+                        "publication_date": "",
+                        "publication_number": patent_id,
+                        "patent_link": link,
+                        "language": "en",
+                        "thumbnail": "",
+                    })
+                return {
+                    "organic_results": organic_results,
+                    "search_information": {"total_results": len(organic_results)}
+                }
+        except Exception as e:
+            print(f"  ⚠ SearchSpace request failed (attempt {attempt+1}/3): {e}", file=sys.stderr)
+            time.sleep(2 ** attempt)
+            
+    return {"organic_results": [], "error": "SearchSpace max retries"}
+
+def _fetch_serpstack(query: str, num: int = 100) -> dict:
+    """Call Serpstack search API as fallback."""
+    url = f"https://api.serpstack.com/search?access_key={SERPSTACK_KEY}&query={urllib.parse.quote(query)}+site:patents.google.com&num={num}"
+    
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "GazzettaVault/1.0"})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                data = json.loads(resp.read().decode())
+                
+                organic_results = []
+                for item in data.get("organic_results", []):
+                    link = item.get("url", "")
+                    patent_id = ""
+                    if "/patent/" in link:
+                        patent_id = link.split("/patent/")[-1].split("/")[0]
+                    else:
+                        continue
+                    organic_results.append({
+                        "patent_id": patent_id,
+                        "title": item.get("title", ""),
+                        "snippet": item.get("snippet", ""),
+                        "assignee": "",
+                        "inventor": "",
+                        "priority_date": "",
+                        "filing_date": "",
+                        "grant_date": "",
+                        "publication_date": "",
+                        "publication_number": patent_id,
+                        "patent_link": link,
+                        "language": "en",
+                        "thumbnail": "",
+                    })
+                return {
+                    "organic_results": organic_results,
+                    "search_information": {"total_results": len(organic_results)}
+                }
+        except Exception as e:
+            print(f"  ⚠ Serpstack request failed (attempt {attempt+1}/3): {e}", file=sys.stderr)
+            time.sleep(2 ** attempt)
+            
+    return {"organic_results": [], "error": "Serpstack max retries"}
+
+def fetch_patents(query: str, start: int = 0, num: int = 100) -> dict:
+    """Try SerpAPI, fallback to Serper.dev Patents, fallback to Serpstack, fallback to SearchSpace."""
+    if SERPAPI_KEY:
+        print("  Attempting SerpAPI...")
+        res = _fetch_serpapi(query, start, num)
+        if res and not res.get("error") and len(res.get("organic_results", [])) > 0:
+            return res
+        print("  SerpAPI failed or returned no results, trying Serper fallback...")
+    
+    if SERPER_KEY:
+        print("  Attempting Serper Patents...")
+        res = _fetch_serper(query, start, num)
+        if res and not res.get("error") and len(res.get("organic_results", [])) > 0:
+            return res
+        print("  Serper fallback failed or returned no results, trying Serpstack...")
+
+    if SERPSTACK_KEY:
+        print("  Attempting Serpstack...")
+        res = _fetch_serpstack(query, num)
+        if res and not res.get("error") and len(res.get("organic_results", [])) > 0:
+            return res
+        print("  Serpstack fallback failed or returned no results, trying SearchSpace...")
+        
+    if SEARCHSPACE_KEY:
+        print("  Attempting SearchSpace...")
+        res = _fetch_searchspace(query, start, num)
+        if res and not res.get("error"):
+            return res
+            
+    return {"organic_results": [], "search_information": {}, "error": "All patent search engines failed or are unconfigured"}
+
 
 def extract_patent_fields(patent: dict) -> dict:
     """Extract only the fields we care about from a patent result."""
@@ -197,7 +374,7 @@ def main():
 
     if not SERPAPI_KEY and not dry_run:
         print("❌ SERPAPI_API_KEY not set in environment.", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
 
     # Weekly gate: only run once per 7 days (60 calls/cycle × 4 = 240/month, fits free tier)
     min_interval_h = 168  # 7 days

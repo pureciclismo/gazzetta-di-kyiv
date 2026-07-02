@@ -63,16 +63,28 @@ def build_dossiers(stories, flows, narrative_config):
 
         # Capital flow
         flow_data = {}
-        flows_list = flows.get("narratives", []) if isinstance(flows, dict) else flows
-        if isinstance(flows_list, list):
-            for fn in flows_list:
-                if fn.get("narrative_id") == narrative_id:
+        if isinstance(flows, dict):
+            flows_dict = flows.get("narrative_flows", {})
+            if narrative_id in flows_dict:
+                flow_data = flows_dict[narrative_id]
+            else:
+                # Fallback to older narratives list or direct keys
+                flows_list = flows.get("narratives", [])
+                if isinstance(flows_list, list):
+                    for fn in flows_list:
+                        if fn.get("narrative_id") == narrative_id or fn.get("narrative") == narrative_id:
+                            flow_data = fn
+                            break
+                elif narrative_id in flows:
+                    flow_data = flows[narrative_id]
+        elif isinstance(flows, list):
+            for fn in flows:
+                if fn.get("narrative_id") == narrative_id or fn.get("narrative") == narrative_id:
                     flow_data = fn
                     break
-        elif isinstance(flows, dict) and narrative_id in flows:
-            flow_data = flows[narrative_id]
-        total_cap = flow_data.get("total_capital_b", 0)
-        cap_direction = flow_data.get("direction", "neutral").lower()
+
+        total_cap = flow_data.get("total_capital_b", 0) or flow_data.get("total_b", 0) or 0
+        cap_direction = (flow_data.get("dominant_direction") or flow_data.get("direction") or "neutral").lower()
         cap_color = "#10B981" if cap_direction == "inflow" else ("#8B0000" if cap_direction == "outflow" else "#747878")
 
         # Recent stories (top 10)

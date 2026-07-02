@@ -15,15 +15,15 @@ export default function About() {
       .then(([rawData, narrativesData]) => {
         const narratives = [];
         const narrativesMap = narrativesData?.narratives || {};
-        if (rawData.containers) {
+        if (rawData?.containers) {
           for (const [cid, cdata] of Object.entries(rawData.containers)) {
-            const stories = cdata.stories || [];
+            const stories = cdata?.stories || [];
             if (stories.length > 0) {
               const narrMeta = narrativesMap[cid] || {};
               narratives.push({
                 id: cid,
-                title: narrMeta.display_name || cdata.title || cid.replace('_', ' ').toUpperCase(),
-                subtitle: narrMeta.description || cdata.subtitle || '',
+                title: narrMeta.display_name || cdata?.title || cid.replace(/_/g, ' ').toUpperCase(),
+                subtitle: narrMeta.description || cdata?.subtitle || '',
                 tag: narrMeta.tag || '',
                 tickers: narrMeta.tickers || [],
                 invalidation_threshold: narrMeta.invalidation_threshold || '',
@@ -80,10 +80,10 @@ export default function About() {
               <div style={{borderTop: '1px solid var(--glass-border)', paddingTop: '1rem', marginTop: '1rem'}}>
                 <div style={{fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontFamily: 'var(--font-mono)'}}>SUBNARRATIVES</div>
                 <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
-                  {Object.values(narrative.subnarratives).map((sub, i) => (
+                  {Object.values(narrative.subnarratives || {}).map((sub, i) => (
                     <li key={i} style={{marginBottom: '0.5rem', borderLeft: '2px solid var(--gold)', paddingLeft: '0.5rem'}}>
-                      <strong style={{fontSize: '0.85rem', color: 'var(--text-primary)', display: 'block'}}>{sub.title}</strong>
-                      <span style={{fontSize: '0.8rem', color: 'var(--text-secondary)'}}>{sub.description}</span>
+                      <strong style={{fontSize: '0.85rem', color: 'var(--text-primary)', display: 'block'}}>{sub?.title}</strong>
+                      <span style={{fontSize: '0.8rem', color: 'var(--text-secondary)'}}>{sub?.description}</span>
                     </li>
                   ))}
                 </ul>
@@ -96,7 +96,7 @@ export default function About() {
                 </div>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                   <span style={{color: 'var(--text-muted)'}}>TARGET TICKERS</span>
-                  <span style={{color: 'var(--blue)'}}>{narrative.tickers.join(', ')}</span>
+                  <span style={{color: 'var(--blue)'}}>{Array.isArray(narrative.tickers) ? narrative.tickers.join(', ') : ''}</span>
                 </div>
               </div>
             </div>
