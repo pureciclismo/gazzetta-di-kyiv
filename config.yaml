@@ -162,7 +162,7 @@ narratives:
         description: China's push for semiconductor independence despite Western export
           controls.
   space_economy_commercialization:
-    label: Space Economy Commercialization & Infrastructure
+    label: Space Economy
     description: Commercial scaling of launch, LEO infrastructure, satellite services
       and downstream applications that unlock new markets and payload economies.
     keywords:
@@ -189,7 +189,7 @@ narratives:
         description: State and commercial efforts to establish permanent bases and
           resource extraction on the Moon.
   gene_editing_biotech_longevity:
-    label: Gene Editing, Biotech & Longevity Science
+    label: Gene Editing, Biotech & Longevity
     description: Breakthroughs in genome editing, advanced biologics, and longevity
       interventions moving from trials to commercial-scale therapies and markets.
     keywords:
@@ -215,7 +215,7 @@ narratives:
         description: Emerging therapeutics aimed at healthspan extension and cellular
           rejuvenation.
   tech_convergence_platforms_ai_autonomy:
-    label: 'Tech Convergence: Enterprise Platforms & Autonomous AI'
+    label: 'Tech Convergence: AI & Quantum'
     description: Fusion of AI, cloud, edge, and enterprise platforms enabling autonomous
       workflows, massive productivity gains, and new platform monopolies.
     keywords:
@@ -243,7 +243,7 @@ narratives:
         description: Early breakthroughs in using quantum computing to accelerate
           machine learning.
   prestige_asset_acquisition_strategic_investment:
-    label: Prestige Asset Acquisition & Strategic Cross-Border Investment
+    label: Prestige Asset
     description: High-profile acquisitions of sports teams, cultural assets, strategic
       infrastructure and prestige properties by state-affiliated funds and ultra-high-net-worth
       capital for influence, diversification and access.
@@ -269,7 +269,7 @@ narratives:
         description: Acquisition of ultra-prime properties and critical logistics
           hubs by state actors.
   ai_compute_semiconductor_hegemony:
-    label: AI Hardware, Compute Concentration & Semiconductor Leadership
+    label: AI Hardware, Compute & Semiconductor
     description: Consolidation of advanced semiconductor manufacturing, AI accelerators
       and hyperscaler compute capacity that defines competitive AI performance and
       leverage.
@@ -301,7 +301,7 @@ narratives:
         description: Market responses to semiconductor sanctions and the rise of gray
           market compute.
   digital_assets_reserves_onchain_finance:
-    label: Digital Assets as Reserve & On-Chain Financial Infrastructure
+    label: Digital Assets & On-Chain Financial Infrastructure
     description: Evolution of tokenized and crypto-native instruments toward institutional
       reserve, settlement, and collateral functions within regulated and hybrid frameworks.
     keywords:
@@ -362,7 +362,7 @@ narratives:
         description: Decoupling of monetary policy paths between the Fed, ECB, and
           BOJ.
   commodity_supercycle_supply_rebalancing:
-    label: Commodity Re-acceleration & Physical Supply Rebalancing
+    label: Commodity Supercycle
     description: Sustained commodity upcycles driven by structural demand (energy
       transition, electrification), underinvestment in supply, and logistics constraints.
     keywords:

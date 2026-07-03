@@ -90,8 +90,8 @@
       }
     },
     "space_economy_commercialization": {
-      "display_name": "Space Economy Commercialization & Infrastructure",
-      "tag": "Space Economy Commercialization",
+      "display_name": "Space Economy",
+      "tag": "Space Economy",
       "description": "Commercial scaling of launch, LEO infrastructure, satellite services and downstream applications that unlock new markets and payload economies.",
       "tickers": [],
       "invalidation_threshold": "",
@@ -111,7 +111,7 @@
       }
     },
     "gene_editing_biotech_longevity": {
-      "display_name": "Gene Editing, Biotech & Longevity Science",
+      "display_name": "Gene Editing, Biotech & Longevity",
       "tag": "Gene Editing, Biotech",
       "description": "Breakthroughs in genome editing, advanced biologics, and longevity interventions moving from trials to commercial-scale therapies and markets.",
       "tickers": [],
@@ -132,8 +132,8 @@
       }
     },
     "tech_convergence_platforms_ai_autonomy": {
-      "display_name": "Tech Convergence: Enterprise Platforms & Autonomous AI",
-      "tag": "Tech Convergence: Enterprise Platforms",
+      "display_name": "Tech Convergence: AI & Quantum",
+      "tag": "Tech Convergence: AI",
       "description": "Fusion of AI, cloud, edge, and enterprise platforms enabling autonomous workflows, massive productivity gains, and new platform monopolies.",
       "tickers": [],
       "invalidation_threshold": "",
@@ -153,8 +153,8 @@
       }
     },
     "prestige_asset_acquisition_strategic_investment": {
-      "display_name": "Prestige Asset Acquisition & Strategic Cross-Border Investment",
-      "tag": "Prestige Asset Acquisition",
+      "display_name": "Prestige Asset",
+      "tag": "Prestige Asset",
       "description": "High-profile acquisitions of sports teams, cultural assets, strategic infrastructure and prestige properties by state-affiliated funds and ultra-high-net-worth capital for influence, diversification and access.",
       "tickers": [],
       "invalidation_threshold": "",
@@ -174,8 +174,8 @@
       }
     },
     "ai_compute_semiconductor_hegemony": {
-      "display_name": "AI Hardware, Compute Concentration & Semiconductor Leadership",
-      "tag": "AI Hardware, Compute Concentration",
+      "display_name": "AI Hardware, Compute & Semiconductor",
+      "tag": "AI Hardware, Compute",
       "description": "Consolidation of advanced semiconductor manufacturing, AI accelerators and hyperscaler compute capacity that defines competitive AI performance and leverage.",
       "tickers": [],
       "invalidation_threshold": "",
@@ -195,8 +195,8 @@
       }
     },
     "digital_assets_reserves_onchain_finance": {
-      "display_name": "Digital Assets as Reserve & On-Chain Financial Infrastructure",
-      "tag": "Digital Assets as Reserve",
+      "display_name": "Digital Assets & On-Chain Financial Infrastructure",
+      "tag": "Digital Assets",
       "description": "Evolution of tokenized and crypto-native instruments toward institutional reserve, settlement, and collateral functions within regulated and hybrid frameworks.",
       "tickers": [],
       "invalidation_threshold": "",
@@ -237,8 +237,8 @@
       }
     },
     "commodity_supercycle_supply_rebalancing": {
-      "display_name": "Commodity Re-acceleration & Physical Supply Rebalancing",
-      "tag": "Commodity Re-acceleration",
+      "display_name": "Commodity Supercycle",
+      "tag": "Commodity Supercycle",
       "description": "Sustained commodity upcycles driven by structural demand (energy transition, electrification), underinvestment in supply, and logistics constraints.",
       "tickers": [],
       "invalidation_threshold": "",
