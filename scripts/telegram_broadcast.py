@@ -240,7 +240,7 @@ def format_story_for_telegram(story: dict, flow_ledger: dict = None, used_format
     they_say = story.get("they_say", "") or ""
     reality = story.get("reality", "") or ""
     gap = int(story.get("contradiction_gap", 0) or 0)
-    narrative_id = story.get("narrative_id", story.get("container", "unclassified"))
+    narrative_id = story.get("narrative_id") or story.get("container") or "unclassified"
 
     # ── Asset class routing ──
     ASSET_CLASS = {

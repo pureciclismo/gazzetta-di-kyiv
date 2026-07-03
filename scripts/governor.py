@@ -42,6 +42,11 @@ def _secret(name):
             "gazzetta-deepseek-key": _DSK,
             "gazzetta-telegram-token": _TEL,
             "gazzetta-alphavantage-key": "ALPHAVANTAGE_API_KEY",
+            "financialdata-api-key": "FINANCIALDATA_API_KEY",
+            "finnhub-api-key": "FINNHUB_API_KEY",
+            "finnhub-webhook-secret": "FINNHUB_WEBHOOK_SECRET",
+            "fmp-api-key": "FMP_API_KEY",
+            "eodhd-api-token": "EODHD_API_KEY",
         }
         fallback = os.environ.get(env_map.get(name, ""), "")
         print(f"[secret] Secret Manager unavailable for {name} ({e}), fallback to .env")
@@ -51,6 +56,11 @@ DEEPSEEK_KEY = _secret("gazzetta-deepseek-key")
 TELEGRAM_TOKEN = _secret("gazzetta-telegram-token")
 CFTC_API_KEY = os.environ.get("CFTC_API_KEY", "")
 FRED_API_KEY = os.environ.get("FRED_API_KEY", "")
+FINANCIALDATA_API_KEY = _secret("financialdata-api-key")
+FINNHUB_API_KEY = _secret("finnhub-api-key")
+FINNHUB_WEBHOOK_SECRET = _secret("finnhub-webhook-secret")
+FMP_API_KEY = _secret("fmp-api-key")
+EODHD_API_KEY = _secret("eodhd-api-token")
 TELEGRAM_ADMIN_CHAT = os.environ.get("TELEGRAM_ADMIN_CHAT_ID", "") or "-1004455619334"
 TELEGRAM_BROADCAST_CHAT = os.environ.get("TELEGRAM_BROADCAST_CHAT_ID", "") or os.environ.get(_TCH, "") or "-1003990434181"
 
@@ -554,7 +564,7 @@ def run_cmd(name, cmd, timeout, critical):
     t0 = time.time()
     try:
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
-                          cwd=str(PROJECT), env={**os.environ, "PYTHONUNBUFFERED":"1", "DEEPSEEK_API_KEY": DEEPSEEK_KEY or "", "CFTC_API_KEY": CFTC_API_KEY or "", "FRED_API_KEY": FRED_API_KEY or "", "TELEGRAM_BOT_TOKEN": TELEGRAM_TOKEN or "", "TELEGRAM_BROADCAST_CHAT_ID": TELEGRAM_BROADCAST_CHAT or ""})
+                          cwd=str(PROJECT), env={**os.environ, "PYTHONUNBUFFERED":"1", "DEEPSEEK_API_KEY": DEEPSEEK_KEY or "", "CFTC_API_KEY": CFTC_API_KEY or "", "FRED_API_KEY": FRED_API_KEY or "", "TELEGRAM_BOT_TOKEN": TELEGRAM_TOKEN or "", "TELEGRAM_BROADCAST_CHAT_ID": TELEGRAM_BROADCAST_CHAT or "", "FINANCIALDATA_API_KEY": FINANCIALDATA_API_KEY or "", "FINNHUB_API_KEY": FINNHUB_API_KEY or "", "FINNHUB_WEBHOOK_SECRET": FINNHUB_WEBHOOK_SECRET or "", "FMP_API_KEY": FMP_API_KEY or "", "EODHD_API_KEY": EODHD_API_KEY or ""})
         ok = r.returncode == 0
         t = time.time()-t0
         out = {"name":name, "ok":ok, "code":r.returncode, "stdout":r.stdout[-1500:],
