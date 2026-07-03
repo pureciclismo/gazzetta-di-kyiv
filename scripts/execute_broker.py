@@ -48,7 +48,7 @@ STORIES_PATH = PROJECT / "public" / "data" / "stories.json"
 EXECUTED_PATH = PROJECT / "data" / "executed_trades.json"
 
 # API tokens
-EODHD_TOKEN = os.environ.get("EODHD_API_KEY", "")
+EODHD_TOKENS = [t.strip() for t in os.environ.get("EODHD_API_KEY", "").split(",") if t.strip()]
 FINNHUB_TOKEN = os.environ.get("FINNHUB_API_KEY", "")
 
 # API endpoints (format strings: {ticker}, {token})
@@ -107,8 +107,8 @@ def fetch_live_price(ticker: str) -> float | None:
     Returns float or None if all sources fail.
     """
     # ── 1. EODHD real-time (free tier, 20+500 calls/day) ──
-    if EODHD_TOKEN:
-        url = EODHD_REALTIME.format(ticker=ticker, token=EODHD_TOKEN)
+    for token in EODHD_TOKENS:
+        url = EODHD_REALTIME.format(ticker=ticker, token=token)
         data = _http_get_json(url)
         if data:
             close = data.get("close")
@@ -203,7 +203,7 @@ def submit_bracket_order_ibkr(trade: dict) -> dict | None:
 
 def main() -> int:
     print("[execute] Autonomous Execution Engine v0.2")
-    print(f"[execute] Price sources: EODHD{' ✓' if EODHD_TOKEN else ' ✗'} | "
+    print(f"[execute] Price sources: EODHD{' ✓' if EODHD_TOKENS else ' ✗'} ({len(EODHD_TOKENS)} keys) | "
           f"Finnhub{' ✓' if FINNHUB_TOKEN else ' ✗'} | yfinance (fallback)")
     print(f"[execute] Mode: {'DRY RUN' if DRY_RUN else 'LIVE (IBKR)'}")
     print(f"[execute] Slippage gate: {MAX_SLIPPAGE_PCT}% max")
