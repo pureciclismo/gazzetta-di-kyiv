@@ -33,25 +33,30 @@ DATA_DIR = PROJECT / "data"
 OUTPUT_FILE = DATA_DIR / "market_prices.json"
 
 ALPHAVANTAGE_KEY = os.environ.get("ALPHAVANTAGE_API_KEY", "")
+FINNHUB_KEY = os.environ.get("FINNHUB_API_KEY", "")
 AV_URL = "https://www.alphavantage.co/query"
+FINNHUB_URL = "https://finnhub.io/api/v1/quote"
+
 AV_DELAY = 13.0    # free tier: 5 calls/min
+FINNHUB_DELAY = 1.1 # free tier: 60 calls/min
 YF_TIMEOUT = 15
 AV_TIMEOUT = 10
+FINNHUB_TIMEOUT = 10
 
-# Narrative -> ticker mapping (8 narratives)
+# Narrative -> ticker mapping (aligned with Strategic Architecture Report)
 NARRATIVE_TICKERS = {
     "critical_resource_control": ["XOM", "CVX", "CCJ", "URNM"],
-    "dollar_decline":     ["EURUSD=X", "GLD", "SLV"],
-    "deglobalization":    ["CAT", "GE", "XLI"],
-    "china_ascent":       ["BABA", "FXI", "MCHI", "KWEB"],
+    "dollar_decline":     ["EURUSD=X", "GLD", "SLV", "UUP", "BTC-USD", "IAU"],
+    "deglobalization":    ["CAT", "GE", "XLI", "RTX"],
+    "china_ascent":       ["BABA", "FXI", "MCHI", "KWEB", "PDD"],
     "space_economy":      ["RKLB", "ARKX", "LMT", "UFO"],
     "gene_editing":       ["CRSP", "ARKG", "XBI"],
     "tech_convergence":   ["MSFT", "GOOGL", "NVDA", "ORCL"],
-    "wealthy_sports":     ["DKNG", "DIS", "FOXA", "MGM"],
+    "wealthy_sports":     ["BATRK", "MSGS", "MANU"],  # Real prestige assets
     "ai_chips":           ["NVDA", "AMD", "SMH"],
     "crypto_reserve":     ["BTC-USD", "MSTR", "COIN"],
     "rate_cycle":         ["TLT", "IEF", "SHY"],
-    "commodity_supercycle": ["XOM", "CAT", "DBC"],
+    "commodity_supercycle": ["XOM", "CAT", "DBC", "COP"],
 }
 
 BENCHMARKS = ["SPY", "QQQ", "DX-Y.NYB", "TLT", "^VIX"]
@@ -60,6 +65,42 @@ BENCHMARKS = ["SPY", "QQQ", "DX-Y.NYB", "TLT", "^VIX"]
 # ── providers ───────────────────────────────────────────────────────
 def _ts():
     return datetime.now(timezone.utc).isoformat()
+
+
+def fetch_finnhub(ticker):
+    """Finnhub real-time quote (60/min free tier). Returns dict or None."""
+    if not FINNHUB_KEY:
+        return None
+    try:
+        r = requests.get(FINNHUB_URL, params={
+            "symbol": ticker,
+            "token": FINNHUB_KEY,
+        }, timeout=FINNHUB_TIMEOUT)
+        r.raise_for_status()
+        data = r.json()
+        
+        # Finnhub returns 'c' for current price, 'pc' for previous close
+        price = float(data.get("c", 0))
+        prev = float(data.get("pc", 0))
+        
+        if price == 0:
+            return None
+            
+        change = None
+        if prev and prev > 0:
+            change = round(((price - prev) / prev) * 100, 2)
+            
+        return {
+            "ticker": ticker,
+            "price": round(price, 2),
+            "previous_close": round(prev, 2) if prev else None,
+            "change_pct": change,
+            "source": "finnhub",
+            "fetched_at": _ts(),
+        }
+    except Exception as e:
+        print(f"  finnhub err {ticker}: {type(e).__name__}", file=sys.stderr)
+        return None
 
 
 def fetch_yahoo(ticker):
@@ -148,11 +189,19 @@ def fetch_alphavantage(ticker):
         return None
 
 
-def fetch_price(ticker, av_delay=False):
-    """yfinance primary, AlphaVantage fallback. Returns dict or None."""
+def fetch_price(ticker, av_delay=False, finnhub_delay=False):
+    """Finnhub primary, yfinance secondary, AlphaVantage fallback. Returns dict or None."""
+    if finnhub_delay:
+        time.sleep(FINNHUB_DELAY)
+        
+    result = fetch_finnhub(ticker)
+    if result:
+        return result
+        
     result = fetch_yahoo(ticker)
     if result:
         return result
+        
     if av_delay:
         time.sleep(AV_DELAY)
     return fetch_alphavantage(ticker)
@@ -176,8 +225,9 @@ def fetch_all():
     for i, (ticker, narrative) in enumerate(tickers):
         print(f"  {ticker:6s} ({narrative:22s})", end=" ", flush=True)
 
-        # only delay for av if the *previous* call used av
-        result = fetch_price(ticker, av_delay=av_used)
+        # delay for finnhub on every call after the first, delay for av if the *previous* call used av
+        finnhub_used = i > 0
+        result = fetch_price(ticker, av_delay=av_used, finnhub_delay=finnhub_used)
         av_used = bool(result and result.get("source") == "alphavantage")
 
         if result:
@@ -233,7 +283,8 @@ def main():
         for i, raw in enumerate(args.ticker):
             t = raw.upper().strip()
             print(f"  {t:6s}", end=" ", flush=True)
-            r = fetch_price(t, av_delay=av_flag)
+            finnhub_flag = i > 0
+            r = fetch_price(t, av_delay=av_flag, finnhub_delay=finnhub_flag)
             av_flag = bool(r and r.get("source") == "alphavantage")
             if r:
                 results[t] = r

@@ -26,7 +26,7 @@ from pathlib import Path
 PROJECT = Path(__file__).resolve().parent.parent
 VAULT = PROJECT / "data" / "vault" / "raw" / "patents"
 STATE_FILE = PROJECT / "data" / "patent_state.json"
-SERPAPI_KEY = os.environ.get("SERPAPI_API_KEY", "")
+SERPAPI_KEYS = [k.strip() for k in os.environ.get("SERPAPI_API_KEY", "").split(",") if k.strip()]
 API_BASE = "https://serpapi.com/search"
 
 # ── 12 narratives → 5 targeted patent queries each (60 total) ──────────
@@ -142,38 +142,48 @@ SEARCHSPACE_KEY = os.environ.get("SEARCHSPACE_API_KEY", "")
 SERPSTACK_KEY = os.environ.get("SERPSTACK_API_KEY", "8a9ea98d21ba017c3fcd402913a732ef")
 
 def _fetch_serpapi(query: str, start: int = 0, num: int = 100) -> dict:
-    """Call SerpAPI google_patents engine."""
-    params = {
-        "engine": "google_patents",
-        "q": query,
-        "num": str(num),
-        "start": str(start),
-        "api_key": SERPAPI_KEY,
-    }
-    qs = urllib.parse.urlencode(params)
-    url = f"{API_BASE}?{qs}"
+    """Call SerpAPI google_patents engine with key pooling."""
+    if not SERPAPI_KEYS:
+        return {"organic_results": [], "search_information": {}, "error": "No SerpAPI keys"}
+        
+    for api_key in SERPAPI_KEYS:
+        params = {
+            "engine": "google_patents",
+            "q": query,
+            "num": str(num),
+            "start": str(start),
+            "api_key": api_key,
+        }
+        qs = urllib.parse.urlencode(params)
+        url = f"{API_BASE}?{qs}"
 
-    for attempt in range(3):
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "GazzettaVault/1.0"})
-            with urllib.request.urlopen(req, timeout=20) as resp:
-                data = json.loads(resp.read().decode())
-                if "error" in data:
-                    print(f"  ⚠ SerpAPI error: {data['error']}", file=sys.stderr)
-                    return {"organic_results": [], "search_information": {}, "error": data["error"]}
-                return data
-        except urllib.error.HTTPError as e:
-            body = e.read().decode()[:500] if e.fp else ""
-            print(f"  ⚠ HTTP {e.code}: {body}", file=sys.stderr)
-            if e.code == 429:
+        for attempt in range(3):
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "GazzettaVault/1.0"})
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    data = json.loads(resp.read().decode())
+                    if "error" in data:
+                        print(f"  ⚠ SerpAPI error: {data['error']}", file=sys.stderr)
+                        # If invalid key, try next key, else return
+                        if "Invalid API key" in data['error'] or "Searches limit reached" in data['error']:
+                            break # break attempt loop, try next key
+                        return {"organic_results": [], "search_information": {}, "error": data["error"]}
+                    return data
+            except urllib.error.HTTPError as e:
+                body = e.read().decode()[:500] if e.fp else ""
+                print(f"  ⚠ HTTP {e.code}: {body}", file=sys.stderr)
+                if e.code == 429:
+                    time.sleep(2 ** attempt)
+                    continue
+                # If unauthorized/quota, break to next key
+                if e.code in [401, 403]:
+                    break
+                return {"organic_results": [], "search_information": {}, "error": f"HTTP {e.code}"}
+            except Exception as e:
+                print(f"  ⚠ Request failed (attempt {attempt+1}/3): {e}", file=sys.stderr)
                 time.sleep(2 ** attempt)
-                continue
-            return {"organic_results": [], "search_information": {}, "error": f"HTTP {e.code}"}
-        except Exception as e:
-            print(f"  ⚠ Request failed (attempt {attempt+1}/3): {e}", file=sys.stderr)
-            time.sleep(2 ** attempt)
 
-    return {"organic_results": [], "search_information": {}, "error": "max retries"}
+    return {"organic_results": [], "search_information": {}, "error": "max retries or quota exceeded on all keys"}
 
 def _fetch_serper(query: str, start: int = 0, num: int = 100) -> dict:
     """Call Serper.dev Patents search API."""
@@ -318,20 +328,20 @@ def _fetch_serpstack(query: str, num: int = 100) -> dict:
     return {"organic_results": [], "error": "Serpstack max retries"}
 
 def fetch_patents(query: str, start: int = 0, num: int = 100) -> dict:
-    """Try SerpAPI, fallback to Serper.dev Patents, fallback to Serpstack, fallback to SearchSpace."""
-    if SERPAPI_KEY:
-        print("  Attempting SerpAPI...")
-        res = _fetch_serpapi(query, start, num)
-        if res and not res.get("error") and len(res.get("organic_results", [])) > 0:
-            return res
-        print("  SerpAPI failed or returned no results, trying Serper fallback...")
-    
+    """Try Serper.dev Patents, fallback to SerpAPI, fallback to Serpstack, fallback to SearchSpace."""
     if SERPER_KEY:
         print("  Attempting Serper Patents...")
         res = _fetch_serper(query, start, num)
         if res and not res.get("error") and len(res.get("organic_results", [])) > 0:
             return res
-        print("  Serper fallback failed or returned no results, trying Serpstack...")
+        print("  Serper failed or returned no results, trying SerpAPI fallback...")
+        
+    if SERPAPI_KEYS:
+        print("  Attempting SerpAPI...")
+        res = _fetch_serpapi(query, start, num)
+        if res and not res.get("error") and len(res.get("organic_results", [])) > 0:
+            return res
+        print("  SerpAPI fallback failed or returned no results, trying Serpstack...")
 
     if SERPSTACK_KEY:
         print("  Attempting Serpstack...")
@@ -372,8 +382,8 @@ def main():
     dry_run = "--dry-run" in sys.argv
     reset = "--reset" in sys.argv
 
-    if not SERPAPI_KEY and not dry_run:
-        print("❌ SERPAPI_API_KEY not set in environment.", file=sys.stderr)
+    if not SERPAPI_KEYS and not SERPER_KEY and not dry_run:
+        print("❌ Neither SERPAPI_API_KEY nor SERPER_API_KEY set in environment.", file=sys.stderr)
         sys.exit(0)
 
     # Weekly gate: only run once per 7 days (60 calls/cycle × 4 = 240/month, fits free tier)

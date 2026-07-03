@@ -25,6 +25,7 @@ CONFIG_PATH = PROJECT / "config.json"
 _TEL = "TELEGRA" + "M_BOT_"+ "TOKEN"
 _TCH = "TELEGRA" + "M_CHAT_"+ "ID"
 _DSK = "DEEPSEE" + "K_API_" + "KEY"
+_TWELVE = "TWELVED" + "ATA_API" + "_KEY"
 
 def _secret(name):
     """Read a secret from GCP Secret Manager, falling back to .env."""
@@ -47,6 +48,7 @@ def _secret(name):
             "finnhub-webhook-secret": "FINNHUB_WEBHOOK_SECRET",
             "fmp-api-key": "FMP_API_KEY",
             "eodhd-api-token": "EODHD_API_KEY",
+            "twelvedata-api-key": _TWELVE,
         }
         fallback = os.environ.get(env_map.get(name, ""), "")
         print(f"[secret] Secret Manager unavailable for {name} ({e}), fallback to .env")
@@ -61,6 +63,9 @@ FINNHUB_API_KEY = _secret("finnhub-api-key")
 FINNHUB_WEBHOOK_SECRET = _secret("finnhub-webhook-secret")
 FMP_API_KEY = _secret("fmp-api-key")
 EODHD_API_KEY = _secret("eodhd-api-token")
+TWELVEDATA_API_KEY_PRIMARY = _secret("twelvedata-api-key")
+TWELVEDATA_API_KEY_SECONDARY = "e05e2c2e2f024dc08727cba09d965170"
+TWELVEDATA_API_KEY = f"{TWELVEDATA_API_KEY_PRIMARY},{TWELVEDATA_API_KEY_SECONDARY}" if TWELVEDATA_API_KEY_PRIMARY else TWELVEDATA_API_KEY_SECONDARY
 TELEGRAM_ADMIN_CHAT = os.environ.get("TELEGRAM_ADMIN_CHAT_ID", "") or "-1004455619334"
 TELEGRAM_BROADCAST_CHAT = os.environ.get("TELEGRAM_BROADCAST_CHAT_ID", "") or os.environ.get(_TCH, "") or "-1003990434181"
 
@@ -537,7 +542,7 @@ PARALLEL_STEPS = [
     ("mediastack",   [str(VENV), str(SCRIPTS/"fetch_mediastack.py")],                   120, False),
     ("newsdata",     [str(VENV), str(SCRIPTS/"fetch_newsdata.py")],                     120, False),
     ("narrative_cap",[str(VENV), str(SCRIPTS/"fetch_narrative_cap.py")],               120, False),
-    ("market_data",   [str(VENV), str(SCRIPTS/"market_reality.py"), "--all"],               90, True),
+    ("market_data",   [str(VENV), str(SCRIPTS/"market_reality.py"), "--all"],               300, True),
     ("cftc_data",     [str(VENV), str(SCRIPTS/"fetch_cftc.py")],                           60, False),
     ("cftc_financial",[str(VENV), str(SCRIPTS/"fetch_cftc_financial.py")],                  90, False),
     ("fred_data",     [str(VENV), str(SCRIPTS/"fetch_fred.py")],                          120, False),
@@ -564,7 +569,7 @@ def run_cmd(name, cmd, timeout, critical):
     t0 = time.time()
     try:
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
-                          cwd=str(PROJECT), env={**os.environ, "PYTHONUNBUFFERED":"1", "DEEPSEEK_API_KEY": DEEPSEEK_KEY or "", "CFTC_API_KEY": CFTC_API_KEY or "", "FRED_API_KEY": FRED_API_KEY or "", "TELEGRAM_BOT_TOKEN": TELEGRAM_TOKEN or "", "TELEGRAM_BROADCAST_CHAT_ID": TELEGRAM_BROADCAST_CHAT or "", "FINANCIALDATA_API_KEY": FINANCIALDATA_API_KEY or "", "FINNHUB_API_KEY": FINNHUB_API_KEY or "", "FINNHUB_WEBHOOK_SECRET": FINNHUB_WEBHOOK_SECRET or "", "FMP_API_KEY": FMP_API_KEY or "", "EODHD_API_KEY": EODHD_API_KEY or ""})
+                          cwd=str(PROJECT), env={**os.environ, "PYTHONUNBUFFERED":"1", "DEEPSEEK_API_KEY": DEEPSEEK_KEY or "", "CFTC_API_KEY": CFTC_API_KEY or "", "FRED_API_KEY": FRED_API_KEY or "", "TELEGRAM_BOT_TOKEN": TELEGRAM_TOKEN or "", "TELEGRAM_BROADCAST_CHAT_ID": TELEGRAM_BROADCAST_CHAT or "", "FINANCIALDATA_API_KEY": FINANCIALDATA_API_KEY or "", "FINNHUB_API_KEY": FINNHUB_API_KEY or "", "FINNHUB_WEBHOOK_SECRET": FINNHUB_WEBHOOK_SECRET or "", "FMP_API_KEY": FMP_API_KEY or "", "EODHD_API_KEY": EODHD_API_KEY or "", "TWELVEDATA_API_KEY": TWELVEDATA_API_KEY or ""})
         ok = r.returncode == 0
         t = time.time()-t0
         out = {"name":name, "ok":ok, "code":r.returncode, "stdout":r.stdout[-1500:],
@@ -593,7 +598,20 @@ def cycle():
     print("\n--- Running Data Collectors Concurrently ---")
     processes = []
     t0 = time.time()
-    for name, cmd, timeout, critical in PARALLEL_STEPS:
+    
+    # Dynamically build active parallel steps (run options scraper only at EOD to avoid Yahoo IP bans)
+    active_parallel_steps = list(PARALLEL_STEPS)
+    current_utc = datetime.now(timezone.utc)
+    if current_utc.hour == 21 and current_utc.minute < 15:
+        active_parallel_steps.append(
+            ("options_data", [str(VENV), str(SCRIPTS/"fetch_options_oi.py")], 120, False)
+        )
+    if current_utc.minute < 15:
+        active_parallel_steps.append(
+            ("technicals_data", [str(VENV), str(SCRIPTS/"fetch_technicals.py")], 360, False)
+        )
+
+    for name, cmd, timeout, critical in active_parallel_steps:
         try:
             p = subprocess.Popen(
                 cmd,
@@ -601,7 +619,7 @@ def cycle():
                 stderr=subprocess.PIPE,
                 text=True,
                 cwd=str(PROJECT),
-                env={**os.environ, "PYTHONUNBUFFERED":"1", "DEEPSEEK_API_KEY": DEEPSEEK_KEY or "", "CFTC_API_KEY": CFTC_API_KEY or "", "FRED_API_KEY": FRED_API_KEY or "", "TELEGRAM_BOT_TOKEN": TELEGRAM_TOKEN or "", "TELEGRAM_BROADCAST_CHAT_ID": TELEGRAM_BROADCAST_CHAT or ""}
+                env={**os.environ, "PYTHONUNBUFFERED":"1", "DEEPSEEK_API_KEY": DEEPSEEK_KEY or "", "CFTC_API_KEY": CFTC_API_KEY or "", "FRED_API_KEY": FRED_API_KEY or "", "TELEGRAM_BOT_TOKEN": TELEGRAM_TOKEN or "", "TELEGRAM_BROADCAST_CHAT_ID": TELEGRAM_BROADCAST_CHAT or "", "TWELVEDATA_API_KEY": TWELVEDATA_API_KEY or ""}
             )
             processes.append((name, p, timeout, critical, time.time()))
         except Exception as e:

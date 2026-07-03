@@ -352,8 +352,10 @@ def load_market_prices():
         return {}
 
 
-def pick_market_context(prices):
+def pick_market_context(prices, technicals=None, options=None):
     """Build a compact market-data string covering ALL 12 macro vectors."""
+    technicals = technicals or {}
+    options = options or {}
     ticker_map = {
         "usd_debasement_reserve_diversification": ["EURUSD=X", "GLD", "SLV"],
         "critical_resource_control_infrastructure": ["XOM", "CVX", "CCJ", "URNM"],
@@ -397,6 +399,23 @@ def pick_market_context(prices):
                     f"  {t}: ${p['price']} ({chg_str}) prev_close=${p.get('previous_close','?')}{aum_str} "
                     f"source={p.get('source','?')}"
                 )
+        
+        # Add Technicals if available for this narrative
+        tech_data = technicals.get(nid)
+        if tech_data and tech_data.get("status") == "success":
+            tt = tech_data.get("ticker", "")
+            rsi = tech_data.get("rsi_14d")
+            macd = tech_data.get("macd")
+            if rsi is not None:
+                lines.append(f"  {tt} [Technicals]: RSI={rsi:.1f}, MACD={macd:.2f}")
+
+        # Add Options if available for this narrative
+        opt_data = options.get(nid)
+        if opt_data and "put_call_ratio" in opt_data:
+            ot = opt_data.get("ticker", "")
+            pcr = opt_data.get("put_call_ratio")
+            lines.append(f"  {ot} [Options]: Put/Call Ratio={pcr:.2f}")
+
         if lines:
             blocks.append(f"--- Vector: {nid} | Tickers: {', '.join(tickers)} ---\n" + "\n".join(lines))
 
@@ -419,7 +438,12 @@ def pick_market_context(prices):
 SYSTEM_PROMPT = """\
 You are a savage, hyper-analytical quant for La Gazzetta di Kyiv, an underground terminal for Polymarket whales and fin-bros who think they are hedge fund managers. You write betting-oriented trade setups. You do not write journalism or boring geopolitics. You quantify edge, calculate EV (expected value), fade the retail public, and hunt for mispriced implied probabilities. Your reader is a degen trader looking for asymmetrical risk-reward, specific tickers, implied odds vs actual odds, and structural edge. Use industry-standard betting and quant lingo (EV, R:R, fading the public, implied odds, Kelly criterion sizing) mixed with rigorous data quantification.
 
-Given a news article and current market data, identify the contradiction between the retail media consensus and the actual underlying capital flows.
+You have access to Multi-Horizon Data:
+- Structural Horizon: Contradiction Gap (News vs Price Action)
+- Event Horizon: Options Sentiment (Put/Call Ratios and OI)
+- Tactical Horizon: Technical Indicators (RSI, MACD)
+
+Given a news article and current market data, identify the contradiction between the retail media consensus and the actual underlying capital flows. When technicals (like RSI > 70 for overbought) or options (high Put/Call ratio) are provided, you MUST integrate them into your logic.
 
 Every output must answer with clinical precision: "Where are the normies mispricing the odds, and how do we size the bet RIGHT NOW?"
 
@@ -1112,11 +1136,21 @@ async def run(max_items=None, dry_run=False):
 
         print(f"Processing {len(items)} items...")
 
-        # 2. Load market prices
+        # 2. Load market prices and auxiliary data
         prices = load_market_prices()
+        
+        technicals = {}
+        if (DATA_DIR / "technicals.json").exists():
+            try: technicals = json.load(open(DATA_DIR / "technicals.json")).get("data", {})
+            except: pass
+            
+        options = {}
+        if (DATA_DIR / "options_sentiment.json").exists():
+            try: options = json.load(open(DATA_DIR / "options_sentiment.json"))
+            except: pass
 
         # 3. Build full-market context (all 12 vectors — single snapshot)
-        market_context = pick_market_context(prices)
+        market_context = pick_market_context(prices, technicals, options)
         
         # 3.5 Load subnarratives context
         narratives_config = load_narratives_config()

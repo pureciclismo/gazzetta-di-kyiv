@@ -45,23 +45,23 @@ SCRAPE_DO_TOKEN = os.environ.get("SCRAPE_DO_TOKEN", "0225f0e590eb4864bc7ef73765e
 # TIFF uses Lev_Money (hedge funds/CTAs) as the speculative positioning signal.
 # Map each contract to a Gazzetta narrative, ticker, and human-readable label.
 FINANCIAL_CONTRACTS = [
-    # --- dollar_decline: currency futures = anti-dollar positioning ---
-    {"cftc_code": "099741", "ticker": "6E",  "narrative": "dollar_decline", "label": "Euro FX (6E)"},
-    {"cftc_code": "097741", "ticker": "6J",  "narrative": "dollar_decline", "label": "Japanese Yen (6J)"},
-    {"cftc_code": "096742", "ticker": "6B",  "narrative": "dollar_decline", "label": "British Pound (6B)"},
+    # --- usd_debasement_reserve_diversification: currency futures = anti-dollar positioning ---
+    {"cftc_code": "099741", "ticker": "6E",  "narrative": "usd_debasement_reserve_diversification", "label": "Euro FX (6E)"},
+    {"cftc_code": "097741", "ticker": "6J",  "narrative": "usd_debasement_reserve_diversification", "label": "Japanese Yen (6J)"},
+    {"cftc_code": "096742", "ticker": "6B",  "narrative": "usd_debasement_reserve_diversification", "label": "British Pound (6B)"},
 
-    # --- rate_cycle: Treasury futures = duration/rate positioning ---
-    {"cftc_code": "042601", "ticker": "ZT",  "narrative": "rate_cycle",     "label": "2-Year UST Note (ZT)"},
-    {"cftc_code": "043602", "ticker": "ZN",  "narrative": "rate_cycle",     "label": "10-Year UST Note (ZN)"},
-    {"cftc_code": "020601", "ticker": "ZB",  "narrative": "rate_cycle",     "label": "30-Year UST Bond (ZB)"},
+    # --- monetary_policy_regime_shift_rate_cycle: Treasury futures = duration/rate positioning ---
+    {"cftc_code": "042601", "ticker": "ZT",  "narrative": "monetary_policy_regime_shift_rate_cycle",     "label": "2-Year UST Note (ZT)"},
+    {"cftc_code": "043602", "ticker": "ZN",  "narrative": "monetary_policy_regime_shift_rate_cycle",     "label": "10-Year UST Note (ZN)"},
+    {"cftc_code": "020601", "ticker": "ZB",  "narrative": "monetary_policy_regime_shift_rate_cycle",     "label": "30-Year UST Bond (ZB)"},
 
-    # --- tech_convergence: equity index futures = tech/systemic positioning ---
-    {"cftc_code": "13874A", "ticker": "ES",  "narrative": "tech_convergence", "label": "E-Mini S&P 500 (ES)"},
-    {"cftc_code": "209742", "ticker": "NQ",  "narrative": "tech_convergence", "label": "Nasdaq Mini (NQ)"},
+    # --- tech_convergence_platforms_ai_autonomy: equity index futures = tech/systemic positioning ---
+    {"cftc_code": "13874A", "ticker": "ES",  "narrative": "tech_convergence_platforms_ai_autonomy", "label": "E-Mini S&P 500 (ES)"},
+    {"cftc_code": "209742", "ticker": "NQ",  "narrative": "tech_convergence_platforms_ai_autonomy", "label": "Nasdaq Mini (NQ)"},
 ]
 
 # All narratives we populate via financial futures
-FINANCIAL_NARRATIVES = ["dollar_decline", "rate_cycle", "tech_convergence"]
+FINANCIAL_NARRATIVES = ["usd_debasement_reserve_diversification", "monetary_policy_regime_shift_rate_cycle", "tech_convergence_platforms_ai_autonomy"]
 
 
 def safe_int(val):

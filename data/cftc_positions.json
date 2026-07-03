@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-01T20:29:24.973360+00:00",
+  "generated_at": "2026-07-03T14:47:10.740121+00:00",
   "source": "CFTC Disaggregated COT (public SODA API)",
   "source_url": "https://publicreporting.cftc.gov/resource/kh3c-gbw2.json",
   "latest_report_date": "2026-06-23T00:00:00.000",
-  "commodities_fetched": 19,
+  "commodities_fetched": 20,
   "commodities_failed": 0,
-  "total_commodities_defined": 19,
+  "total_commodities_defined": 20,
   "narratives_populated": 3,
   "positions_by_contract": {
     "GC": {
@@ -23,7 +23,7 @@
       "contract_market": "MICRO GOLD",
       "ticker": "GC",
       "label": "Gold",
-      "narrative": "dollar_decline",
+      "narrative": "usd_debasement_reserve_diversification",
       "cftc_name": "GOLD",
       "status": "ok"
     },
@@ -42,8 +42,27 @@
       "contract_market": "SILVER",
       "ticker": "SI",
       "label": "Silver",
-      "narrative": "dollar_decline",
+      "narrative": "usd_debasement_reserve_diversification",
       "cftc_name": "SILVER",
+      "status": "ok"
+    },
+    "PA": {
+      "managed_money_long": 4801,
+      "managed_money_short": 9513,
+      "managed_money_net": -4712,
+      "producer_long": 1239,
+      "producer_short": 1278,
+      "producer_net": -39,
+      "swap_long": 5411,
+      "swap_short": 2205,
+      "total_open_interest": 18288,
+      "spec_pct_of_oi": 26.3,
+      "report_date": "2026-06-23T00:00:00.000",
+      "contract_market": "PALLADIUM",
+      "ticker": "PA",
+      "label": "Palladium",
+      "narrative": "usd_debasement_reserve_diversification",
+      "cftc_name": "PALLADIUM",
       "status": "ok"
     },
     "PL": {
@@ -61,7 +80,7 @@
       "contract_market": "PLATINUM",
       "ticker": "PL",
       "label": "Platinum",
-      "narrative": "dollar_decline",
+      "narrative": "usd_debasement_reserve_diversification",
       "cftc_name": "PLATINUM",
       "status": "ok"
     },
@@ -80,7 +99,7 @@
       "contract_market": "CRUDE OIL CAL SPREAD OPT FIN",
       "ticker": "CL",
       "label": "WTI Crude Oil",
-      "narrative": "critical_resource_control",
+      "narrative": "critical_resource_control_infrastructure",
       "cftc_name": "CRUDE OIL",
       "status": "ok"
     },
@@ -99,7 +118,7 @@
       "contract_market": "PG&E CITYGATE FIN BASIS",
       "ticker": "NG",
       "label": "Henry Hub Natural Gas",
-      "narrative": "critical_resource_control",
+      "narrative": "critical_resource_control_infrastructure",
       "cftc_name": "NATURAL GAS",
       "status": "ok"
     },
@@ -118,7 +137,7 @@
       "contract_market": "RBOB GASOLINE 1ST LINE",
       "ticker": "RB",
       "label": "RBOB Gasoline",
-      "narrative": "critical_resource_control",
+      "narrative": "critical_resource_control_infrastructure",
       "cftc_name": "GASOLINE",
       "status": "ok"
     },
@@ -137,7 +156,7 @@
       "contract_market": "UP DOWN GC ULSD VS HO SPR",
       "ticker": "HO",
       "label": "Heating Oil / Diesel",
-      "narrative": "critical_resource_control",
+      "narrative": "critical_resource_control_infrastructure",
       "cftc_name": "DIESEL/HEATING OIL",
       "status": "ok"
     },
@@ -156,7 +175,7 @@
       "contract_market": "SING JET KERO",
       "ticker": "JF",
       "label": "Jet Fuel",
-      "narrative": "critical_resource_control",
+      "narrative": "critical_resource_control_infrastructure",
       "cftc_name": "JET FUEL",
       "status": "ok"
     },
@@ -175,7 +194,7 @@
       "contract_market": "GULF JET NY HEAT OIL SPR",
       "ticker": "JH",
       "label": "Jet/Heating Oil Spread",
-      "narrative": "critical_resource_control",
+      "narrative": "critical_resource_control_infrastructure",
       "cftc_name": "JET FUEL/HEATING OIL",
       "status": "ok"
     },
@@ -194,7 +213,7 @@
       "contract_market": "COPPER- #1",
       "ticker": "HG",
       "label": "Copper",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "COPPER",
       "status": "ok"
     },
@@ -213,7 +232,7 @@
       "contract_market": "ALUMINIUM EURO PREM DUTY-PAID",
       "ticker": "AL",
       "label": "Aluminum",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "ALUMINUM",
       "status": "ok"
     },
@@ -232,7 +251,7 @@
       "contract_market": "STEEL-HRC",
       "ticker": "ST",
       "label": "Steel",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "STEEL",
       "status": "ok"
     },
@@ -251,7 +270,7 @@
       "contract_market": "CORN",
       "ticker": "ZC",
       "label": "Corn",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "CORN",
       "status": "ok"
     },
@@ -270,7 +289,7 @@
       "contract_market": "WHEAT-SRW",
       "ticker": "ZW",
       "label": "Wheat",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "WHEAT",
       "status": "ok"
     },
@@ -289,7 +308,7 @@
       "contract_market": "SOYBEANS",
       "ticker": "ZS",
       "label": "Soybeans",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "SOYBEANS",
       "status": "ok"
     },
@@ -308,7 +327,7 @@
       "contract_market": "SOYBEAN MEAL",
       "ticker": "ZM",
       "label": "Soybean Meal",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "SOYBEAN MEAL",
       "status": "ok"
     },
@@ -327,7 +346,7 @@
       "contract_market": "SUGAR NO. 11",
       "ticker": "SB",
       "label": "Sugar",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "SUGAR",
       "status": "ok"
     },
@@ -346,7 +365,7 @@
       "contract_market": "COFFEE C",
       "ticker": "KC",
       "label": "Coffee",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "COFFEE",
       "status": "ok"
     },
@@ -365,23 +384,24 @@
       "contract_market": "COCOA",
       "ticker": "CC",
       "label": "Cocoa",
-      "narrative": "commodity_supercycle",
+      "narrative": "commodity_supercycle_supply_rebalancing",
       "cftc_name": "COCOA",
       "status": "ok"
     }
   },
   "positions_by_narrative": {
-    "dollar_decline": {
+    "usd_debasement_reserve_diversification": {
       "contracts": [
         "GC",
         "SI",
+        "PA",
         "PL"
       ],
-      "total_mm_net": 21508,
-      "total_producer_net": -24216,
+      "total_mm_net": 16796,
+      "total_producer_net": -24255,
       "sentiment": "bullish"
     },
-    "critical_resource_control": {
+    "critical_resource_control_infrastructure": {
       "contracts": [
         "CL",
         "NG",
@@ -394,7 +414,7 @@
       "total_producer_net": 17391,
       "sentiment": "divergent"
     },
-    "commodity_supercycle": {
+    "commodity_supercycle_supply_rebalancing": {
       "contracts": [
         "HG",
         "AL",

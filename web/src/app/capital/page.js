@@ -54,7 +54,7 @@ export default function Capital() {
               inflow_b: toB(inflow),
               outflow_b: toB(outflow),
               net_b: toB(inflow - outflow),
-              total_b: toB(inflow + outflow),
+              total_b: toB(totalCap),
               storiesCount: stories.length,
               discrepancies: discCount,
               gap: avgGap.toFixed(1)

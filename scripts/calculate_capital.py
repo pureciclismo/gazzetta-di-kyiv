@@ -22,7 +22,7 @@ from pathlib import Path
 PROJECT = Path(__file__).resolve().parent.parent
 PUBLIC_DATA = PROJECT / "public" / "data"
 DATA_DIR = PROJECT / "data"
-STORIES_FILE = PUBLIC_DATA / "stories.json"
+STORIES_FILE = DATA_DIR / "stories.json"
 CFTC_FILE = DATA_DIR / "cftc_positions.json"
 CFTC_FINANCIAL_FILE = DATA_DIR / "cftc_financial_positions.json"
 FRED_FILE = DATA_DIR / "fred_series.json"
@@ -260,12 +260,12 @@ def compute_fred_capital(narrative_id, fred_data):
 
     # Narrative → relevant FRED series + scaling factors
     narrative_series = {
-        "rate_cycle": ["DGS10", "T10Y2Y", "DFEDTARU", "UNRATE"],
-        "china_ascent": ["DEXCHUS", "BOPGSTB", "INDPRO"],
-        "dollar_decline": ["DTWEXBGS", "DEXUSEU", "DEXJPUS"],
-        "deglobalization": ["BOPGSTB", "GPDI", "INDPRO"],
-        "commodity_supercycle": ["PPIACO", "CPIAUCSL", "DCOILWTICO"],
-        "critical_resource_control": ["DCOILWTICO", "DHHNGSP", "PPIACO"],
+        "monetary_policy_regime_shift_rate_cycle": ["DGS10", "T10Y2Y", "DFEDTARU", "UNRATE"],
+        "china_geoeconomic_expansion": ["DEXCHUS", "BOPGSTB", "INDPRO"],
+        "usd_debasement_reserve_diversification": ["DTWEXBGS", "DEXUSEU", "DEXJPUS"],
+        "supply_chain_resilience_reshoring_defense": ["BOPGSTB", "GPDI", "INDPRO"],
+        "commodity_supercycle_supply_rebalancing": ["PPIACO", "CPIAUCSL", "DCOILWTICO"],
+        "critical_resource_control_infrastructure": ["DCOILWTICO", "DHHNGSP", "PPIACO"],
     }
 
     keys = narrative_series.get(narrative_id, [])
@@ -299,11 +299,11 @@ def compute_fred_capital(narrative_id, fred_data):
 
     # FRED series are normalized to [0,1] — scaling to capital-dollar space
     # Base: $10B × normalized average
-    if narrative_id == "rate_cycle":
+    if narrative_id == "monetary_policy_regime_shift_rate_cycle":
         capital = norm_avg * 10_000_000_000     # yield curve tension → up to $10B
-    elif narrative_id == "china_ascent":
+    elif narrative_id == "china_geoeconomic_expansion":
         capital = norm_avg * 5_000_000_000       # CNY/trade tension → up to $5B
-    elif narrative_id == "dollar_decline":
+    elif narrative_id == "usd_debasement_reserve_diversification":
         capital = norm_avg * 8_000_000_000       # dollar index tension → up to $8B
     else:
         capital = norm_avg * 3_000_000_000       # generic macro → up to $3B
@@ -328,19 +328,19 @@ def compute_prices_capital(narrative_id, prices_data):
     This is the pre-existing method; CFTC/FRED override when available.
     """
     narrative_tickers = {
-        "tech_convergence": ["CLOU", "WCLD", "ARTY", "BOTZ"],
-        "space_economy": ["ARKX", "UFO", "ROKT", "MARS"],
-        "gene_editing": ["ARKG", "XBI", "IBB"],
-        "wealthy_sports": ["STAD", "DKNG"],
-        "china_ascent": ["FXI", "MCHI", "ASHR", "KWEB"],
-        "ai_chips": ["SMH", "SOXX", "QQQ"],
-        "crypto_reserve": [],  # handled separately
+        "tech_convergence_platforms_ai_autonomy": ["CLOU", "WCLD", "ARTY", "BOTZ"],
+        "space_economy_commercialization": ["ARKX", "UFO", "ROKT", "MARS"],
+        "gene_editing_biotech_longevity": ["ARKG", "XBI", "IBB"],
+        "prestige_asset_acquisition_strategic_investment": ["STAD", "DKNG"],
+        "china_geoeconomic_expansion": ["FXI", "MCHI", "ASHR", "KWEB"],
+        "ai_compute_semiconductor_hegemony": ["SMH", "SOXX", "QQQ"],
+        "digital_assets_reserves_onchain_finance": [],  # handled separately
     }
 
     tickers = narrative_tickers.get(narrative_id, [])
     if not tickers:
-        # crypto_reserve: use BTC market cap proxy
-        if narrative_id == "crypto_reserve":
+        # digital_assets_reserves_onchain_finance: use BTC market cap proxy
+        if narrative_id == "digital_assets_reserves_onchain_finance":
             # Estimate from BTC at ~$65K with active trading float ~5%
             return 64_000 * 19_700_000 * 0.05, "TIER_3"
         return 0, "TIER_3"

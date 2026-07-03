@@ -228,6 +228,8 @@ def compile_data_json():
     
     # Copy all raw data JSONs to public/data first (flows.json, derivatives.json, etc.)
     for f in DATA.glob("*.json"):
+        if f.name == "flows.json":
+            continue
         shutil.copy2(f, PUBLIC_DATA / f.name)
         
     # Copy locales
@@ -362,14 +364,14 @@ def compile_data_json():
         json.dump({"generated_at": doc["generated_at"], "narratives": narrative_config, "narratives_list": narratives}, f, indent=2, ensure_ascii=False)
 
     # Save capital flows
+    existing_flows = {}
+    if (PUBLIC_DATA / "flows.json").exists():
+        try:
+            existing_flows = load_json(PUBLIC_DATA / "flows.json")
+        except Exception:
+            pass
+
     with open(PUBLIC_DATA / "flows.json", "w") as f:
-        # Load existing flows to preserve regime details, only overwrite narrative_flows
-        existing_flows = {}
-        if (DATA / "flows.json").exists():
-            try:
-                existing_flows = load_json(DATA / "flows.json")
-            except Exception:
-                pass
         existing_flows["narrative_flows"] = capital_flows
         existing_flows["generated_at"] = doc["generated_at"]
         json.dump(existing_flows, f, indent=2, ensure_ascii=False)

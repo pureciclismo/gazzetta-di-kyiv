@@ -40,38 +40,39 @@ MAX_RETRIES = 3
 # Each entry: the CFTC commodity_name, ticker symbol, Gazzetta narrative,
 # and human-readable contract name.
 COMMODITY_MAP = [
-    # --- dollar_decline: precious metals = anti-dollar positioning ---
-    {"cftc_name": "GOLD",          "ticker": "GC",  "narrative": "dollar_decline",  "label": "Gold"},
-    {"cftc_name": "SILVER",        "ticker": "SI",  "narrative": "dollar_decline",  "label": "Silver"},
-    {"cftc_name": "PLATINUM",      "ticker": "PL",  "narrative": "dollar_decline",  "label": "Platinum"},
+    # --- usd_debasement_reserve_diversification: gold, silver ---
+    {"cftc_name": "GOLD",         "ticker": "GC",  "narrative": "usd_debasement_reserve_diversification",  "label": "Gold"},
+    {"cftc_name": "SILVER",       "ticker": "SI",  "narrative": "usd_debasement_reserve_diversification",  "label": "Silver"},
+    {"cftc_name": "PALLADIUM",    "ticker": "PA",  "narrative": "usd_debasement_reserve_diversification",  "label": "Palladium"},
+    {"cftc_name": "PLATINUM",     "ticker": "PL",  "narrative": "usd_debasement_reserve_diversification",  "label": "Platinum"},
 
-    # --- critical_resource_control: crude + natural gas positioning ---
-    {"cftc_name": "CRUDE OIL",            "ticker": "CL",  "narrative": "critical_resource_control",  "label": "WTI Crude Oil"},
-    {"cftc_name": "NATURAL GAS",          "ticker": "NG",  "narrative": "critical_resource_control",  "label": "Henry Hub Natural Gas"},
-    {"cftc_name": "GASOLINE",             "ticker": "RB",  "narrative": "critical_resource_control",  "label": "RBOB Gasoline"},
-    {"cftc_name": "DIESEL/HEATING OIL",   "ticker": "HO",  "narrative": "critical_resource_control",  "label": "Heating Oil / Diesel"},
-    {"cftc_name": "JET FUEL",             "ticker": "JF",  "narrative": "critical_resource_control",  "label": "Jet Fuel"},
-    {"cftc_name": "JET FUEL/HEATING OIL", "ticker": "JH",  "narrative": "critical_resource_control",  "label": "Jet/Heating Oil Spread"},
+    # --- critical_resource_control_infrastructure: oil, gas ---
+    {"cftc_name": "CRUDE OIL",            "ticker": "CL",  "narrative": "critical_resource_control_infrastructure",  "label": "WTI Crude Oil"},
+    {"cftc_name": "NATURAL GAS",          "ticker": "NG",  "narrative": "critical_resource_control_infrastructure",  "label": "Henry Hub Natural Gas"},
+    {"cftc_name": "GASOLINE",             "ticker": "RB",  "narrative": "critical_resource_control_infrastructure",  "label": "RBOB Gasoline"},
+    {"cftc_name": "DIESEL/HEATING OIL",   "ticker": "HO",  "narrative": "critical_resource_control_infrastructure",  "label": "Heating Oil / Diesel"},
+    {"cftc_name": "JET FUEL",             "ticker": "JF",  "narrative": "critical_resource_control_infrastructure",  "label": "Jet Fuel"},
+    {"cftc_name": "JET FUEL/HEATING OIL", "ticker": "JH",  "narrative": "critical_resource_control_infrastructure",  "label": "Jet/Heating Oil Spread"},
 
-    # --- commodity_supercycle: grains, metals, softs ---
-    {"cftc_name": "COPPER",       "ticker": "HG",  "narrative": "commodity_supercycle",  "label": "Copper"},
-    {"cftc_name": "ALUMINUM",     "ticker": "AL",  "narrative": "commodity_supercycle",  "label": "Aluminum"},
-    {"cftc_name": "STEEL",        "ticker": "ST",  "narrative": "commodity_supercycle",  "label": "Steel"},
-    {"cftc_name": "CORN",         "ticker": "ZC",  "narrative": "commodity_supercycle",  "label": "Corn"},
-    {"cftc_name": "WHEAT",        "ticker": "ZW",  "narrative": "commodity_supercycle",  "label": "Wheat"},
-    {"cftc_name": "SOYBEANS",     "ticker": "ZS",  "narrative": "commodity_supercycle",  "label": "Soybeans"},
-    {"cftc_name": "SOYBEAN MEAL", "ticker": "ZM",  "narrative": "commodity_supercycle",  "label": "Soybean Meal"},
-    {"cftc_name": "SUGAR",        "ticker": "SB",  "narrative": "commodity_supercycle",  "label": "Sugar"},
-    {"cftc_name": "COFFEE",       "ticker": "KC",  "narrative": "commodity_supercycle",  "label": "Coffee"},
-    {"cftc_name": "COCOA",        "ticker": "CC",  "narrative": "commodity_supercycle",  "label": "Cocoa"},
+    # --- commodity_supercycle_supply_rebalancing: grains, metals, softs ---
+    {"cftc_name": "COPPER",       "ticker": "HG",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Copper"},
+    {"cftc_name": "ALUMINUM",     "ticker": "AL",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Aluminum"},
+    {"cftc_name": "STEEL",        "ticker": "ST",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Steel"},
+    {"cftc_name": "CORN",         "ticker": "ZC",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Corn"},
+    {"cftc_name": "WHEAT",        "ticker": "ZW",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Wheat"},
+    {"cftc_name": "SOYBEANS",     "ticker": "ZS",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Soybeans"},
+    {"cftc_name": "SOYBEAN MEAL", "ticker": "ZM",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Soybean Meal"},
+    {"cftc_name": "SUGAR",        "ticker": "SB",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Sugar"},
+    {"cftc_name": "COFFEE",       "ticker": "KC",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Coffee"},
+    {"cftc_name": "COCOA",        "ticker": "CC",  "narrative": "commodity_supercycle_supply_rebalancing",  "label": "Cocoa"},
 ]
 
 # All narratives we populate
 NARRATIVES = [
-    "dollar_decline", "critical_resource_control", "commodity_supercycle",
-    "deglobalization", "china_ascent", "space_economy",
-    "gene_editing", "tech_convergence", "wealthy_sports",
-    "ai_chips", "crypto_reserve", "rate_cycle",
+    "usd_debasement_reserve_diversification", "critical_resource_control_infrastructure", "commodity_supercycle_supply_rebalancing",
+    "supply_chain_resilience_reshoring_defense", "china_geoeconomic_expansion", "space_economy_commercialization",
+    "gene_editing_biotech_longevity", "tech_convergence_platforms_ai_autonomy", "prestige_asset_acquisition_strategic_investment",
+    "ai_compute_semiconductor_hegemony", "digital_assets_reserves_onchain_finance", "monetary_policy_regime_shift_rate_cycle",
 ]
 
 # -- Fetch helpers ---------------------------------------------------
