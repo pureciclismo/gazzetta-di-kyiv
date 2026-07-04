@@ -908,15 +908,7 @@ def assemble_story(db_item, llm_story, prices):
     }
 
 
-# ── stories.json I/O ────────────────────────────────────────────────
-def load_existing_stories():
-    """Return the current stories.json as a dict, or a fresh skeleton."""
-    if STORIES_PATH.exists():
-        try:
-            with open(STORIES_PATH) as f:
-                return json.load(f)
-        except (json.JSONDecodeError, OSError) as e:
-            print(f"  WARNING: stories.json corrupt ({e}). Starting fresh.")
+def fresh_skeleton():
     # Fresh skeleton — 12 narratives
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -939,6 +931,18 @@ def load_existing_stories():
         "tags_index": {},
         "total_stories": 0,
     }
+
+
+# ── stories.json I/O ────────────────────────────────────────────────
+def load_existing_stories():
+    """Return the current stories.json as a dict, or a fresh skeleton."""
+    if STORIES_PATH.exists():
+        try:
+            with open(STORIES_PATH) as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"  WARNING: stories.json corrupt ({e}). Starting fresh.")
+    return fresh_skeleton()
 
 
 def merge_stories(existing, new_stories):
@@ -1015,30 +1019,16 @@ def merge_stories(existing, new_stories):
         except Exception as e:
             print(f"  WARNING: failed to write archive: {e}")
 
-    # Rebuild containers
-    containers = {
-        k: {"title": v.get("title", ""), "subtitle": v.get("subtitle", ""),
-            "count": 0, "stories": []}
-        for k, v in existing.get("containers", {}).items()
-    }
-    # Ensure all narratives exist
-    for cname in [
-        "usd_debasement_reserve_diversification",
-        "critical_resource_control_infrastructure",
-        "supply_chain_resilience_reshoring_defense",
-        "china_geoeconomic_expansion",
-        "space_economy_commercialization",
-        "gene_editing_biotech_longevity",
-        "tech_convergence_platforms_ai_autonomy",
-        "prestige_asset_acquisition_strategic_investment",
-        "ai_compute_semiconductor_hegemony",
-        "digital_assets_reserves_onchain_finance",
-        "monetary_policy_regime_shift_rate_cycle",
-        "commodity_supercycle_supply_rebalancing"
-    ]:
-        if cname not in containers:
-            containers[cname] = {"title": cname.replace("_", " ").title(),
-                                 "subtitle": "", "count": 0, "stories": []}
+    # Rebuild containers using fresh skeleton titles/subtitles to enforce updated names
+    skeleton = fresh_skeleton()
+    containers = {}
+    for k, v in skeleton["containers"].items():
+        containers[k] = {
+            "title": v["title"],
+            "subtitle": v["subtitle"],
+            "count": 0,
+            "stories": []
+        }
 
     for s in all_stories:
         story_containers = s.get("containers") or [s.get("container", "tech_convergence_platforms_ai_autonomy")]

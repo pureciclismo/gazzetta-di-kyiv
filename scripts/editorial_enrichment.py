@@ -21,10 +21,10 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 PROJECT = Path(__file__).resolve().parent.parent
-PUBLIC_DATA = PROJECT / "public" / "data"
-STORIES_PATH = PUBLIC_DATA / "stories.json"
-TMP_PATH = PUBLIC_DATA / "stories.tmp.json"
 DATA_DIR = PROJECT / "data"
+STORIES_PATH = DATA_DIR / "stories.json"
+TMP_PATH = DATA_DIR / "stories.tmp.json"
+PUBLIC_DATA = PROJECT / "public" / "data"
 
 def _secret(name):
     try:
@@ -266,9 +266,9 @@ Affected Tickers: {story.get('affected_tickers')}
         
     os.replace(TMP_PATH, STORIES_PATH)
     
-    # Mirror to data/
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    mirror = DATA_DIR / "stories.json"
+    # Mirror to public/data/
+    PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
+    mirror = PUBLIC_DATA / "stories.json"
     mirror.write_text(STORIES_PATH.read_text())
     
     # Update SQLite database if exists

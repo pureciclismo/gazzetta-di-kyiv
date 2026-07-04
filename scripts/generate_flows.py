@@ -34,17 +34,29 @@ CROSS_ASSET = {
 
 TICKER_MAP = {
     "dollar_decline": "DXY",
+    "usd_debasement_reserve_diversification": "DXY",
     "critical_resource_control": "Brent",
+    "critical_resource_control_infrastructure": "Brent",
     "deglobalization": "XLI",
+    "supply_chain_resilience_reshoring_defense": "XLI",
     "china_ascent": "FXI",
+    "china_geoeconomic_expansion": "FXI",
     "space_economy": "ROKT",
+    "space_economy_commercialization": "ROKT",
     "gene_editing": "ARKG",
+    "gene_editing_biotech_longevity": "ARKG",
     "tech_convergence": "QQQ",
+    "tech_convergence_platforms_ai_autonomy": "QQQ",
     "wealthy_sports": "BATRK",
+    "prestige_asset_acquisition_strategic_investment": "BATRK",
     "ai_chips": "NVDA",
+    "ai_compute_semiconductor_hegemony": "NVDA",
     "crypto_reserve": "BTC",
+    "digital_assets_reserves_onchain_finance": "BTC",
     "rate_cycle": "TLT",
+    "monetary_policy_regime_shift_rate_cycle": "TLT",
     "commodity_supercycle": "DBC",
+    "commodity_supercycle_supply_rebalancing": "DBC",
 }
 
 

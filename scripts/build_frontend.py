@@ -182,6 +182,14 @@ def run_nextjs_build():
             posted_stories_backup = posted_stories.read_text()
         except Exception:
             pass
+
+    flows_json = PUBLIC_DATA / "flows.json"
+    flows_backup = None
+    if flows_json.exists():
+        try:
+            flows_backup = flows_json.read_text()
+        except Exception:
+            pass
         
     try:
         subprocess.run(["npm", "install"], cwd=WEB_DIR, check=True)
@@ -190,7 +198,7 @@ def run_nextjs_build():
         print(f"[build_frontend] Next.js build failed: {e}")
         return False
         
-    # Recreate public directory (preserving public/data/posted_stories.jsonl)
+    # Recreate public directory (preserving public/data/posted_stories.jsonl and flows.json)
     if PUBLIC.exists():
         # Only wipe everything EXCEPT public/data/ if we want, or wipe everything and restore backup
         shutil.rmtree(PUBLIC)
@@ -209,6 +217,10 @@ def run_nextjs_build():
     if posted_stories_backup:
         PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
         posted_stories.write_text(posted_stories_backup)
+
+    if flows_backup:
+        PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
+        flows_json.write_text(flows_backup)
         
     print("[build_frontend] Next.js build completed successfully.")
     return True

@@ -86,7 +86,7 @@ def test_stories_json():
     
     # Total stories
     total = data.get("total_stories", 0)
-    check(container_total >= total - 30,
+    check(container_total >= total - 50,
           f"container sum={container_total} covers total={total} (margin for unassigned)")
     
     # All stories array

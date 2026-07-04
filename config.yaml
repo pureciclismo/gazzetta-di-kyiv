@@ -47,7 +47,7 @@ features:
   decay_stories: false
 narratives:
   usd_debasement_reserve_diversification:
-    label: USD Debasement & Reserve Diversification
+    label: USD Debasement
     description: "Long-term decline in the dollar\u2019s purchasing power and global\
       \ reserve dominance, driving reserve reallocation and alternative settlement\
       \ systems."
@@ -76,7 +76,7 @@ narratives:
         description: Signs of stress, reduced foreign buying, and structural changes
           in the US Treasury market.
   critical_resource_control_infrastructure:
-    label: Critical Resource Control & Energy Infrastructure
+    label: Critical Resource & Energy
     description: Efforts to secure control over energy, critical minerals and logistics
       via domestic buildouts, strategic partnerships, and infrastructure investments.
     keywords:
@@ -105,7 +105,7 @@ narratives:
         description: Securing long-term non-Russian gas supplies and building export/import
           terminals.
   supply_chain_resilience_reshoring_defense:
-    label: Reshoring, Defense Logistics & Supply-Chain Resilience
+    label: Reshoring, Defense & Supply-Chain
     description: Intentional relocalization and hardening of supply chains for critical
       and defense-related goods to reduce exposure to risky suppliers.
     keywords:
@@ -132,7 +132,7 @@ narratives:
         description: New protectionist measures and trade barriers reshaping global
           logistics.
   china_geoeconomic_expansion:
-    label: China Geoeconomic Expansion & Market Integration
+    label: China Ascent
     description: "Rapid, state-coordinated expansion of China\u2019s economic, financial,\
       \ and trade reach across Eurasia and new markets\u2014including use of economic\
       \ leverage and infrastructure to lock in advantages."

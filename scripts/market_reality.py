@@ -26,6 +26,7 @@ from datetime import datetime, timezone
 # ── external deps ───────────────────────────────────────────────────
 import yfinance as yf
 import requests
+import concurrent.futures
 
 # ── config ──────────────────────────────────────────────────────────
 PROJECT = Path(__file__).resolve().parent.parent
@@ -45,18 +46,18 @@ FINNHUB_TIMEOUT = 10
 
 # Narrative -> ticker mapping (aligned with Strategic Architecture Report)
 NARRATIVE_TICKERS = {
-    "critical_resource_control": ["XOM", "CVX", "CCJ", "URNM"],
-    "dollar_decline":     ["EURUSD=X", "GLD", "SLV", "UUP", "BTC-USD", "IAU"],
-    "deglobalization":    ["CAT", "GE", "XLI", "RTX"],
-    "china_ascent":       ["BABA", "FXI", "MCHI", "KWEB", "PDD"],
-    "space_economy":      ["RKLB", "ARKX", "LMT", "UFO"],
-    "gene_editing":       ["CRSP", "ARKG", "XBI"],
-    "tech_convergence":   ["MSFT", "GOOGL", "NVDA", "ORCL"],
-    "wealthy_sports":     ["BATRK", "MSGS", "MANU"],  # Real prestige assets
-    "ai_chips":           ["NVDA", "AMD", "SMH"],
-    "crypto_reserve":     ["BTC-USD", "MSTR", "COIN"],
-    "rate_cycle":         ["TLT", "IEF", "SHY"],
-    "commodity_supercycle": ["XOM", "CAT", "DBC", "COP"],
+    "usd_debasement_reserve_diversification": ["GLD", "IAU", "SLV", "GDX", "UUP", "DX-Y.NYB", "GC=F", "BTC-USD", "EURUSD=X", "GLDM", "SGOL"],
+    "critical_resource_control_infrastructure": ["XLE", "XOM", "CVX", "CCJ", "URA", "NLR", "CL=F", "NG=F", "URNM", "COP", "HAL", "LNG", "FSLR"],
+    "supply_chain_resilience_reshoring_defense": ["XLI", "ITA", "PPA", "CAT", "GE", "RTX", "LHX", "XME", "FDX", "DE", "NOC", "HWM"],
+    "china_geoeconomic_expansion": ["FXI", "KWEB", "MCHI", "BABA", "PDD", "ASHR", "EMLC", "OBOR", "AAXJ", "YINN", "JD"],
+    "space_economy_commercialization": ["RKLB", "ARKX", "UFO", "LMT", "NOC", "ROKT", "MARS", "SPCE", "IRDM", "VSAT", "GSAT", "BA"],
+    "gene_editing_biotech_longevity": ["CRSP", "ARKG", "XBI", "IBB", "BEAM", "TWST", "NTLA", "EDIT", "PACB", "LLY", "NVO", "IOVA"],
+    "tech_convergence_platforms_ai_autonomy": ["MSFT", "GOOGL", "NVDA", "ORCL", "CRM", "CLOU", "WCLD", "ARTY", "BOTZ", "AMZN", "META", "PLTR", "SNOW"],
+    "prestige_asset_acquisition_strategic_investment": ["MSGS", "DKNG", "PENN", "DIS", "FOXA", "CMCSA", "WBD", "MGM", "FUBO", "MANU", "BATRK", "LYV"],
+    "ai_compute_semiconductor_hegemony": ["NVDA", "SMH", "AMD", "ASML", "TSM", "AVGO", "MRVL", "SOXX", "INTC", "KLAC", "LRCX", "ARM", "MCHP"],
+    "digital_assets_reserves_onchain_finance": ["BTC-USD", "ETH-USD", "IBIT", "COIN", "MSTR", "SOL-USD", "ETHE", "BITQ", "BITO", "RIOT", "HOOD", "MARA"],
+    "monetary_policy_regime_shift_rate_cycle": ["TLT", "IEF", "SHY", "KRE", "ZN=F", "ZB=F", "TIPS", "AGG", "HYG", "XLF", "EMB", "BIL"],
+    "commodity_supercycle_supply_rebalancing": ["DBC", "GLD", "GDX", "COPX", "XME", "WEAT", "SOYB", "SLV", "LIT", "REMX", "COP", "VALE", "FCX"],
 }
 
 BENCHMARKS = ["SPY", "QQQ", "DX-Y.NYB", "TLT", "^VIX"]
@@ -191,7 +192,7 @@ def fetch_alphavantage(ticker):
 
 def fetch_price(ticker, av_delay=False, finnhub_delay=False):
     """Finnhub primary, yfinance secondary, AlphaVantage fallback. Returns dict or None."""
-    if finnhub_delay:
+    if FINNHUB_KEY and finnhub_delay:
         time.sleep(FINNHUB_DELAY)
         
     result = fetch_finnhub(ticker)
@@ -202,9 +203,20 @@ def fetch_price(ticker, av_delay=False, finnhub_delay=False):
     if result:
         return result
         
-    if av_delay:
+    if ALPHAVANTAGE_KEY and av_delay:
         time.sleep(AV_DELAY)
     return fetch_alphavantage(ticker)
+
+
+def fetch_single_ticker(ticker, narrative):
+    """Fetch using primary methods (Finnhub / yfinance)."""
+    res = fetch_finnhub(ticker)
+    if not res:
+        res = fetch_yahoo(ticker)
+    if res:
+        res["narrative"] = narrative
+        return ticker, res
+    return ticker, None
 
 
 # ── batch ───────────────────────────────────────────────────────────
@@ -221,28 +233,45 @@ def fetch_all():
             tickers.append((t, "benchmark"))
             seen.add(t)
 
-    results, failures, av_used = {}, [], False
-    for i, (ticker, narrative) in enumerate(tickers):
-        print(f"  {ticker:6s} ({narrative:22s})", end=" ", flush=True)
+    results = {}
+    failures = []
 
-        # delay for finnhub on every call after the first, delay for av if the *previous* call used av
-        finnhub_used = i > 0
-        result = fetch_price(ticker, av_delay=av_used, finnhub_delay=finnhub_used)
-        av_used = bool(result and result.get("source") == "alphavantage")
+    print(f"Parallel fetching {len(tickers)} tickers via yfinance/finnhub...")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+        future_to_ticker = {
+            executor.submit(fetch_single_ticker, t, n): t for t, n in tickers
+        }
+        for future in concurrent.futures.as_completed(future_to_ticker):
+            t = future_to_ticker[future]
+            try:
+                ticker, result = future.result()
+                if result:
+                    results[ticker] = result
+                    chg = result.get("change_pct")
+                    chg_str = f"{chg:+.2f}%" if chg is not None else "N/A"
+                    print(f"  {ticker:6s} (${result['price']:>10.2f}  {chg_str:>8s}  [{result['source']}])")
+            except Exception as e:
+                print(f"  {t:6s} Thread Error: {e}", file=sys.stderr)
 
-        if result:
-            result["narrative"] = narrative
-            results[ticker] = result
-            chg = result.get("change_pct")
-            chg_str = f"{chg:+.2f}%" if chg is not None else "N/A"
-            print(f"${result['price']:>10.2f}  {chg_str:>8s}  [{result['source']}]")
-        else:
-            if narrative != "benchmark":
-                failures.append(ticker)
-            print("FAILED")
-
-        if i < len(tickers) - 1:
-            time.sleep(0.5)
+    remaining = [t for t, n in tickers if t not in results]
+    if remaining:
+        print(f"\nAttempting sequential AlphaVantage fallback for {len(remaining)} failed tickers...")
+        for i, ticker in enumerate(remaining):
+            narrative = next(n for t, n in tickers if t == ticker)
+            if i > 0 and ALPHAVANTAGE_KEY:
+                time.sleep(AV_DELAY)
+            
+            result = fetch_alphavantage(ticker)
+            if result:
+                result["narrative"] = narrative
+                results[ticker] = result
+                chg = result.get("change_pct")
+                chg_str = f"{chg:+.2f}%" if chg is not None else "N/A"
+                print(f"  {ticker:6s} (${result['price']:>10.2f}  {chg_str:>8s}  [alphavantage fallback])")
+            else:
+                if narrative != "benchmark":
+                    failures.append(ticker)
+                print(f"  {ticker:6s} FAILED")
 
     return results, failures
 

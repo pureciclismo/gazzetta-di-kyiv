@@ -19,7 +19,7 @@ export default function Alpha() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/data/flows.json')
+    fetch('/data/flows.json?v=' + Date.now())
       .then(res => {
         if (!res.ok) {
           throw new Error(`Failed to fetch flows data (HTTP ${res.status})`);

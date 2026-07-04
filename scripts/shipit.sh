@@ -38,20 +38,20 @@ if ! python3 "$SCRIPTS/build_frontend.py" > "$PROJECT/logs/build_frontend.log" 2
 fi
 log "BUILD: OK"
 
-# ── Step 2: Deploy HTML pages — zero-cache, always revalidate ──────
-log "DEPLOY: HTML files (max-age=0, must-revalidate)..."
-if ! gsutil -m -h "Cache-Control: public, max-age=0, must-revalidate" \
-            cp "$PUBLIC"/*.html "$BUCKET/" 2>>"$PROJECT/logs/gsutil_err.log"; then
+# ── Step 2: Deploy HTML pages recursively — zero-cache, always revalidate ──────
+log "DEPLOY: HTML files recursively (max-age=0, must-revalidate)..."
+(
+    cd "$PUBLIC"
+    find . -name "*.html" -type f ! -name "._*" | while read -r html_file; do
+        # Remove leading ./
+        rel_path="${html_file#./}"
+        gsutil -h "Cache-Control: public, max-age=0, must-revalidate" \
+               cp "$html_file" "$BUCKET/$rel_path" 2>>"$PROJECT/logs/gsutil_err.log"
+    done
+) || {
     cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-    die "gsutil cp of root HTML files failed" 2
-fi
-if [ -d "$PUBLIC/dossier" ]; then
-    if ! gsutil -m -h "Cache-Control: public, max-age=0, must-revalidate" \
-                rsync -r -d "$PUBLIC/dossier" "$BUCKET/dossier" 2>>"$PROJECT/logs/gsutil_err.log"; then
-        cat "$PROJECT/logs/gsutil_err.log" >> "$REPORT"
-        die "gsutil rsync of dossier HTML files failed" 2
-    fi
-fi
+    die "gsutil cp of recursive HTML files failed" 2
+}
 log "DEPLOY: HTML files OK"
 
 # ── Step 3: Deploy data JSONs — private, no-store (live trading data) ──

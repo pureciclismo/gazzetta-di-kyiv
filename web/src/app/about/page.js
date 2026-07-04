@@ -9,8 +9,8 @@ export default function About() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/data/stories.json').then(res => res.json()),
-      fetch('/data/narratives.json').then(res => res.json())
+      fetch('/data/stories.json?v=' + Date.now()).then(res => res.json()),
+      fetch('/data/narratives.json?v=' + Date.now()).then(res => res.json())
     ])
       .then(([rawData, narrativesData]) => {
         const narratives = [];

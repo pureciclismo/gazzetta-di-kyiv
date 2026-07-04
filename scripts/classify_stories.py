@@ -34,22 +34,22 @@ SEED_KEYWORDS = {
 
 CONTAINER_META = {
     "usd_debasement_reserve_diversification": {
-        "title": "Sovereign Reserves & De-Dollarization",
+        "title": "USD Debasement & Reserve Diversification",
         "subtitle": "USD reserve status erosion, BRICS payment rails, gold repatriation",
         "sort_order": 0,
     },
     "critical_resource_control_infrastructure": {
-        "title": "Energy Security & Infrastructure",
+        "title": "Critical Resource Control & Energy Infrastructure",
         "subtitle": "Crude, natural gas, nuclear, rare earths, grid control, critical minerals",
         "sort_order": 1,
     },
     "supply_chain_resilience_reshoring_defense": {
-        "title": "Reshoring & Defense Logistics",
+        "title": "Reshoring, Defense Logistics & Supply-Chain Resilience",
         "subtitle": "Supply chain fragmentation, trade bloc realignment, sanctions rewiring",
         "sort_order": 2,
     },
     "china_geoeconomic_expansion": {
-        "title": "Eurasian Trade & Chinese Markets",
+        "title": "China Geoeconomic Expansion & Market Integration",
         "subtitle": "Parallel tech stack, yuan internationalization, BRI, semiconductor independence",
         "sort_order": 3,
     },

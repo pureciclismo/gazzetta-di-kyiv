@@ -668,7 +668,7 @@ def main():
                     _nmc_str = f"${_nmc_cap/1e9:.1f}B in play"
                 else:
                     _nmc_str = ""
-                _title = s.get("_container_title", _nid)
+                _title = str(s.get("_container_title") or s.get("narrative_id") or "UNASSIGNED")
                 _lines.append(f"{_title:45s} Δ EDGE {_gap:>3} {_arrow}  | {_nmc_str}")
             _pulse_text = "\U0001f4e1 THE PULSE — " + datetime.now(ZoneInfo("Europe/Kyiv")).strftime("%H:%M") + " Kyiv\n\n" + "\n".join(_lines) + "\n" + trust_anchor()
             # Throttle: only send pulse once per 2 hours
